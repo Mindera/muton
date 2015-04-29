@@ -3,8 +3,9 @@
 Muton
 =========
 
-  This is the Muton.js project - a feature toggle tool with support for feature throttling and Multivariance testing.
+  This is the Muton project - a feature toggle tool with support for feature throttling and Multivariance testing.
   
+  You can engineer the genes of your application by meticulously choose what are the best features and create an organic result. With artificial manipulation, or even by random mutations, you will natural select the best version of your application.
   
     ___  ___      _              
     |  \/  |     | |             
@@ -19,7 +20,8 @@ Muton
     | o   O | | o   O | | o   O |
     o       O o       O o       O
     
-  You can engineer the genes of your application by meticulously choose what are the best features and create an organic result. With artificial manipulation, or even by random mutations, you will achieve the natural selection of the best version of your application. In real life, cells replicate DNA using an enzyme called polymerase. During the process, it checks for replication errors doing proof-reading on the fly. But sometimes a random mutation occur... that's life trying to evolve. This tool works in a similar way: random mutations occur while processing the instructions to toggle features on and off. That's your application trying to evolve.
+  
+  In real life, cells replicate DNA using an enzyme called polymerase. During the process, it checks for replication errors doing proof-reading on the fly. But sometimes a random mutation occur... that's life trying to evolve. This tool works in a similar way: random mutations may occur while processing the instructions to toggle features on and off. That's your application trying to evolve.
 
 ## Installation
 
