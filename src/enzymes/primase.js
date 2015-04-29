@@ -42,7 +42,8 @@ define(function (require) {
                         var propertiesNode = getPropertiesNode(userProperties, featurePropertyName, feature);
                         // Process the child node
                         var childStrands = chemicalReactions.separateProperties(userProperties, propertiesNode);
-                        _.merge(primerInstructions, self.preparePrimer(userProperties, propertiesNode, childStrands));
+                        var childPrimer = self.preparePrimer(userProperties, propertiesNode, childStrands);
+                        _.merge(primerInstructions, childPrimer);
                     }
                 });
             }
