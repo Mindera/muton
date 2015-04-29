@@ -1,0 +1,53 @@
+{
+  "name": "muton",
+  "version": "0.0.1",
+  "description": "A feature toggling/throttling and multivariate testing tool",
+  "main": "src/muton.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Mindera/muton.git"
+  },
+  "scripts": {
+    "test": "mocha --reporter spec test"
+  },
+  "keywords": [
+    "Feature",
+    "toggling",
+    "toggle",
+    "throttling",
+    "throttle",
+    "a/b",
+    "multivariant",
+    "ab",
+    "testing"
+  ],
+  "author": "Bruno Palos <bruno.palos@mindera.com> (http://www.mindera.com)",
+  "license": "MIT",
+  "devDependencies": {
+    "amdclean": "^2.7.0",
+    "blanket": "^1.1.6",
+    "chai": "^2.1.1",
+    "grunt": "^0.4.5",
+    "grunt-blanket-mocha": "^0.4.1",
+    "grunt-bower-task": "^0.4.0",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-concat": "^0.5.1",
+    "grunt-contrib-jshint": "^0.11.0",
+    "grunt-contrib-uglify": "^0.9.1",
+    "grunt-karma": "^0.10.1",
+    "grunt-mocha-cli": "^1.12.0",
+    "grunt-mocha-cov": "^0.3.0",
+    "grunt-mocha-istanbul": "^2.4.0",
+    "grunt-requirejs": "^0.4.2",
+    "istanbul": "^0.3.13",
+    "jshint-stylish": "^1.0.1",
+    "load-grunt-tasks": "^3.1.0",
+    "mocha": "^2.1.0",
+    "sinon": "^1.14.1",
+    "time-grunt": "^1.1.0"
+  },
+  "dependencies": {
+    "amdefine": "^0.1.0",
+    "lodash": "^3.7.0"
+  }
+}

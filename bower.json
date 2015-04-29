@@ -1,0 +1,37 @@
+{
+  "name": "muton.js",
+  "version": "0.0.1",
+  "authors": [
+    "Bruno Palos <bruno.palos@mindera.com>"
+  ],
+  "description": "A feature toggling/throttling and multivariate testing tool",
+  "main": "src/index.js",
+  "moduleType": [
+    "amd",
+    "node"
+  ],
+  "keywords": [
+    "Feature",
+    "toggling",
+    "toggle",
+    "throttling",
+    "throttle",
+    "a/b",
+    "multivariant",
+    "ab",
+    "testing"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/Mindera",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "lodash": "~3.7.0"
+  }
+}
