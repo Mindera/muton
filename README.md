@@ -21,7 +21,7 @@ Muton
     o       O o       O o       O
     
   
-  In real life, cells replicate DNA using an enzyme called polymerase. During the process, it checks for replication errors doing proof-reading on the fly. But sometimes a random mutation occur... that's life trying to evolve. This tool works in a similar way: random mutations occur while processing the instructions to toggle features on and off. That's your application trying to evolve.
+  In real life, cells replicate DNA using an enzyme called polymerase. During the process, it checks for replication errors doing proof-reading on the fly. But sometimes a random mutation occur... that's life trying to evolve. This tool works in a similar way: random mutations may occur while processing the instructions to toggle features on and off. That's your application trying to evolve.
 
 ## Installation
 
