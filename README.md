@@ -3,7 +3,7 @@
 Muton
 =========
 
-  This is the Muton.js project - a feature toggle tool with support for feature throttling and Multivariance testing.
+  This is the Muton project - a feature toggle tool with support for feature throttling and Multivariance testing.
   
   You can engineer the genes of your application by meticulously choose what are the best features and create an organic result. With artificial manipulation, or even by random mutations, you will natural select the best version of your application.
   
