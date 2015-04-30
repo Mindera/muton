@@ -1,4 +1,4 @@
-#  [![NPM version][npm-image]][npm-url]
+#[![NPM version][npm-image]][npm-url]
 
 Muton
 =========
@@ -154,6 +154,7 @@ var featureInstructions = {
   'superCoolFeature' : true,
   'superCoolFeature.smallButton' : true
 }
+```
 
 ## Build
   
