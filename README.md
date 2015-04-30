@@ -1,4 +1,4 @@
-#  [![NPM version][npm-image]][npm-url]
+#[![NPM version][npm-image]][npm-url]
 
 Muton
 =========
@@ -44,26 +44,21 @@ Muton
   You can use in the following way:
   
 ```javascript
-
 var features = muton.getFeatureMutations(userProperties, featureInstructions);
-
 ```
 
 Where `userProperties` is a dictionary containing user properties, something like this:
 
 ```javascript
-
 var userProperties = {
   'location' : 'PT',
   'age' : '24'
 }
-
 ```
 
 And where `featureInstructions` is a dictionary of features containing specific instructions, which must follow a specific format. It can be something like this:
  
 ```javascript
- 
 var featureInstructions = {
   'superCoolFeature' : {
     'toggle' : true,
@@ -77,18 +72,14 @@ var featureInstructions = {
     }
   }
 }
- 
 ```
 
 A Muton valid response would be:
 
 ```javascript
- 
 var featureInstructions = {
   'superCoolFeature' : true,
   'anotherCoolFeature' : false
-}
-
 ``` 
 
 ### Instructions format
@@ -106,7 +97,6 @@ var featureInstructions = {
   For example, if you want to have 50% of your Portugal users to see a feature but 100% of the users of the remaining countries to see it (except for France), you could do something like:
   
 ```javascript
- 
 var featureInstructions = {
   'superCoolFeature' : {
     'toggle' : true,
@@ -120,7 +110,6 @@ var featureInstructions = {
     }
   }
 }
- 
 ```
 
 #### Buckets (A/B testing, multivariant testing)
@@ -128,7 +117,6 @@ var featureInstructions = {
   The `bucket` instruction is perfect for A/B testing and it resources to mutations like the `throttle` instruction. This instruction can be written like the following:
   
 ```javascript
-  
 var featureInstructions = {
   'superCoolFeature' : {
     'toggle' : true,
@@ -142,7 +130,6 @@ var featureInstructions = {
     }
   }
 }
-  
 ```
  
  The above snippet would allow you to have your France users to access three different buckets for testing, let's say, three different buttons on a form and test which of them your users react best.
@@ -154,6 +141,7 @@ var featureInstructions = {
   'superCoolFeature' : true,
   'superCoolFeature.smallButton' : true
 }
+```
 
 ## Build
   
