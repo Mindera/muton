@@ -1,5 +1,8 @@
 'use strict';
 
+/**
+ * This module checks for errors and proof-reads the molecules.
+ */
 if (typeof define !== 'function') {
     var define = require('amdefine')(module);
 }
@@ -29,6 +32,15 @@ define(function (require) {
 
         areBucketsValid: function(buckets) {
             return _.isUndefined(buckets) || bucketMutator.isBucketListValid(buckets);
+        },
+
+        checkFeatureInstructions: function (featureInstructions) {
+            var valid = _.isUndefined(featureInstructions) ||
+                _.isNull(featureInstructions) ||
+                _.isPlainObject(featureInstructions);
+            if (!valid) {
+                throw new Error('Invalid feature instructions!');
+            }
         }
     };
 });

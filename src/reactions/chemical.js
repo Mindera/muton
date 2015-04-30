@@ -1,5 +1,8 @@
 'use strict';
 
+/**
+ * This module contains multiple chemical reactions for use freely.
+ */
 if (typeof define !== 'function') {
     var define = require('amdefine')(module);
 }

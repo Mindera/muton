@@ -8,7 +8,7 @@
  * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <https://lodash.com/license>
  */
-var lodash, reactions_chemicaljs, enzymes_helicase, enzymes_primase, mutators_bucket, mutators_throttle, reactions_proof_reading, enzymes_polymerase, muton;
+var lodash, reactions_chemicaljs, enzymes_helicase, enzymes_primase, mutators_bucket, mutators_throttle, reactions_proof_readingjs, enzymes_polymerase, muton;
 (function () {
   /** Used as a safe reference for `undefined` in pre-ES5 environments. */
   var undefined;
@@ -11089,6 +11089,9 @@ var lodash, reactions_chemicaljs, enzymes_helicase, enzymes_primase, mutators_bu
   }
 }.call(this));
 'use strict';
+/**
+ * This module contains multiple chemical reactions for use freely.
+ */
 if (true) {
   var define = amdefine(module);
 }
@@ -11106,7 +11109,7 @@ reactions_chemicaljs = function (require) {
 'use strict';
 /**
  * The Helicase enzyme in real life breaks the double helix and separates the DNA strands.
- * This module picks the user properties collection and the features collection and break them apart to two strands of
+ * This module picks the user properties collection and the features collection and break them apart into two strands of
  * names.
  */
 if (true) {
@@ -11166,7 +11169,8 @@ enzymes_primase = function (require) {
             var propertiesNode = getPropertiesNode(userProperties, featurePropertyName, feature);
             // Process the child node
             var childStrands = chemicalReactions.separateProperties(userProperties, propertiesNode);
-            _.merge(primerInstructions, self.preparePrimer(userProperties, propertiesNode, childStrands));
+            var childPrimer = self.preparePrimer(userProperties, propertiesNode, childStrands);
+            _.merge(primerInstructions, childPrimer);
           }
         });
       }
@@ -11203,6 +11207,10 @@ enzymes_primase = function (require) {
   }
 }({});
 'use strict';
+/**
+ * The Bucket mutator manipulates the features by introducing small random mutations by picking a random
+ * bucket from the list, allowing multivariance testing.
+ */
 if (true) {
   var define = amdefine(module);
 }
@@ -11228,6 +11236,10 @@ mutators_bucket = function (require) {
   };
 }({});
 'use strict';
+/**
+ * The Throttle mutator manipulates the features by introducing small random mutations by randomly activate
+ * or deactivate feture toggles.
+ */
 if (true) {
   var define = amdefine(module);
 }
@@ -11251,10 +11263,13 @@ mutators_throttle = function (require) {
   };
 }({});
 'use strict';
+/**
+ * This module checks for errors and proof-reads the molecules.
+ */
 if (true) {
   var define = amdefine(module);
 }
-reactions_proof_reading = function (require) {
+reactions_proof_readingjs = function (require) {
   var _ = lodash;
   var bucketMutator = mutators_bucket;
   var throttleMutator = mutators_throttle;
@@ -11273,6 +11288,12 @@ reactions_proof_reading = function (require) {
     },
     areBucketsValid: function (buckets) {
       return _.isUndefined(buckets) || bucketMutator.isBucketListValid(buckets);
+    },
+    checkFeatureInstructions: function (featureInstructions) {
+      var valid = _.isUndefined(featureInstructions) || _.isNull(featureInstructions) || _.isPlainObject(featureInstructions);
+      if (!valid) {
+        throw new Error('Invalid feature instructions!');
+      }
     }
   };
 }({});
@@ -11300,16 +11321,16 @@ enzymes_polymerase = function (require) {
      * feature mutates to a bucket, it also can contain the corresponding feature toggle.
      *
      * @param featureName The feature name being processed
-     * @param featureInstructions The instructions to process
+     * @param primerInstructions The primer instructions to process
      * @returns A resolved feature toggle, which may mutate to a bucket feature toggle
      */
-    assembleFeatures: function (featureName, featureInstructions) {
+    assembleFeatures: function (featureName, primerInstructions) {
       var features = {};
-      if (proofReader.areInstructionsValid(featureInstructions)) {
-        var toggle = processFeatureInstructions(featureInstructions);
+      if (proofReader.areInstructionsValid(primerInstructions)) {
+        var toggle = processFeatureInstructions(primerInstructions);
         addToFeatures(features, featureName, toggle);
-        if (containsBuckets(toggle, featureInstructions)) {
-          addBucketToFeatures(features, featureName, featureInstructions, toggle);
+        if (containsBuckets(toggle, primerInstructions)) {
+          addBucketToFeatures(features, featureName, primerInstructions, toggle);
         }
       } else {
         console.log('There are invalid feature instructions!');
@@ -11376,6 +11397,7 @@ enzymes_polymerase = function (require) {
     var helicase = enzymes_helicase;
     var primase = enzymes_primase;
     var polymerase = enzymes_polymerase;
+    var proofReading = reactions_proof_readingjs;
     var muton = {
       /**
        * Given a list of user properties and feature instructions, it returns a collections of features toggles.
@@ -11386,7 +11408,7 @@ enzymes_polymerase = function (require) {
        */
       getFeatureMutations: function (userProperties, featureInstructions) {
         var features = {};
-        // TODO - add properties and instructions structure validation
+        proofReading.checkFeatureInstructions(featureInstructions);
         _.forEach(featureInstructions, function (feature, featureName) {
           // Helicase will break the user properties and features apart into two different chains
           var propertyChains = helicase.breakProperties(userProperties, feature);

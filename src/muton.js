@@ -4,9 +4,8 @@
  * This is the Muton.js project - a feature toggle tool with support for feature throttling and Multivariance testing.
  *
  * Some notes on the chosen metaphor:
- * I'm perfectly aware that every developer should write readable code and choose the metaphors carefully. However, I
- * had a lot of fun writing the code this way. I tried to keep things readable and simple and and it was a challenge
- * to use the cell metaphor. Read the code, I think it's not that bad. :)
+ * I'm perfectly aware that every developer should write readable code and choose the metaphors carefully. However, it
+ * was a lot of fun writing the code this way. It was a challenge to use the cell metaphor. :)
  *
  * To make things easier, read the following resume.
  *
@@ -39,6 +38,7 @@
         var helicase = require('./enzymes/helicase');
         var primase = require('./enzymes/primase');
         var polymerase = require('./enzymes/polymerase');
+        var proofReading = require('./reactions/proof-reading.js');
 
         var muton = {
 
@@ -52,7 +52,7 @@
             getFeatureMutations: function (userProperties, featureInstructions) {
                 var features = {};
 
-                // TODO - add properties and instructions structure validation
+                proofReading.checkFeatureInstructions(featureInstructions);
 
                 _.forEach(featureInstructions, function (feature, featureName) {
                     // Helicase will break the user properties and features apart into two different chains
@@ -79,4 +79,5 @@
             this.muton = muton;
         }
     });
+
 }).call(this);

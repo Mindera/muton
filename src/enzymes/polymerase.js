@@ -25,18 +25,18 @@ define(function (require) {
          * feature mutates to a bucket, it also can contain the corresponding feature toggle.
          *
          * @param featureName The feature name being processed
-         * @param featureInstructions The instructions to process
+         * @param primerInstructions The primer instructions to process
          * @returns A resolved feature toggle, which may mutate to a bucket feature toggle
          */
-        assembleFeatures: function(featureName, featureInstructions) {
+        assembleFeatures: function(featureName, primerInstructions) {
             var features = {};
 
-            if (proofReader.areInstructionsValid(featureInstructions)) {
-                var toggle = processFeatureInstructions(featureInstructions);
+            if (proofReader.areInstructionsValid(primerInstructions)) {
+                var toggle = processFeatureInstructions(primerInstructions);
                 addToFeatures(features, featureName, toggle);
 
-                if (containsBuckets(toggle, featureInstructions)) {
-                    addBucketToFeatures(features, featureName, featureInstructions, toggle);
+                if (containsBuckets(toggle, primerInstructions)) {
+                    addBucketToFeatures(features, featureName, primerInstructions, toggle);
                 }
             } else {
                 console.log('There are invalid feature instructions!');

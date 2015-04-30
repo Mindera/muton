@@ -22,7 +22,7 @@ define(function (require) {
          * @param feature The feature being processed
          * @param propertyStrands An object with the strands containing user and features properties names
          * @param root A flag to indicate if the features tree is being processed in the root
-         * @returns A collection of primer instructions matched agains the user properties
+         * @returns A collection of primer instructions matched against the user properties
          */
         preparePrimer: function(userProperties, feature, propertyStrands, root) {
             var self = this;

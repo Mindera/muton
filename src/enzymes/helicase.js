@@ -2,7 +2,7 @@
 
 /**
  * The Helicase enzyme in real life breaks the double helix and separates the DNA strands.
- * This module picks the user properties collection and the features collection and break them apart to two strands of
+ * This module picks the user properties collection and the features collection and break them apart into two strands of
  * names.
  */
 if (typeof define !== 'function') {

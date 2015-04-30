@@ -1,5 +1,9 @@
 'use strict';
 
+/**
+ * The Throttle mutator manipulates the features by introducing small random mutations by randomly activate
+ * or deactivate feture toggles.
+ */
 if (typeof define !== 'function') {
     var define = require('amdefine')(module);
 }

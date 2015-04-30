@@ -1,5 +1,9 @@
 'use strict';
 
+/**
+ * The Bucket mutator manipulates the features by introducing small random mutations by picking a random
+ * bucket from the list, allowing multivariance testing.
+ */
 if (typeof define !== 'function') {
     var define = require('amdefine')(module);
 }
