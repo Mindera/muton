@@ -81,7 +81,9 @@ module.exports = function(grunt) {
                         throttle: 'mutators/throttle',
                         helicase: 'enzymes/helicase',
                         primase: 'enzymes/primase',
-                        polymerase: 'enzymes/polymerase'
+                        polymerase: 'enzymes/polymerase',
+                        chemical: 'reactions/chemical',
+                        proofReading: 'reactions/proof-reading'
                     },
                     name: 'muton',
                     out: 'muton-amd.min.js',

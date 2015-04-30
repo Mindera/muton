@@ -8,7 +8,7 @@
  * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <https://lodash.com/license>
  */
-var lodash, reactions_chemicaljs, enzymes_helicase, enzymes_primase, mutators_bucket, mutators_throttle, reactions_proof_readingjs, enzymes_polymerase, muton;
+var lodash, reactions_chemicaljs, enzymes_helicase, enzymes_primase, mutators_bucket, mutators_throttle, reactions_proof_reading, enzymes_polymerase, muton;
 (function () {
   /** Used as a safe reference for `undefined` in pre-ES5 environments. */
   var undefined;
@@ -11152,7 +11152,7 @@ enzymes_primase = function (require) {
      * @param feature The feature being processed
      * @param propertyStrands An object with the strands containing user and features properties names
      * @param root A flag to indicate if the features tree is being processed in the root
-     * @returns A collection of primer instructions matched agains the user properties
+     * @returns A collection of primer instructions matched against the user properties
      */
     preparePrimer: function (userProperties, feature, propertyStrands, root) {
       var self = this;
@@ -11269,7 +11269,7 @@ mutators_throttle = function (require) {
 if (true) {
   var define = amdefine(module);
 }
-reactions_proof_readingjs = function (require) {
+reactions_proof_reading = function (require) {
   var _ = lodash;
   var bucketMutator = mutators_bucket;
   var throttleMutator = mutators_throttle;
@@ -11366,9 +11366,8 @@ enzymes_polymerase = function (require) {
  * This is the Muton.js project - a feature toggle tool with support for feature throttling and Multivariance testing.
  *
  * Some notes on the chosen metaphor:
- * I'm perfectly aware that every developer should write readable code and choose the metaphors carefully. However, I
- * had a lot of fun writing the code this way. I tried to keep things readable and simple and and it was a challenge
- * to use the cell metaphor. Read the code, I think it's not that bad. :)
+ * I'm perfectly aware that every developer should write readable code and choose the metaphors carefully. However, it
+ * was a lot of fun writing the code this way. It was a challenge to use the cell metaphor. :)
  *
  * To make things easier, read the following resume.
  *
@@ -11397,7 +11396,7 @@ enzymes_polymerase = function (require) {
     var helicase = enzymes_helicase;
     var primase = enzymes_primase;
     var polymerase = enzymes_polymerase;
-    var proofReading = reactions_proof_readingjs;
+    var proofReading = reactions_proof_reading;
     var muton = {
       /**
        * Given a list of user properties and feature instructions, it returns a collections of features toggles.

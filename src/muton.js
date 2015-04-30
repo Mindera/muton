@@ -38,7 +38,7 @@
         var helicase = require('./enzymes/helicase');
         var primase = require('./enzymes/primase');
         var polymerase = require('./enzymes/polymerase');
-        var proofReading = require('./reactions/proof-reading.js');
+        var proofReading = require('./reactions/proof-reading');
 
         var muton = {
 
