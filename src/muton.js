@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * This is the Muton.js project - a feature toggle tool with support for feature throttling and Multivariance testing.
  *
@@ -26,12 +24,16 @@
  */
 
 (function () {
+    'use strict';
+
     if (typeof define !== 'function') {
+        /*jshint -W003*/
         var define = require('amdefine')(module);
     }
 
     var hasExports = typeof module !== 'undefined' && module.exports;
 
+    /*jshint -W038*/
     define(function (require) {
 
         var _ = require('lodash');
@@ -79,5 +81,4 @@
             this.muton = muton;
         }
     });
-
 }).call(this);

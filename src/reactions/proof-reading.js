@@ -4,6 +4,7 @@
  * This module checks for errors and proof-reads the molecules.
  */
 if (typeof define !== 'function') {
+    /*jshint -W003*/
     var define = require('amdefine')(module);
 }
 

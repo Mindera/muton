@@ -6,8 +6,7 @@ module.exports = function(grunt) {
 
     grunt.initConfig({
         clean: {
-            pre: ['muton*', 'bower_components', 'lib', 'coverage'],
-            post: ['generated']
+            pre: ['muton*', 'bower_components', 'lib', 'coverage']
         },
         bower: {
             install: {
@@ -28,7 +27,7 @@ module.exports = function(grunt) {
                 src: ['Gruntfile.js']
             },
             js: {
-                src: ['*.js']
+                src: ['src/**/*.js']
             },
             test: {
                 src: ['test/**/*.js']
@@ -125,15 +124,15 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.registerTask('test', ['jshint', 'mochacli']);
+    grunt.registerTask('test', ['jshint', 'mochacli', 'coveralls']);
     grunt.registerTask('coveralls', ['mocha_istanbul:coveralls']);
+    grunt.registerTask('travis', ['clean:pre', 'bower']);
     grunt.registerTask('default', [
         'clean:pre',
         'bower',
         'test',
         'coveralls',
         'requirejs:dist',
-        'uglify',
-        'clean:post'
+        'uglify'
     ]);
 };

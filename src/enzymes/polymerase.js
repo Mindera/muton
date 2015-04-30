@@ -11,6 +11,7 @@
  * Bucket and Throttle mutators. That's your application trying to evolve.
  */
 if (typeof define !== 'function') {
+    /*jshint -W003*/
     var define = require('amdefine')(module);
 }
 
@@ -18,33 +19,6 @@ define(function (require) {
     var bucketMutator = require('./../mutators/bucket');
     var throttleMutator = require('./../mutators/throttle');
     var proofReader = require('./../reactions/proof-reading');
-
-    return {
-        /**
-         * Returns a resolved feature toggle, with the information indicating whether it's active or not. If the
-         * feature mutates to a bucket, it also can contain the corresponding feature toggle.
-         *
-         * @param featureName The feature name being processed
-         * @param primerInstructions The primer instructions to process
-         * @returns A resolved feature toggle, which may mutate to a bucket feature toggle
-         */
-        assembleFeatures: function(featureName, primerInstructions) {
-            var features = {};
-
-            if (proofReader.areInstructionsValid(primerInstructions)) {
-                var toggle = processFeatureInstructions(primerInstructions);
-                addToFeatures(features, featureName, toggle);
-
-                if (containsBuckets(toggle, primerInstructions)) {
-                    addBucketToFeatures(features, featureName, primerInstructions, toggle);
-                }
-            } else {
-                console.log('There are invalid feature instructions!');
-                addToFeatures(features, featureName, false);
-            }
-            return features;
-        }
-    };
 
     function addToFeatures(features, featureName, toggle) {
         features[featureName] = toggle;
@@ -72,4 +46,31 @@ define(function (require) {
         var bucketName = bucketMutator.mutate(featureInstructions);
         addToFeatures(features, featureName + "." + bucketName, toggle);
     }
+
+    return {
+        /**
+         * Returns a resolved feature toggle, with the information indicating whether it's active or not. If the
+         * feature mutates to a bucket, it also can contain the corresponding feature toggle.
+         *
+         * @param featureName The feature name being processed
+         * @param primerInstructions The primer instructions to process
+         * @returns A resolved feature toggle, which may mutate to a bucket feature toggle
+         */
+        assembleFeatures: function(featureName, primerInstructions) {
+            var features = {};
+
+            if (proofReader.areInstructionsValid(primerInstructions)) {
+                var toggle = processFeatureInstructions(primerInstructions);
+                addToFeatures(features, featureName, toggle);
+
+                if (containsBuckets(toggle, primerInstructions)) {
+                    addBucketToFeatures(features, featureName, primerInstructions, toggle);
+                }
+            } else {
+                console.log('There are invalid feature instructions!');
+                addToFeatures(features, featureName, false);
+            }
+            return features;
+        }
+    };
 });

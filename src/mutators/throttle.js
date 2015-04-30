@@ -5,6 +5,7 @@
  * or deactivate feture toggles.
  */
 if (typeof define !== 'function') {
+    /*jshint -W003*/
     var define = require('amdefine')(module);
 }
 

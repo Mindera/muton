@@ -6,12 +6,43 @@
  * containing instructions regarding the features to activate or deactivate.
  */
 if (typeof define !== 'function') {
+    /*jshint -W003*/
     var define = require('amdefine')(module);
 }
 
 define(function (require) {
     var _ = require('lodash');
     var chemicalReactions = require('./../reactions/chemical.js');
+
+    function mergeProperties(primer, feature) {
+        var properties = getFeatureProperties(feature);
+        _.merge(primer, properties);
+    }
+
+    function isFeatureDisabled(primer, root) {
+        var toggle = _.get(primer, 'toggle');
+        return root && (_.isUndefined(toggle) || toggle === false);
+    }
+
+    function getFeatureProperties(feature) {
+        return _.pick(feature, ['toggle', 'throttle', 'buckets']);
+    }
+
+    function containsFeatureProperties(obj) {
+        return _.has(obj, 'toggle') || _.has(obj, 'throttle') || _.has(obj, 'buckets');
+    }
+
+    function getPropertiesNode(userProperties, featurePropertyName, feature) {
+        var propertyName = featurePropertyName;
+        // Explode the current node to check if there are properties
+        var featureProperty = feature[propertyName];
+        var properties = featureProperty[userProperties[propertyName]];
+        return pickMatchedProperties(properties, featureProperty);
+    }
+
+    function pickMatchedProperties(childProperties, parentProperties) {
+        return !_.isUndefined(childProperties) ? childProperties : parentProperties;
+    }
 
     return {
         /**
@@ -51,34 +82,4 @@ define(function (require) {
             return primerInstructions;
         }
     };
-
-    function mergeProperties(primer, feature) {
-        var properties = getFeatureProperties(feature);
-        _.merge(primer, properties);
-    }
-
-    function isFeatureDisabled(primer, root) {
-        var toggle = _.get(primer, 'toggle');
-        return root && (_.isUndefined(toggle) || toggle === false);
-    }
-
-    function getFeatureProperties(feature) {
-        return _.pick(feature, ['toggle', 'throttle', 'buckets']);
-    }
-
-    function containsFeatureProperties(obj) {
-        return _.has(obj, 'toggle') || _.has(obj, 'throttle') || _.has(obj, 'buckets');
-    }
-
-    function getPropertiesNode(userProperties, featurePropertyName, feature) {
-        var propertyName = featurePropertyName;
-        // Explode the current node to check if there are properties
-        var featureProperty = feature[propertyName];
-        var properties = featureProperty[userProperties[propertyName]];
-        return pickMatchedProperties(properties, featureProperty);
-    }
-
-    function pickMatchedProperties(childProperties, parentProperties) {
-        return !_.isUndefined(childProperties) ? childProperties : parentProperties;
-    }
 });

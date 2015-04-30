@@ -8,7 +8,7 @@
     "url": "https://github.com/Mindera/muton.git"
   },
   "scripts": {
-    "test": "mocha --reporter spec test"
+    "test": "grunt test"
   },
   "keywords": [
     "Feature",

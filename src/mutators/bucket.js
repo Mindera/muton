@@ -5,6 +5,7 @@
  * bucket from the list, allowing multivariance testing.
  */
 if (typeof define !== 'function') {
+    /*jshint -W003*/
     var define = require('amdefine')(module);
 }
 
@@ -34,5 +35,5 @@ define(function (require) {
             var index = Math.floor(Math.random() * (array.length + 1));
             return array[index];
         }
-    }
+    };
 });

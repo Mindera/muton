@@ -11093,6 +11093,7 @@ var lodash, reactions_chemicaljs, enzymes_helicase, enzymes_primase, mutators_bu
  * This module contains multiple chemical reactions for use freely.
  */
 if (true) {
+  /*jshint -W003*/
   var define = amdefine(module);
 }
 reactions_chemicaljs = function (require) {
@@ -11113,6 +11114,7 @@ reactions_chemicaljs = function (require) {
  * names.
  */
 if (true) {
+  /*jshint -W003*/
   var define = amdefine(module);
 }
 enzymes_helicase = function (require) {
@@ -11138,11 +11140,40 @@ enzymes_helicase = function (require) {
  * containing instructions regarding the features to activate or deactivate.
  */
 if (true) {
+  /*jshint -W003*/
   var define = amdefine(module);
 }
 enzymes_primase = function (require) {
   var _ = lodash;
   var chemicalReactions = reactions_chemicaljs;
+  function mergeProperties(primer, feature) {
+    var properties = getFeatureProperties(feature);
+    _.merge(primer, properties);
+  }
+  function isFeatureDisabled(primer, root) {
+    var toggle = _.get(primer, 'toggle');
+    return root && (_.isUndefined(toggle) || toggle === false);
+  }
+  function getFeatureProperties(feature) {
+    return _.pick(feature, [
+      'toggle',
+      'throttle',
+      'buckets'
+    ]);
+  }
+  function containsFeatureProperties(obj) {
+    return _.has(obj, 'toggle') || _.has(obj, 'throttle') || _.has(obj, 'buckets');
+  }
+  function getPropertiesNode(userProperties, featurePropertyName, feature) {
+    var propertyName = featurePropertyName;
+    // Explode the current node to check if there are properties
+    var featureProperty = feature[propertyName];
+    var properties = featureProperty[userProperties[propertyName]];
+    return pickMatchedProperties(properties, featureProperty);
+  }
+  function pickMatchedProperties(childProperties, parentProperties) {
+    return !_.isUndefined(childProperties) ? childProperties : parentProperties;
+  }
   return {
     /**
      * Returns a primer collection containing instructions to toggle on or off a feature,
@@ -11177,34 +11208,6 @@ enzymes_primase = function (require) {
       return primerInstructions;
     }
   };
-  function mergeProperties(primer, feature) {
-    var properties = getFeatureProperties(feature);
-    _.merge(primer, properties);
-  }
-  function isFeatureDisabled(primer, root) {
-    var toggle = _.get(primer, 'toggle');
-    return root && (_.isUndefined(toggle) || toggle === false);
-  }
-  function getFeatureProperties(feature) {
-    return _.pick(feature, [
-      'toggle',
-      'throttle',
-      'buckets'
-    ]);
-  }
-  function containsFeatureProperties(obj) {
-    return _.has(obj, 'toggle') || _.has(obj, 'throttle') || _.has(obj, 'buckets');
-  }
-  function getPropertiesNode(userProperties, featurePropertyName, feature) {
-    var propertyName = featurePropertyName;
-    // Explode the current node to check if there are properties
-    var featureProperty = feature[propertyName];
-    var properties = featureProperty[userProperties[propertyName]];
-    return pickMatchedProperties(properties, featureProperty);
-  }
-  function pickMatchedProperties(childProperties, parentProperties) {
-    return !_.isUndefined(childProperties) ? childProperties : parentProperties;
-  }
 }({});
 'use strict';
 /**
@@ -11212,6 +11215,7 @@ enzymes_primase = function (require) {
  * bucket from the list, allowing multivariance testing.
  */
 if (true) {
+  /*jshint -W003*/
   var define = amdefine(module);
 }
 mutators_bucket = function (require) {
@@ -11241,6 +11245,7 @@ mutators_bucket = function (require) {
  * or deactivate feture toggles.
  */
 if (true) {
+  /*jshint -W003*/
   var define = amdefine(module);
 }
 mutators_throttle = function (require) {
@@ -11267,6 +11272,7 @@ mutators_throttle = function (require) {
  * This module checks for errors and proof-reads the molecules.
  */
 if (true) {
+  /*jshint -W003*/
   var define = amdefine(module);
 }
 reactions_proof_reading = function (require) {
@@ -11309,12 +11315,34 @@ reactions_proof_reading = function (require) {
  * Bucket and Throttle mutators. That's your application trying to evolve.
  */
 if (true) {
+  /*jshint -W003*/
   var define = amdefine(module);
 }
 enzymes_polymerase = function (require) {
   var bucketMutator = mutators_bucket;
   var throttleMutator = mutators_throttle;
   var proofReader = reactions_proof_reading;
+  function addToFeatures(features, featureName, toggle) {
+    features[featureName] = toggle;
+  }
+  function processFeatureInstructions(featureProperties) {
+    var toggle = false;
+    if (featureProperties.toggle !== false) {
+      if (throttleMutator.isThrottleValid(featureProperties.throttle)) {
+        toggle = throttleMutator.mutate(featureProperties.throttle);
+      } else if (featureProperties.toggle === true) {
+        toggle = true;
+      }
+    }
+    return toggle;
+  }
+  function containsBuckets(toggle, featureInstructions) {
+    return toggle && bucketMutator.containsMultivariant(featureInstructions);
+  }
+  function addBucketToFeatures(features, featureName, featureInstructions, toggle) {
+    var bucketName = bucketMutator.mutate(featureInstructions);
+    addToFeatures(features, featureName + '.' + bucketName, toggle);
+  }
   return {
     /**
      * Returns a resolved feature toggle, with the information indicating whether it's active or not. If the
@@ -11339,29 +11367,7 @@ enzymes_polymerase = function (require) {
       return features;
     }
   };
-  function addToFeatures(features, featureName, toggle) {
-    features[featureName] = toggle;
-  }
-  function processFeatureInstructions(featureProperties) {
-    var toggle = false;
-    if (featureProperties.toggle !== false) {
-      if (throttleMutator.isThrottleValid(featureProperties.throttle)) {
-        toggle = throttleMutator.mutate(featureProperties.throttle);
-      } else if (featureProperties.toggle === true) {
-        toggle = true;
-      }
-    }
-    return toggle;
-  }
-  function containsBuckets(toggle, featureInstructions) {
-    return toggle && bucketMutator.containsMultivariant(featureInstructions);
-  }
-  function addBucketToFeatures(features, featureName, featureInstructions, toggle) {
-    var bucketName = bucketMutator.mutate(featureInstructions);
-    addToFeatures(features, featureName + '.' + bucketName, toggle);
-  }
 }({});
-'use strict';
 /**
  * This is the Muton.js project - a feature toggle tool with support for feature throttling and Multivariance testing.
  *
@@ -11387,7 +11393,9 @@ enzymes_polymerase = function (require) {
  * http://www.nature.com/scitable/topicpage/cells-can-replicate-their-dna-precisely-6524830
  */
 (function () {
+  'use strict';
   if (true) {
+    /*jshint -W003*/
     var define = amdefine(module);
   }
   var hasExports = typeof module !== 'undefined' && module.exports;
