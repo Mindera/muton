@@ -23,7 +23,6 @@
   ],
   "license": "MIT",
   "homepage": "https://github.com/Mindera",
-  "private": true,
   "ignore": [
     "**/.*",
     "node_modules",
