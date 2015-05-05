@@ -32,7 +32,7 @@ define(function (require) {
                 throw 'Not an array!';
             }
 
-            var index = Math.floor(Math.random() * (array.length + 1));
+            var index = Math.floor(Math.random() * (array.length));
             return array[index];
         }
     };

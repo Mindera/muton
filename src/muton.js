@@ -24,7 +24,6 @@
  */
 
 (function () {
-    'use strict';
 
     if (typeof define !== 'function') {
         /*jshint -W003*/

@@ -11234,7 +11234,7 @@ mutators_bucket = function (require) {
       if (!_.isArray(array)) {
         throw 'Not an array!';
       }
-      var index = Math.floor(Math.random() * (array.length + 1));
+      var index = Math.floor(Math.random() * array.length);
       return array[index];
     }
   };
@@ -11393,7 +11393,6 @@ enzymes_polymerase = function (require) {
  * http://www.nature.com/scitable/topicpage/cells-can-replicate-their-dna-precisely-6524830
  */
 (function () {
-  'use strict';
   if (true) {
     /*jshint -W003*/
     var define = amdefine(module);
