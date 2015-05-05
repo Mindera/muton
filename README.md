@@ -1,4 +1,4 @@
-#  [![NPM version][npm-image]][npm-url]
+#  [![NPM version][npm-image]][npm-url][![Build Status](https://travis-ci.org/Mindera/muton.svg?branch=master)](https://travis-ci.org/Mindera/muton)
 
 Muton
 =========
