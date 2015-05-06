@@ -1,7 +1,7 @@
-#  [![NPM version][npm-image]][npm-url][![Build Status](https://travis-ci.org/Mindera/muton.svg?branch=master)](https://travis-ci.org/Mindera/muton)
-
 Muton
 =========
+
+[![NPM version][npm-image]][npm-url] [![Build Status](https://travis-ci.org/Mindera/muton.svg?branch=master)](https://travis-ci.org/Mindera/muton)
 
   This is the Muton project - a feature toggle tool with support for feature throttling and multivariance testing.
   
@@ -163,7 +163,8 @@ Add unit tests for any new or changed functionality. Lint and test your code.
 
 ## Release History
 
-TBD
+  * 0.0.1 - Initial release
+  * 0.0.2 - Fixing bucket choice bug
 
 [npm-url]: https://npmjs.org/package/muton
 [npm-image]: https://badge.fury.io/js/muton.svg

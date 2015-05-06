@@ -79,4 +79,19 @@ describe('When using bucket instructions', function () {
         var features = victim.getFeatureMutations({}, instructions);
         expect(features).to.have.property('feature1.bucket1').that.equals(true);
     });
+
+    it('should not pick undefined', function () {
+        var instructions = {
+            feature1: {
+                toggle: true,
+                buckets: ['bucket1', 'bucket2']
+            }
+        };
+
+        var i;
+        for (i = 0; i < 10; i++) {
+            var features = victim.getFeatureMutations({}, instructions);
+            expect(features).to.not.have.property('feature1.undefined').that.equals(true);
+        }
+    });
 });
