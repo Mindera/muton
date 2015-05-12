@@ -36,6 +36,7 @@
     define(function (require) {
 
         var _ = require('lodash');
+        var Q = require('q');
         var helicase = require('./enzymes/helicase');
         var primase = require('./enzymes/primase');
         var polymerase = require('./enzymes/polymerase');
@@ -51,25 +52,40 @@
              * @returns An collection of feature toggles that are toggled on or off
              */
             getFeatureMutations: function (userProperties, featureInstructions) {
-                var features = {};
+                var deferred = Q.defer();
 
                 proofReading.checkFeatureInstructions(featureInstructions);
 
+                var mutations = [];
+
                 _.forEach(featureInstructions, function (feature, featureName) {
-                    // Helicase will break the user properties and features apart into two different chains
-                    var propertyChains = helicase.breakProperties(userProperties, feature);
-
-                    // Read the chains and return a primer object that will contain a set of instructions
-                    var primer = primase.preparePrimer(userProperties, feature, propertyChains, true);
-
-                    // Pick the primer, proof-read the instructions and then assemble the collection of feature toggles
-                    var resolvedFeatures = polymerase.assembleFeatures(featureName, primer);
-                    _.merge(features, resolvedFeatures);
+                    mutations.push(mutate(feature, featureName, userProperties));
                 });
 
-                return features;
+                Q.all(mutations).then(function (mutationsArray) {
+                    deferred.resolve(mutationsArray.reduce(_.merge, {}));
+                });
+
+                return deferred.promise;
             }
         };
+
+        function mutate(feature, featureName, userProperties) {
+            var deferred = Q.defer();
+
+            Q.fcall(function () {
+                // Helicase will break the user properties and features apart into two different chains
+                var propertyChains = helicase.breakProperties(userProperties, feature);
+                // Read the chains and return a primer object that will contain a set of instructions
+                var primer = primase.preparePrimer(userProperties, feature, propertyChains, true);
+                // Pick the primer, proof-read the instructions and then assemble the collection of feature toggles
+                var features = polymerase.assembleFeatures(featureName, primer);
+
+                deferred.resolve(features);
+            });
+
+            return deferred.promise;
+        }
 
         // Exports section
         if (hasExports) {

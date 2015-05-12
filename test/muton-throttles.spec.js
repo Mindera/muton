@@ -5,7 +5,7 @@ var expect = require('chai').expect;
 var victim = require('../src/muton');
 
 describe('When using throttle instructions', function () {
-    it('should have the ability to throttle on and off', function () {
+    it('should have the ability to throttle on', function () {
 
         var instructions = {
             feature1: {
@@ -18,8 +18,23 @@ describe('When using throttle instructions', function () {
 
         var features = victim.getFeatureMutations({}, instructions);
 
-        expect(features).to.have.property('feature1').that.equals(true);
-        expect(features).to.have.property('feature2').that.equals(false);
+        return expect(features).to.eventually.have.property('feature1').that.equals(true);
+    });
+
+    it('should have the ability to throttle off', function () {
+
+        var instructions = {
+            feature1: {
+                throttle: '100%'
+            },
+            feature2: {
+                throttle: '0%'
+            }
+        };
+
+        var features = victim.getFeatureMutations({}, instructions);
+
+        return expect(features).to.eventually.have.property('feature2').that.equals(false);
     });
 
     xit('should throttle based on percentage', function () {
@@ -31,7 +46,7 @@ describe('When using throttle instructions', function () {
 
         var features = victim.getFeatureMutations({}, instructions);
 
-        expect(features).to.have.property('feature1').that.equals(true);
+        expect(features).to.eventually.have.property('feature1').that.equals(true);
     });
 
     it('should not override toggle instruction', function () {
@@ -45,7 +60,7 @@ describe('When using throttle instructions', function () {
 
         var features = victim.getFeatureMutations({}, instructions);
 
-        expect(features).to.have.property('feature1').that.equals(false);
+        return expect(features).to.eventually.have.property('feature1').that.equals(false);
     });
 
     it('should throttle with deep properties', function () {
@@ -71,7 +86,7 @@ describe('When using throttle instructions', function () {
 
         var features = victim.getFeatureMutations(userProperties, instructions);
 
-        expect(features).to.have.property('feature1').that.equals(false);
+        return expect(features).to.eventually.have.property('feature1').that.equals(false);
     });
 
     it('should return top level toggle when not matched', function () {
@@ -98,7 +113,7 @@ describe('When using throttle instructions', function () {
 
         var features = victim.getFeatureMutations(userProperties, instructions);
 
-        expect(features).to.have.property('feature1').that.equals(true);
+        return expect(features).to.eventually.have.property('feature1').that.equals(true);
     });
 
     it('should not throttle with partial matching', function () {
@@ -126,7 +141,7 @@ describe('When using throttle instructions', function () {
 
         var features = victim.getFeatureMutations(userProperties, instructions);
 
-        expect(features).to.have.property('feature1').that.equals(false);
+        return expect(features).to.eventually.have.property('feature1').that.equals(false);
     });
 
     it('should throttle off override other instructions', function () {
@@ -140,6 +155,6 @@ describe('When using throttle instructions', function () {
 
         var features = victim.getFeatureMutations({}, instructions);
 
-        expect(features).to.have.property('feature1').that.equals(false);
+        return expect(features).to.eventually.have.property('feature1').that.equals(false);
     });
 });

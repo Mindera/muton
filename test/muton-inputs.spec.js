@@ -16,7 +16,7 @@ describe('When entering user properties and feature instructions', function () {
 
         var features = victim.getFeatureMutations(null, instructions);
 
-        expect(features).to.have.property('feature1').that.equals(true);
+        return expect(features).to.eventually.have.property('feature1').that.equals(true);
     });
 
     it('should ignore undefined user properties', function () {
@@ -29,7 +29,7 @@ describe('When entering user properties and feature instructions', function () {
 
         var features = victim.getFeatureMutations(undefined, instructions);
 
-        expect(features).to.have.property('feature1').that.equals(true);
+        return expect(features).to.have.eventually.property('feature1').that.equals(true);
     });
 
     it('should ignore empty user properties', function () {
@@ -42,7 +42,7 @@ describe('When entering user properties and feature instructions', function () {
 
         var features = victim.getFeatureMutations({}, instructions);
 
-        expect(features).to.have.property('feature1').that.equals(true);
+        return expect(features).to.have.eventually.property('feature1').that.equals(true);
     });
 
     it('should ignore invalid user properties', function () {
@@ -55,7 +55,7 @@ describe('When entering user properties and feature instructions', function () {
 
         var features = victim.getFeatureMutations([1, 2], instructions);
 
-        expect(features).to.have.property('feature1').that.equals(true);
+        return expect(features).to.have.eventually.property('feature1').that.equals(true);
     });
 
     it('should return empty on empty instructions', function () {
@@ -63,7 +63,7 @@ describe('When entering user properties and feature instructions', function () {
         var features = victim.getFeatureMutations({}, {});
 
         /*jshint -W030 */
-        expect(features).to.be.empty;
+        return expect(features).to.eventually.be.empty;
     });
 
     it('should return empty on undefined instructions', function () {
@@ -71,7 +71,7 @@ describe('When entering user properties and feature instructions', function () {
         var features = victim.getFeatureMutations({});
 
         /*jshint -W030 */
-        expect(features).to.be.empty;
+        return expect(features).to.eventually.be.empty;
     });
 
     it('should return empty on null instructions', function () {
@@ -79,7 +79,7 @@ describe('When entering user properties and feature instructions', function () {
         var features = victim.getFeatureMutations({}, null);
 
         /*jshint -W030 */
-        expect(features).to.be.empty;
+        return expect(features).to.eventually.be.empty;
     });
 
     it('should return empty on undefined arguments', function () {
@@ -87,10 +87,10 @@ describe('When entering user properties and feature instructions', function () {
         var features = victim.getFeatureMutations();
 
         /*jshint -W030 */
-        expect(features).to.be.empty;
+        return expect(features).to.eventually.be.empty;
     });
 
     it('should throw error on invalid feature instructions', function () {
-        expect(victim.getFeatureMutations.bind(victim, {}, [1, 2])).to.throw(Error);
+        return expect(victim.getFeatureMutations.bind(victim, {}, [1, 2])).to.throw(Error);
     });
 });

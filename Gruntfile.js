@@ -76,6 +76,7 @@ module.exports = function(grunt) {
                     baseUrl: './src',
                     paths: {
                         lodash: '../lib/lodash/lodash',
+                        q: '../lib/q/q',
                         bucket: 'mutators/bucket',
                         throttle: 'mutators/throttle',
                         helicase: 'enzymes/helicase',

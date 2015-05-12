@@ -31,6 +31,7 @@
     "tests"
   ],
   "dependencies": {
-    "lodash": "~3.7.0"
+    "lodash": "~3.7.0",
+    "q": "1.0.1"
   }
 }

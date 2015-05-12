@@ -18,7 +18,7 @@ describe('When proof reading instructions', function () {
 
         var features = victim.getFeatureMutations({}, instructions);
 
-        expect(features).to.have.property('feature1').that.equals(false);
+        return expect(features).to.eventually.have.property('feature1').that.equals(false);
     });
 
     it('should toggle off when toggle alone instruction is invalid', function () {
@@ -31,7 +31,7 @@ describe('When proof reading instructions', function () {
 
         var features = victim.getFeatureMutations({}, instructions);
 
-        expect(features).to.have.property('feature1').that.equals(false);
+        return expect(features).to.eventually.have.property('feature1').that.equals(false);
     });
 
     it('should toggle off when bucket instruction is invalid', function () {
@@ -45,7 +45,7 @@ describe('When proof reading instructions', function () {
 
         var features = victim.getFeatureMutations({}, instructions);
 
-        expect(features).to.have.property('feature1').that.equals(false);
+        return expect(features).to.eventually.have.property('feature1').that.equals(false);
     });
 
     it('should toggle off when throttle instruction is invalid', function () {
@@ -60,7 +60,7 @@ describe('When proof reading instructions', function () {
 
         var features = victim.getFeatureMutations({}, instructions);
 
-        expect(features).to.have.property('feature1').that.equals(false);
+        return expect(features).to.eventually.have.property('feature1').that.equals(false);
     });
 
     it('should toggle off when toggle instruction is invalid with properties', function () {
@@ -83,6 +83,6 @@ describe('When proof reading instructions', function () {
 
         var features = victim.getFeatureMutations(userProperties, instructions);
 
-        expect(features).to.have.property('feature1').that.equals(false);
+        return expect(features).to.eventually.have.property('feature1').that.equals(false);
     });
 });

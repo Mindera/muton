@@ -1,9 +1,13 @@
 'use strict';
 
 /*jshint -W079 */
-var expect = require('chai').expect;
-var victim = require('../src/muton');
+var chai = require('chai');
+var chaiAsPromised = require("chai-as-promised");
+chai.use(chaiAsPromised);
+var expect = chai.expect;
+
 var sinon = require('sinon');
+var victim = require('../src/muton');
 
 describe('When using bucket instructions', function () {
 
@@ -24,7 +28,7 @@ describe('When using bucket instructions', function () {
 
         var features = victim.getFeatureMutations({}, instructions);
 
-        expect(features).to.have.property('feature1').that.equals(true);
+        return expect(features).to.eventually.have.property('feature1').that.equals(true);
     });
 
     it('should override by toggle instructions', function () {
@@ -38,7 +42,7 @@ describe('When using bucket instructions', function () {
 
         var features = victim.getFeatureMutations({}, instructions);
 
-        expect(features).to.have.property('feature1').that.equals(false);
+        return expect(features).to.eventually.have.property('feature1').that.equals(false);
     });
 
     it('should override by throttle instructions', function () {
@@ -53,7 +57,7 @@ describe('When using bucket instructions', function () {
 
         var features = victim.getFeatureMutations({}, instructions);
 
-        expect(features).to.have.property('feature1').that.equals(false);
+        return expect(features).to.eventually.have.property('feature1').that.equals(false);
     });
 
     it('should add new toggles to the list of features', function () {
@@ -65,7 +69,7 @@ describe('When using bucket instructions', function () {
         };
 
         var features = victim.getFeatureMutations({}, instructions);
-        expect(features).to.have.property('feature1.bucket1').that.equals(true);
+        return expect(features).to.eventually.have.property('feature1.bucket1').that.equals(true);
     });
 
     it('should add new toggles to the list of features', function () {
@@ -77,21 +81,22 @@ describe('When using bucket instructions', function () {
         };
 
         var features = victim.getFeatureMutations({}, instructions);
-        expect(features).to.have.property('feature1.bucket1').that.equals(true);
+        return expect(features).to.eventually.have.property('feature1.bucket1').that.equals(true);
     });
 
-    it('should not pick undefined', function () {
-        var instructions = {
-            feature1: {
-                toggle: true,
-                buckets: ['bucket1', 'bucket2']
-            }
-        };
+    var i;
+    for (i = 0; i < 5; i++) {
+        /*jshint -W083 */
+        it('should not pick undefined', function () {
+            var instructions = {
+                feature1: {
+                    toggle: true,
+                    buckets: ['bucket1', 'bucket2']
+                }
+            };
 
-        var i;
-        for (i = 0; i < 10; i++) {
             var features = victim.getFeatureMutations({}, instructions);
-            expect(features).to.not.have.property('feature1.undefined').that.equals(true);
-        }
-    });
+            expect(features).to.eventually.not.have.property('feature1.undefined').that.equals(true);
+        });
+    }
 });

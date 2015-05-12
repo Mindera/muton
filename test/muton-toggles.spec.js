@@ -5,7 +5,7 @@ var expect = require('chai').expect;
 var victim = require('../src/muton');
 
 describe('When using simple toggles instructions', function () {
-    it('should return toggled features', function () {
+    it('should return toggled on features', function () {
 
         var instructions = {
             feature1: {
@@ -18,8 +18,23 @@ describe('When using simple toggles instructions', function () {
 
         var features = victim.getFeatureMutations({}, instructions);
 
-        expect(features).to.have.property('feature1').that.equals(true);
-        expect(features).to.have.property('feature2').that.equals(false);
+        return expect(features).to.eventually.have.property('feature1').that.equals(true);
+    });
+
+    it('should return toggled off features', function () {
+
+        var instructions = {
+            feature1: {
+                toggle: true
+            },
+            feature2: {
+                toggle: false
+            }
+        };
+
+        var features = victim.getFeatureMutations({}, instructions);
+
+        return expect(features).to.eventually.have.property('feature2').that.equals(false);
     });
 
     it('should toggled off features override other instructions', function () {
@@ -33,20 +48,18 @@ describe('When using simple toggles instructions', function () {
 
         var features = victim.getFeatureMutations({}, instructions);
 
-        expect(features).to.have.property('feature1').that.equals(false);
+        return expect(features).to.eventually.have.property('feature1').that.equals(false);
     });
 
     it('should default to false', function () {
 
         var instructions = {
-            feature1: {},
-            feature2: {}
+            feature1: {}
         };
 
         var features = victim.getFeatureMutations({}, instructions);
 
-        expect(features).to.have.property('feature1').that.equals(false);
-        expect(features).to.have.property('feature2').that.equals(false);
+        return expect(features).to.eventually.have.property('feature1').that.equals(false);
     });
 });
 
@@ -66,7 +79,7 @@ describe('When using chained toggles instructions', function () {
 
         var features = victim.getFeatureMutations({}, instructions);
 
-        expect(features).to.have.property('feature1').that.equals(false);
+        return expect(features).to.eventually.have.property('feature1').that.equals(false);
     });
 
     it('should match top level toggle when not matched', function () {
@@ -85,7 +98,7 @@ describe('When using chained toggles instructions', function () {
 
         var features = victim.getFeatureMutations({}, instructions);
 
-        expect(features).to.have.property('feature1').that.equals(true);
+        return expect(features).to.eventually.have.property('feature1').that.equals(true);
     });
 
     it('should match parent level toggle when not matched', function () {
@@ -113,7 +126,7 @@ describe('When using chained toggles instructions', function () {
 
         var features = victim.getFeatureMutations(userProperties, instructions);
 
-        expect(features).to.have.property('feature1').that.equals(false);
+        return expect(features).to.eventually.have.property('feature1').that.equals(false);
     });
 
     it('should not ignore top level toggle when child is matched', function () {
@@ -126,7 +139,22 @@ describe('When using chained toggles instructions', function () {
                     }
                 },
                 toggle: false
-            },
+            }
+        };
+
+        var userProperties = {
+            property1: "b",
+            property2: "b"
+        };
+
+        var features = victim.getFeatureMutations(userProperties, instructions);
+
+        return expect(features).to.eventually.have.property('feature1').that.equals(false);
+    });
+
+    it('should not ignore top level toggle when child is matched on explicit toggle', function () {
+
+        var instructions = {
             feature2: {
                 property2: {
                     "b": {
@@ -143,11 +171,10 @@ describe('When using chained toggles instructions', function () {
 
         var features = victim.getFeatureMutations(userProperties, instructions);
 
-        expect(features).to.have.property('feature1').that.equals(false);
-        expect(features).to.have.property('feature2').that.equals(false);
+        return expect(features).to.eventually.have.property('feature2').that.equals(false);
     });
 
-    it('should not match deep property when parent is not matched', function () {
+    it('should not match deep property when parent is not matched on implpicit toggle', function () {
 
         var instructions = {
             feature1: {
@@ -170,7 +197,7 @@ describe('When using chained toggles instructions', function () {
 
         var features = victim.getFeatureMutations(userProperties, instructions);
 
-        expect(features).to.have.property('feature1').that.equals(true);
+        return expect(features).to.eventually.have.property('feature1').that.equals(true);
     });
 
     it('should match last property when multiple properties collide', function () {
@@ -198,7 +225,7 @@ describe('When using chained toggles instructions', function () {
 
         var features = victim.getFeatureMutations(userProperties, instructions);
 
-        expect(features).to.have.property('feature1').that.equals(false);
+        return expect(features).to.eventually.have.property('feature1').that.equals(false);
     });
 
     it('should match multiple chained properties', function () {
@@ -224,7 +251,7 @@ describe('When using chained toggles instructions', function () {
 
         var features = victim.getFeatureMutations(userProperties, instructions);
 
-        expect(features).to.have.property('feature1').that.equals(false);
+        return expect(features).to.eventually.have.property('feature1').that.equals(false);
     });
 
     it('should disable feature completely', function () {
@@ -256,6 +283,6 @@ describe('When using chained toggles instructions', function () {
 
         var features = victim.getFeatureMutations(userProperties, instructions);
 
-        expect(features).to.have.property('feature1').that.equals(false);
+        return expect(features).to.eventually.have.property('feature1').that.equals(false);
     });
 });

@@ -23,7 +23,7 @@ define(function (require) {
         },
 
         isPercentage: function (value) {
-            return value.match(/[0-100]%/);
+            return /[0-100]%/.test(value);
         },
 
         getPercentageDecimal: function (percentage) {
