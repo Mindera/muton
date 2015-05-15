@@ -156,7 +156,7 @@ var featureInstructions = {
     'superCoolFeature' : {
       'referral' : {
         '/.*\.google\..{2,4}/' : {
-          'throttle' : 'true'
+          'toggle' : 'true'
         }
       }
     }
@@ -174,7 +174,7 @@ var featureInstructions = {
     'superCoolFeature' : {
       'boughtBooks' : {
         '>=10000' : {
-          'throttle' : 'true'
+          'toggle' : 'true'
         }
       }
     }
