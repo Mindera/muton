@@ -143,6 +143,44 @@ var featureInstructions = {
 }
 ```
 
+### Matchers
+
+  Muton supports non-trivial user properties matching. For example, you might want to toggle a feature on when the user bought over 10000 books in your store. Or even to activate a feature for users whose referral site belongs to a specific domain.
+
+#### Regular expressions
+
+  To have user properties being matched by regexes, you must enclose the regex inside two '/'. The above example referral example with Google can be written like this:
+
+```javascript
+  var featureInstructions = {
+    'superCoolFeature' : {
+      'referral' : {
+        '/.*\.google\..{2,4}/' : {
+          'throttle' : 'true'
+        }
+      }
+    }
+  }
+```
+
+#### Numeric quantifiers
+
+  Numeric user properties can be matched against an expression. The property value must start with one of the following operators: '>', '<', '>=', '<='.
+  
+  Picking the bookstore example, a user with over 10000 bought books would have a special feature toggle on:
+  
+```javascript
+  var featureInstructions = {
+    'superCoolFeature' : {
+      'boughtBooks' : {
+        '>=10000' : {
+          'throttle' : 'true'
+        }
+      }
+    }
+  }
+```
+
 ## Build
   
   grunt clean && grunt
@@ -165,6 +203,7 @@ Add unit tests for any new or changed functionality. Lint and test your code.
 
   * 0.0.1 - Initial release
   * 0.0.2 - Fixing bucket choice bug
+  * 0.1.0 - Adding support for regex and numeric matchers
 
 [npm-url]: https://npmjs.org/package/muton
 [npm-image]: https://badge.fury.io/js/muton.svg

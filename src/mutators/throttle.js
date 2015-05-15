@@ -12,9 +12,14 @@ if (typeof define !== 'function') {
 define(function (require) {
     var _ = require('lodash');
 
+    function getPercentageDecimal(percentage) {
+        var value = percentage.substr(0, percentage.length - 2);
+        return value / 10;
+    }
+
     return {
         mutate: function (throttle) {
-            var percentage = this.getPercentageDecimal(throttle);
+            var percentage = getPercentageDecimal(throttle);
             return Math.random() < percentage;
         },
 
@@ -24,11 +29,6 @@ define(function (require) {
 
         isPercentage: function (value) {
             return value.match(/[0-100]%/);
-        },
-
-        getPercentageDecimal: function (percentage) {
-            var value = percentage.substr(0, percentage.length - 2);
-            return value / 10;
         }
     };
 });

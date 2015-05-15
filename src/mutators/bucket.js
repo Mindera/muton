@@ -13,9 +13,18 @@ define(function (require) {
 
     var _ = require('lodash');
 
+    function pickOneElement(array) {
+        if (!_.isArray(array)) {
+            throw 'Not an array!';
+        }
+
+        var index = Math.floor(Math.random() * (array.length));
+        return array[index];
+    }
+
     return {
         mutate: function(featureProperties) {
-            return this.pickOneElement(featureProperties.buckets);
+            return pickOneElement(featureProperties.buckets);
         },
 
         containsMultivariant: function(featureProperties) {
@@ -25,15 +34,6 @@ define(function (require) {
         isBucketListValid: function(bucketList) {
             return _.isArray(bucketList) && bucketList.length >= 0;
 
-        },
-
-        pickOneElement: function(array) {
-            if (!_.isArray(array)) {
-                throw 'Not an array!';
-            }
-
-            var index = Math.floor(Math.random() * (array.length));
-            return array[index];
         }
     };
 });

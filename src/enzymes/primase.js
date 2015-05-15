@@ -12,7 +12,8 @@ if (typeof define !== 'function') {
 
 define(function (require) {
     var _ = require('lodash');
-    var chemicalReactions = require('./../reactions/chemical.js');
+    var chemicalReactions = require('../reactions/chemical.js');
+    var matchReading = require('../reactions/match-reading.js');
 
     function mergeProperties(primer, feature) {
         var properties = getFeatureProperties(feature);
@@ -21,7 +22,7 @@ define(function (require) {
 
     function isFeatureDisabled(primer, root) {
         var toggle = _.get(primer, 'toggle');
-        return root && (_.isUndefined(toggle) || toggle === false);
+        return root && toggle === false;
     }
 
     function getFeatureProperties(feature) {
@@ -33,15 +34,21 @@ define(function (require) {
     }
 
     function getPropertiesNode(userProperties, featurePropertyName, feature) {
-        var propertyName = featurePropertyName;
         // Explode the current node to check if there are properties
-        var featureProperty = feature[propertyName];
-        var properties = featureProperty[userProperties[propertyName]];
+        var featureProperty = feature[featurePropertyName];
+
+        var userPropertyValue = userProperties[featurePropertyName];
+        var properties = matchReading.getMatchedProperties(userPropertyValue, featureProperty);
+
         return pickMatchedProperties(properties, featureProperty);
     }
 
     function pickMatchedProperties(childProperties, parentProperties) {
         return !_.isUndefined(childProperties) ? childProperties : parentProperties;
+    }
+
+    function bindPrimer(primerInstructions, childPrimer) {
+        _.merge(primerInstructions, childPrimer);
     }
 
     return {
@@ -74,7 +81,8 @@ define(function (require) {
                         // Process the child node
                         var childStrands = chemicalReactions.separateProperties(userProperties, propertiesNode);
                         var childPrimer = self.preparePrimer(userProperties, propertiesNode, childStrands);
-                        _.merge(primerInstructions, childPrimer);
+
+                        bindPrimer(primerInstructions, childPrimer);
                     }
                 });
             }

@@ -144,7 +144,7 @@ describe('When using chained toggles instructions', function () {
         var features = victim.getFeatureMutations(userProperties, instructions);
 
         expect(features).to.have.property('feature1').that.equals(false);
-        expect(features).to.have.property('feature2').that.equals(false);
+        expect(features).to.have.property('feature2').that.equals(true);
     });
 
     it('should not match deep property when parent is not matched', function () {
@@ -209,7 +209,7 @@ describe('When using chained toggles instructions', function () {
                     "b": {
                         property2: {
                             "c": {
-                                toggle: false
+                                toggle: true
                             }
                         }
                     }
@@ -224,7 +224,7 @@ describe('When using chained toggles instructions', function () {
 
         var features = victim.getFeatureMutations(userProperties, instructions);
 
-        expect(features).to.have.property('feature1').that.equals(false);
+        expect(features).to.have.property('feature1').that.equals(true);
     });
 
     it('should disable feature completely', function () {

@@ -82,7 +82,10 @@ module.exports = function(grunt) {
                         primase: 'enzymes/primase',
                         polymerase: 'enzymes/polymerase',
                         chemical: 'reactions/chemical',
-                        proofReading: 'reactions/proof-reading'
+                        proofReading: 'reactions/proof-reading',
+                        matchReading: 'reactions/match-reading',
+                        regexMatcher: 'reactions/matchers/regex',
+                        numericMatcher: 'reactions/matchers/numeric-quantifier'
                     },
                     name: 'muton',
                     out: 'muton-amd.min.js',
