@@ -11,8 +11,8 @@ if (typeof define !== 'function') {
 define(function (require) {
 
     var _ = require('lodash');
-    var bucketMutator = require('./../mutators/bucket');
-    var throttleMutator = require('./../mutators/throttle');
+    var bucketMutator = require('../mutators/bucket');
+    var throttleMutator = require('../mutators/throttle');
 
     return {
         areInstructionsValid: function (featureInstructions) {

@@ -16,9 +16,9 @@ if (typeof define !== 'function') {
 }
 
 define(function (require) {
-    var bucketMutator = require('./../mutators/bucket');
-    var throttleMutator = require('./../mutators/throttle');
-    var proofReader = require('./../reactions/proof-reading');
+    var bucketMutator = require('../mutators/bucket');
+    var throttleMutator = require('../mutators/throttle');
+    var proofReader = require('../reactions/proof-reading');
 
     function addToFeatures(features, featureName, toggle) {
         features[featureName] = toggle;
@@ -67,7 +67,6 @@ define(function (require) {
                     addBucketToFeatures(features, featureName, primerInstructions, toggle);
                 }
             } else {
-                console.log('There are invalid feature instructions!');
                 addToFeatures(features, featureName, false);
             }
             return features;

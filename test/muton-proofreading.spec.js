@@ -67,7 +67,6 @@ describe('When proof reading instructions', function () {
 
         var instructions = {
             feature1: {
-                toggle: true,
                 property1: {
                     'a': {
                         toggle: true,

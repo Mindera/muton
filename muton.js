@@ -8,7 +8,7 @@
  * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <https://lodash.com/license>
  */
-var lodash, reactions_chemicaljs, enzymes_helicase, enzymes_primase, mutators_bucket, mutators_throttle, reactions_proof_reading, enzymes_polymerase, muton;
+var lodash, reactions_chemicaljs, enzymes_helicase, reactions_matchers_regex, reactions_matchers_numeric_quantifier, reactions_match_readingjs, enzymes_primase, mutators_bucket, mutators_throttle, reactions_proof_reading, enzymes_polymerase, muton;
 (function () {
   /** Used as a safe reference for `undefined` in pre-ES5 environments. */
   var undefined;
@@ -11134,6 +11134,93 @@ enzymes_helicase = function (require) {
   };
 }({});
 'use strict';
+if (true) {
+  /*jshint -W003*/
+  var define = amdefine(module);
+}
+reactions_matchers_regex = function () {
+  var regexDelimiters = /^\/.+\/$/;
+  function sanitizeRegexStr(regexStr) {
+    return regexStr.substring(1, regexStr.length - 1);
+  }
+  return {
+    isRegex: function (value) {
+      return regexDelimiters.test(value);
+    },
+    matchesPropertyValue: function (propertyValue, regexStr) {
+      var sanitisedRegex = sanitizeRegexStr(regexStr);
+      var regex = new RegExp('^' + sanitisedRegex + '$');
+      return regex.test(propertyValue);
+    }
+  };
+}();
+'use strict';
+if (true) {
+  /*jshint -W003*/
+  var define = amdefine(module);
+}
+reactions_matchers_numeric_quantifier = function () {
+  var numberRegex = /-?\d+(\.\d{1,2})?/;
+  var operatorRegex = /[><]=?/;
+  var numericQuantifierRegex = new RegExp(operatorRegex.source + numberRegex.source);
+  var validExpressionRegex = new RegExp(numberRegex.source + operatorRegex.source + numberRegex.source);
+  function isExpressionValid(expression) {
+    return validExpressionRegex.test(expression);
+  }
+  return {
+    isNumber: function (value) {
+      return numberRegex.test(value);
+    },
+    isNumericQuantifier: function (value) {
+      return numericQuantifierRegex.test(value);
+    },
+    matchesPropertyValue: function (propertyValue, numericQuantifierStr) {
+      var expression = propertyValue + numericQuantifierStr;
+      if (!isExpressionValid(expression)) {
+        // Just to catch eventual issues with eval
+        return false;
+      }
+      /*jshint -W061*/
+      return eval(expression);
+    }
+  };
+}();
+'use strict';
+/**
+ * This module match-reads feature properties against user properties.
+ */
+if (true) {
+  /*jshint -W003*/
+  var define = amdefine(module);
+}
+reactions_match_readingjs = function (require) {
+  var _ = lodash;
+  var regexMatcher = reactions_matchers_regex;
+  var numericMatcher = reactions_matchers_numeric_quantifier;
+  var defaultMatcher = {
+    matchesPropertyValue: function (userPropertyValue, propertyKey) {
+      return userPropertyValue === propertyKey;
+    }
+  };
+  function pickMatcher(userPropertyValue, propertyKey) {
+    if (regexMatcher.isRegex(propertyKey)) {
+      return regexMatcher;
+    } else if (numericMatcher.isNumber(userPropertyValue) && numericMatcher.isNumericQuantifier(propertyKey)) {
+      return numericMatcher;
+    } else {
+      return defaultMatcher;
+    }
+  }
+  return {
+    getMatchedProperties: function (userPropertyValue, featureProperty) {
+      return _.findLast(featureProperty, function (propertyValue, propertyKey) {
+        var matcher = pickMatcher(userPropertyValue, propertyKey);
+        return matcher.matchesPropertyValue(userPropertyValue, propertyKey);
+      });
+    }
+  };
+}({});
+'use strict';
 /**
  * The Primase enzyme in real life prepares the strand for the replication, this is called the primer.
  * This module takes the user properties and feature properties strands, analyses it and returns a primer object
@@ -11146,13 +11233,14 @@ if (true) {
 enzymes_primase = function (require) {
   var _ = lodash;
   var chemicalReactions = reactions_chemicaljs;
+  var matchReading = reactions_match_readingjs;
   function mergeProperties(primer, feature) {
     var properties = getFeatureProperties(feature);
     _.merge(primer, properties);
   }
   function isFeatureDisabled(primer, root) {
     var toggle = _.get(primer, 'toggle');
-    return root && (_.isUndefined(toggle) || toggle === false);
+    return root && toggle === false;
   }
   function getFeatureProperties(feature) {
     return _.pick(feature, [
@@ -11165,14 +11253,17 @@ enzymes_primase = function (require) {
     return _.has(obj, 'toggle') || _.has(obj, 'throttle') || _.has(obj, 'buckets');
   }
   function getPropertiesNode(userProperties, featurePropertyName, feature) {
-    var propertyName = featurePropertyName;
     // Explode the current node to check if there are properties
-    var featureProperty = feature[propertyName];
-    var properties = featureProperty[userProperties[propertyName]];
+    var featureProperty = feature[featurePropertyName];
+    var userPropertyValue = userProperties[featurePropertyName];
+    var properties = matchReading.getMatchedProperties(userPropertyValue, featureProperty);
     return pickMatchedProperties(properties, featureProperty);
   }
   function pickMatchedProperties(childProperties, parentProperties) {
     return !_.isUndefined(childProperties) ? childProperties : parentProperties;
+  }
+  function bindPrimer(primerInstructions, childPrimer) {
+    _.merge(primerInstructions, childPrimer);
   }
   return {
     /**
@@ -11201,7 +11292,7 @@ enzymes_primase = function (require) {
             // Process the child node
             var childStrands = chemicalReactions.separateProperties(userProperties, propertiesNode);
             var childPrimer = self.preparePrimer(userProperties, propertiesNode, childStrands);
-            _.merge(primerInstructions, childPrimer);
+            bindPrimer(primerInstructions, childPrimer);
           }
         });
       }
@@ -11220,22 +11311,22 @@ if (true) {
 }
 mutators_bucket = function (require) {
   var _ = lodash;
+  function pickOneElement(array) {
+    if (!_.isArray(array)) {
+      throw 'Not an array!';
+    }
+    var index = Math.floor(Math.random() * array.length);
+    return array[index];
+  }
   return {
     mutate: function (featureProperties) {
-      return this.pickOneElement(featureProperties.buckets);
+      return pickOneElement(featureProperties.buckets);
     },
     containsMultivariant: function (featureProperties) {
       return this.isBucketListValid(featureProperties.buckets);
     },
     isBucketListValid: function (bucketList) {
       return _.isArray(bucketList) && bucketList.length >= 0;
-    },
-    pickOneElement: function (array) {
-      if (!_.isArray(array)) {
-        throw 'Not an array!';
-      }
-      var index = Math.floor(Math.random() * array.length);
-      return array[index];
     }
   };
 }({});
@@ -11250,9 +11341,13 @@ if (true) {
 }
 mutators_throttle = function (require) {
   var _ = lodash;
+  function getPercentageDecimal(percentage) {
+    var value = percentage.substr(0, percentage.length - 2);
+    return value / 10;
+  }
   return {
     mutate: function (throttle) {
-      var percentage = this.getPercentageDecimal(throttle);
+      var percentage = getPercentageDecimal(throttle);
       return Math.random() < percentage;
     },
     isThrottleValid: function (throttle) {
@@ -11260,10 +11355,6 @@ mutators_throttle = function (require) {
     },
     isPercentage: function (value) {
       return value.match(/[0-100]%/);
-    },
-    getPercentageDecimal: function (percentage) {
-      var value = percentage.substr(0, percentage.length - 2);
-      return value / 10;
     }
   };
 }({});
@@ -11361,7 +11452,6 @@ enzymes_polymerase = function (require) {
           addBucketToFeatures(features, featureName, primerInstructions, toggle);
         }
       } else {
-        console.log('There are invalid feature instructions!');
         addToFeatures(features, featureName, false);
       }
       return features;

@@ -12,7 +12,7 @@ if (typeof define !== 'function') {
 
 define(function (require) {
 
-    var chemicalReactions = require('./../reactions/chemical.js');
+    var chemicalReactions = require('../reactions/chemical.js');
 
     return {
         /**
