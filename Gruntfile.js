@@ -78,6 +78,7 @@ module.exports = function(grunt) {
                         lodash: '../lib/lodash/lodash',
                         bucket: 'mutators/bucket',
                         throttle: 'mutators/throttle',
+                        genePairing: 'mutators/gene-pairing',
                         helicase: 'enzymes/helicase',
                         primase: 'enzymes/primase',
                         polymerase: 'enzymes/polymerase',

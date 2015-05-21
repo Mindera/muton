@@ -22,9 +22,17 @@ define(function (require) {
         return array[index];
     }
 
+    function isBucketGene(gene) {
+        return !_.isEmpty(gene) && gene.type === 'bucket';
+    }
+
     return {
-        mutate: function(featureProperties) {
-            return pickOneElement(featureProperties.buckets);
+        mutate: function(featureProperties, gene) {
+            if (isBucketGene(gene)) {
+                return gene.toggle;
+            } else {
+                return pickOneElement(featureProperties.buckets);
+            }
         },
 
         containsMultivariant: function(featureProperties) {

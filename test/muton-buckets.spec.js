@@ -7,6 +7,8 @@ var sinon = require('sinon');
 
 describe('When using bucket instructions', function () {
 
+    // TODO - this is affecting other tests
+
     /*jshint -W117 */
     before(function () {
         // Will always pick the first bucket

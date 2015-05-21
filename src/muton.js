@@ -19,7 +19,7 @@
  *
  *  That's it.
  *
- *  If you want to get a little deeper, please have a look at:
+ * If you want to get a little deeper, please have a look at:
  * http://www.nature.com/scitable/topicpage/cells-can-replicate-their-dna-precisely-6524830
  */
 
@@ -41,17 +41,75 @@
         var polymerase = require('./enzymes/polymerase');
         var proofReading = require('./reactions/proof-reading');
 
+        function joinToggles(features, resolvedFeatures) {
+            features.toggles = _.reduce(resolvedFeatures, function (result, elem) {
+                result[elem.name] = elem.toggle;
+                return result;
+            }, features.toggles);
+        }
+
+        function joinThrottles(features, resolvedFeatures) {
+            var buckets = _.chain(resolvedFeatures)
+                .filter({type : 'bucket'})
+                .pluck('name')
+                .value();
+            features.buckets = features.buckets.concat(buckets);
+        }
+
+        function joinBuckets(features, resolvedFeatures) {
+            var throttles = _.chain(resolvedFeatures)
+                .filter({type : 'throttle'})
+                .pluck('name')
+                .value();
+            features.throttles = features.throttles.concat(throttles);
+        }
+
+        function joinMutations(features, resolvedFeatures) {
+            joinToggles(features, resolvedFeatures);
+            joinThrottles(features, resolvedFeatures);
+            joinBuckets(features, resolvedFeatures);
+        }
+
         var muton = {
 
             /**
              * Given a list of user properties and feature instructions, it returns a collections of features toggles.
+             *
+             * @deprecated use getMutations instead
              *
              * @param userProperties A collection of user properties
              * @param featureInstructions A collection of feature instructions which can be organized as a hierarchy of properties.
              * @returns An collection of feature toggles that are toggled on or off
              */
             getFeatureMutations: function (userProperties, featureInstructions) {
-                var features = {};
+                return this.getMutations(userProperties, featureInstructions).toggles;
+            },
+
+            /**
+             * TODO - finish
+             *
+             * @param userProperties
+             * @param featureInstructions
+             * @returns {*}
+             */
+            getMutations: function (userProperties, featureInstructions) {
+                return this.inheritMutations(userProperties, featureInstructions, {});
+            },
+
+            /**
+             * TODO - finish
+             *
+             * @param userProperties
+             * @param featureInstructions
+             * @param ancestorGenes
+             * @returns {{toggles: {}, buckets: Array, throttles: Array}}
+             */
+            inheritMutations: function (userProperties, featureInstructions, ancestorGenes) {
+                var features = {
+                    toggles: {},
+                    buckets: [],
+                    throttles: []
+                };
 
                 proofReading.checkFeatureInstructions(featureInstructions);
 
@@ -63,8 +121,10 @@
                     var primer = primase.preparePrimer(userProperties, feature, propertyChains, true);
 
                     // Pick the primer, proof-read the instructions and then assemble the collection of feature toggles
-                    var resolvedFeatures = polymerase.assembleFeatures(featureName, primer);
-                    _.merge(features, resolvedFeatures);
+                    var resolvedFeatures = polymerase.assembleFeatures(featureName, primer, ancestorGenes);
+
+                    // Join all the mutations
+                    joinMutations(features, resolvedFeatures);
                 });
 
                 return features;

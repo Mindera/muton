@@ -16,22 +16,28 @@ if (typeof define !== 'function') {
 }
 
 define(function (require) {
+    var _ = require('lodash');
     var bucketMutator = require('../mutators/bucket');
     var throttleMutator = require('../mutators/throttle');
+    var genePairing = require('../mutators/gene-pairing');
     var proofReader = require('../reactions/proof-reading');
 
     function addToFeatures(features, featureName, toggle) {
-        features[featureName] = toggle;
+        return features.push(_.merge({ name: featureName }, toggle));
     }
 
-    function processFeatureInstructions(featureProperties) {
-        var toggle = false;
+    function processFeatureInstructions(featureProperties, gene) {
+        var toggle = {
+            type: 'toggle',
+            toggle: false
+        };
 
         if (featureProperties.toggle !== false) {
             if (throttleMutator.isThrottleValid(featureProperties.throttle)) {
-                toggle = throttleMutator.mutate(featureProperties.throttle);
+                toggle.toggle = throttleMutator.mutate(featureProperties.throttle, gene);
+                toggle.type = 'throttle';
             } else if (featureProperties.toggle === true) {
-                toggle = true;
+                toggle.toggle = true;
             }
         }
 
@@ -39,12 +45,18 @@ define(function (require) {
     }
 
     function containsBuckets(toggle, featureInstructions) {
-        return toggle && bucketMutator.containsMultivariant(featureInstructions);
+        return toggle.toggle && bucketMutator.containsMultivariant(featureInstructions);
     }
 
-    function addBucketToFeatures(features, featureName, featureInstructions, toggle) {
-        var bucketName = bucketMutator.mutate(featureInstructions);
-        addToFeatures(features, featureName + "." + bucketName, toggle);
+    function addBucketToFeatures(features, featureName, featureInstructions, toggle, gene) {
+        var bucketName = bucketMutator.mutate(featureInstructions, gene);
+
+        var bucketToggle = {
+            toggle : toggle.toggle,
+            type : 'bucket'
+        };
+
+        addToFeatures(features, featureName + "." + bucketName, bucketToggle);
     }
 
     return {
@@ -56,18 +68,22 @@ define(function (require) {
          * @param primerInstructions The primer instructions to process
          * @returns A resolved feature toggle, which may mutate to a bucket feature toggle
          */
-        assembleFeatures: function(featureName, primerInstructions) {
-            var features = {};
+        assembleFeatures: function(featureName, primerInstructions, ancestorGenes) {
+            var features = [];
 
             if (proofReader.areInstructionsValid(primerInstructions)) {
-                var toggle = processFeatureInstructions(primerInstructions);
+
+                // Get the ancestor gene based on name to be able to copy it to the descendant
+                var gene = genePairing.pairGene(ancestorGenes, featureName);
+
+                var toggle = processFeatureInstructions(primerInstructions, gene);
                 addToFeatures(features, featureName, toggle);
 
                 if (containsBuckets(toggle, primerInstructions)) {
-                    addBucketToFeatures(features, featureName, primerInstructions, toggle);
+                    addBucketToFeatures(features, featureName, primerInstructions, toggle, gene);
                 }
             } else {
-                addToFeatures(features, featureName, false);
+                addToFeatures(features, featureName, { toggle: false, type: 'toggle' });
             }
             return features;
         }

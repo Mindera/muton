@@ -17,10 +17,18 @@ define(function (require) {
         return value / 10;
     }
 
+    function isThrottleGene(gene) {
+        return !_.isEmpty(gene) && gene.type === 'throttle';
+    }
+
     return {
-        mutate: function (throttle) {
-            var percentage = getPercentageDecimal(throttle);
-            return Math.random() < percentage;
+        mutate: function (throttle, gene) {
+            if (isThrottleGene(gene)) {
+                return gene.toggle;
+            } else {
+                var percentage = getPercentageDecimal(throttle);
+                return Math.random() < percentage;
+            }
         },
 
         isThrottleValid: function (throttle) {
