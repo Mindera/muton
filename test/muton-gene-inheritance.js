@@ -103,9 +103,7 @@ describe('When inheriting genes from previous features', function () {
         expect(features.toggles).to.have.property('feature2').that.equals(false);
     });
 
-    // TODO - finish test implementation
-
-    xit('should transmit bucket genes to child', function () {
+    it('should transmit bucket genes to child', function () {
 
         var instructions = {
             feature1: {
@@ -132,12 +130,12 @@ describe('When inheriting genes from previous features', function () {
         expect(features.toggles).to.have.property('feature2.bucket2').that.equals(true);
     });
 
-    xit('should mutate bucket when ancestor gene is not available in child', function () {
+    it('should mutate bucket when ancestor gene is not available in child', function () {
 
         var instructions = {
             feature1: {
                 toggle: true,
-                buckets: ['bucket1', 'bucket2', 'bucket3']
+                buckets: ['bucket1', 'bucket2']
             }
         };
 
@@ -150,6 +148,6 @@ describe('When inheriting genes from previous features', function () {
 
         var features = victim.inheritMutations({}, instructions, ancestorGenes);
 
-        expect(features.toggles).to.have.property('feature1.bucket3').that.equals(true);
+        expect(features.toggles).to.have.property('feature1.bucket1').that.equals(true);
     });
 });
