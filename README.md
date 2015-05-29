@@ -77,11 +77,12 @@ var featureInstructions = {
 A Muton valid response would be:
 
 ```javascript
-var featureInstructions = {
+{
   'toggles': {
     'superCoolFeature' : true,
     'anotherCoolFeature' : false
   }
+}
 ``` 
 
 ### Instructions format
@@ -116,7 +117,7 @@ var featureInstructions = {
 A valid response for a portuguese user could be:
 
 ```javascript
-var featureInstructions = {
+{
   'toggles' : {
     'superCoolFeature' : true,
   },
@@ -149,7 +150,7 @@ var featureInstructions = {
  A valid response for a french user could be:
  
 ```javascript
-var featureInstructions = {
+{
   'toggles' : {
     'superCoolFeature' : true,
     'superCoolFeature.smallButton' : true
@@ -200,6 +201,12 @@ var featureInstructions = {
 
   To inherit properties from previous mutations, you can use gene inheritance. This is useful when you want to maintain the same users on the same buckets or throttles to guarantee consistency in your features when the context changes.
   This is only applied to instructions that are subject to mutations, namely 'buckets' and 'throttles'. Inherited mutations from ancestors will only work when the new instructions and ancestor genes have the same kind of mutations (e.g.: Ancestor and predecessor have a throttle on the same feature). For plain toggles, ancestor genes will be ignored.
+  
+  To inherit genes from an ancestor, you can use Muton in the following way:
+  
+```javascript
+var features = muton.inheritMutations(userProperties, featureInstructions, ancestorGenes);
+```
   
 #### Throttle inheritance 
     
