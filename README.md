@@ -200,7 +200,7 @@ var featureInstructions = {
 ### Gene inheritance
 
   To inherit properties from previous mutations, you can use gene inheritance. This is useful when you want to maintain the same users on the same buckets or throttles to guarantee consistency in your features when the context changes.
-  This is only applied to instructions that are subject to mutations, namely 'buckets' and 'throttles'. Inherited mutations from ancestors will only work when the new instructions and ancestor genes have the same kind of mutations (e.g.: Ancestor and predecessor have a throttle on the same feature). For plain toggles, ancestor genes will be ignored.
+  This is only applied to instructions that are subject to mutations, namely 'buckets' and 'throttles'. Inherited mutations from ancestors will only work when the new instructions and ancestor genes have the same kind of mutations (e.g.: ancestor and predecessor have a throttle on the same feature). For plain toggles, ancestor genes will be ignored.
   
   To inherit genes from an ancestor, you can use Muton in the following way:
   
@@ -224,7 +224,7 @@ var features = muton.inheritMutations(userProperties, featureInstructions, ances
     }
   }
 ```
-  You can use a previous Muton output to feed new mutations and inherit mutations from ancestors. The default behaviour is to inherit previous throttles. In the bellow example, Muton will always return true for the 'superCoolFeature' throttle, because the previous throttle was enabled.
+  You can use a previous Muton output to feed new mutations and inherit them from ancestors. The default behaviour is to inherit from ancestor. In the bellow example, Muton will always return true for the 'superCoolFeature' throttle, because the previous throttle was enabled.
 
 ```javascript
   var ancestorGenes = {
@@ -234,7 +234,7 @@ var features = muton.inheritMutations(userProperties, featureInstructions, ances
       'throttles' : ['superCoolFeature']
   };
 ```
-  If you choose to force mutations when inheriting throttles on a specific context, you can create a throttle object instead of a percentage and pass a 'mutate' property and ignore the ancestor gene. You must specify it in the instructions:
+  If you choose to force mutations when inheriting throttles on a specific context, you can create a throttle object instead of a percentage value and pass a 'mutate' property and ignore the ancestor gene. You must specify it in the instructions:
   
 ```javascript
   var featureInstructions = {
@@ -267,7 +267,7 @@ var features = muton.inheritMutations(userProperties, featureInstructions, ances
   }
 ```
 
-  The ancestor genes (a previous Muton output) could be passed to Muton and the predecessor will inherit the ancestor bucket. However, if the ancestor gene contains a bucket that is not defined in the predecessor instructions, then a bucket mutation will occur and a random bucket from the instructions will be picked up.
+  The ancestor genes (a previous Muton output) could be passed to Muton and the predecessor will inherit the ancestor bucket. However, if the ancestor gene contains a bucket that is not defined in the predecessor instructions, then a bucket mutation will occur and a random bucket from the new instructions will be picked up.
   
 ```javascript
   var ancestorGenes = {
