@@ -28,8 +28,8 @@ describe('When inheriting genes from previous features', function () {
         };
 
         var ancestorGenes = {
-            "toggles" : {
-                "feature1" : false
+            'toggles' : {
+                'feature1' : false
             }
         };
 
@@ -47,10 +47,10 @@ describe('When inheriting genes from previous features', function () {
         };
 
         var ancestorGenes = {
-            "toggles" : {
-                "feature1" : false
+            'toggles' : {
+                'feature1' : false
             },
-            "throttles" : ["feature1"]
+            'throttles' : ['feature1']
         };
 
         var features = victim.inheritMutations({}, instructions, ancestorGenes);
@@ -67,10 +67,10 @@ describe('When inheriting genes from previous features', function () {
         };
 
         var ancestorGenes = {
-            "toggles" : {
-                "feature1.bucket1" : false
+            'toggles' : {
+                'feature1.bucket1' : false
             },
-            "buckets" : ["feature1.bucket1"]
+            'buckets' : ['feature1.bucket1']
         };
 
         var features = victim.inheritMutations({}, instructions, ancestorGenes);
@@ -78,7 +78,35 @@ describe('When inheriting genes from previous features', function () {
         expect(features.toggles).to.have.property('feature1').that.equals(true);
     });
 
-    it('should transmit throttle genes to child', function () {
+    it('should transmit throttle genes to child when properties match', function () {
+
+        var userProperties = {
+            'location' : 'PT'
+        };
+
+        var instructions = {
+            feature1: {
+                location: {
+                    'PT': {
+                        throttle: '0%'
+                    }
+                }
+            }
+        };
+
+        var ancestorGenes = {
+            'toggles' : {
+                'feature1' : true
+            },
+            'throttles' : ['feature1']
+        };
+
+        var features = victim.inheritMutations(userProperties, instructions, ancestorGenes);
+
+        expect(features.toggles).to.have.property('feature1').that.equals(true);
+    });
+
+    it('should transmit throttle genes to child as default behaviour', function () {
 
         var instructions = {
             feature1: {
@@ -90,17 +118,40 @@ describe('When inheriting genes from previous features', function () {
         };
 
         var ancestorGenes = {
-            "toggles" : {
-                "feature1" : true,
-                "feature2" : false
+            'toggles' : {
+                'feature1' : true,
+                'feature2' : false
             },
-            "throttles" : ['feature1', 'feature2']
+            'throttles' : ['feature1', 'feature2']
         };
 
         var features = victim.inheritMutations({}, instructions, ancestorGenes);
 
         expect(features.toggles).to.have.property('feature1').that.equals(true);
         expect(features.toggles).to.have.property('feature2').that.equals(false);
+    });
+
+    it('should not transmit throttle genes when forcing mutation', function () {
+
+        var instructions = {
+            feature1 : {
+                throttle: {
+                    value: '100%',
+                    mutate: 'force' // default is 'inherit'
+                }
+            }
+        };
+
+        var ancestorGenes = {
+            'toggles' : {
+                'feature1' : false
+            },
+            'throttles' : ['feature1']
+        };
+
+        var features = victim.inheritMutations({}, instructions, ancestorGenes);
+
+        expect(features.toggles).to.have.property('feature1').that.equals(true);
     });
 
     it('should transmit bucket genes to child', function () {
@@ -117,11 +168,11 @@ describe('When inheriting genes from previous features', function () {
         };
 
         var ancestorGenes = {
-            "toggles" : {
-                "feature1.bucket2" : true,
-                "feature2.bucket2" : true
+            'toggles' : {
+                'feature1.bucket2' : true,
+                'feature2.bucket2' : true
             },
-            "buckets" : ['feature1.bucket2', 'feature2.bucket2']
+            'buckets' : ['feature1.bucket2', 'feature2.bucket2']
         };
 
         var features = victim.inheritMutations({}, instructions, ancestorGenes);
@@ -140,14 +191,43 @@ describe('When inheriting genes from previous features', function () {
         };
 
         var ancestorGenes = {
-            "toggles" : {
-                "feature1.bucket3" : true
+            'toggles' : {
+                'feature1.bucket3' : true
             },
-            "buckets" : ['feature1.bucket3']
+            'buckets' : ['feature1.bucket3']
         };
 
         var features = victim.inheritMutations({}, instructions, ancestorGenes);
 
         expect(features.toggles).to.have.property('feature1.bucket1').that.equals(true);
+    });
+
+    it('should transmit bucket genes to child when properties match', function () {
+
+        var userProperties = {
+            'location' : 'PT'
+        };
+
+        var instructions = {
+            feature1: {
+                toggle: true,
+                location: {
+                    'PT': {
+                        buckets: ['bucket1', 'bucket2', 'bucket3']
+                    }
+                }
+            }
+        };
+
+        var ancestorGenes = {
+            'toggles' : {
+                'feature1.bucket3' : true
+            },
+            'buckets' : ['feature1.bucket3']
+        };
+
+        var features = victim.inheritMutations(userProperties, instructions, ancestorGenes);
+
+        expect(features.toggles).to.have.property('feature1.bucket3').that.equals(true);
     });
 });

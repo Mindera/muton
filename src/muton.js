@@ -73,36 +73,37 @@
         var muton = {
 
             /**
-             * Given a list of user properties and feature instructions, it returns a collections of features toggles.
+             * Given a list of user properties and feature instructions, it returns a collection of features toggles.
              *
-             * @deprecated use getMutations instead
+             * @deprecated use getMutations or inheritMutations instead
              *
-             * @param userProperties A collection of user properties
+             * @param userProperties (optional) A collection of user properties
              * @param featureInstructions A collection of feature instructions which can be organized as a hierarchy of properties.
-             * @returns An collection of feature toggles that are toggled on or off
+             * @returns An collection of feature toggles
              */
             getFeatureMutations: function (userProperties, featureInstructions) {
                 return this.getMutations(userProperties, featureInstructions).toggles;
             },
 
             /**
-             * TODO - finish
+             * Given a list of user properties and feature instructions, it returns a collection of features toggles.
              *
-             * @param userProperties
-             * @param featureInstructions
-             * @returns {*}
+             * @param userProperties (optional) A collection of user properties
+             * @param featureInstructions A collection of feature instructions which can be organized as a hierarchy of properties.
+             * @returns {{toggles: {}, buckets: Array, throttles: Array}} An collection of feature toggles
              */
             getMutations: function (userProperties, featureInstructions) {
                 return this.inheritMutations(userProperties, featureInstructions, {});
             },
 
             /**
-             * TODO - finish
+             * Given a list of user properties and feature instructions, it returns a collection of features toggles. If specified,
+             * it can inherit ancestor genes for buckets and throttle mutations
              *
-             * @param userProperties
-             * @param featureInstructions
-             * @param ancestorGenes
-             * @returns {{toggles: {}, buckets: Array, throttles: Array}}
+             * @param userProperties (optional) A collection of user properties
+             * @param featureInstructions A collection of feature instructions which can be organized as a hierarchy of properties.
+             * @param ancestorGenes (optional) The ancestor genes, which is the output of previous mutations from Muton
+             * @returns {{toggles: {}, buckets: Array, throttles: Array}} An collection of feature toggles
              */
             inheritMutations: function (userProperties, featureInstructions, ancestorGenes) {
                 var features = {

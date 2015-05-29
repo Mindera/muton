@@ -44,7 +44,7 @@ Muton
   You can use in the following way:
   
 ```javascript
-var features = muton.getFeatureMutations(userProperties, featureInstructions);
+var features = muton.getMutations(userProperties, featureInstructions);
 ```
 
 Where `userProperties` is a dictionary containing user properties, something like this:
@@ -78,8 +78,10 @@ A Muton valid response would be:
 
 ```javascript
 var featureInstructions = {
-  'superCoolFeature' : true,
-  'anotherCoolFeature' : false
+  'toggles': {
+    'superCoolFeature' : true,
+    'anotherCoolFeature' : false
+  }
 ``` 
 
 ### Instructions format
@@ -111,6 +113,16 @@ var featureInstructions = {
   }
 }
 ```
+A valid response for a portuguese user could be:
+
+```javascript
+var featureInstructions = {
+  'toggles' : {
+    'superCoolFeature' : true,
+  },
+  'throttles': ['superCoolFeature']
+}
+```
 
 #### Buckets (A/B testing, multivariant testing)
 
@@ -138,8 +150,11 @@ var featureInstructions = {
  
 ```javascript
 var featureInstructions = {
-  'superCoolFeature' : true,
-  'superCoolFeature.smallButton' : true
+  'toggles' : {
+    'superCoolFeature' : true,
+    'superCoolFeature.smallButton' : true
+  },
+  'buckets': ['superCoolFeature.smallButton']
 }
 ```
 
@@ -181,6 +196,81 @@ var featureInstructions = {
   }
 ```
 
+### Gene inheritance
+
+  To inherit properties from previous mutations, you can use gene inheritance. This is useful when you want to maintain the same users on the same buckets or throttles to guarantee consistency in your features when the context changes.
+  This is only applied to instructions that are subject to mutations, namely 'buckets' and 'throttles'. Inherited mutations from ancestors will only work when the new instructions and ancestor genes have the same kind of mutations (e.g.: Ancestor and predecessor have a throttle on the same feature). For plain toggles, ancestor genes will be ignored.
+  
+#### Throttle inheritance 
+    
+  For example, to inherit throttles, one could pass a set of instructions and a set of ancestor genes:
+  
+```javascript
+  var featureInstructions = {
+    'superCoolFeature' : {
+      'toggle' : true,
+      'location' : {
+        'PT' : {
+          'throttle' : '50%'
+        }
+      }
+    }
+  }
+```
+  You can use a previous Muton output to feed new mutations and inherit mutations from ancestors. The default behaviour is to inherit previous throttles. In the bellow example, Muton will always return true for the 'superCoolFeature' throttle, because the previous throttle was enabled.
+
+```javascript
+  var ancestorGenes = {
+      'toggles' : {
+          'superCoolFeature' : true
+      },
+      'throttles' : ['superCoolFeature']
+  };
+```
+  If you choose to force mutations when inheriting throttles on a specific context, you can create a throttle object instead of a percentage and pass a 'mutate' property and ignore the ancestor gene. You must specify it in the instructions:
+  
+```javascript
+  var featureInstructions = {
+    'superCoolFeature' : {
+      'toggle' : true,
+      'location' : {
+        'PT' : {
+          'throttle' : '50%',
+          'mutate': 'force'
+        }
+      }
+    }
+  }
+```
+
+#### Bucket inheritance
+
+  To inherit buckets, you can pass a set of ancestor genes to Muton containing buckets:
+  
+```javascript
+  var featureInstructions = {
+    'superCoolFeature' : {
+      'toggle' : true,
+      'location' : {
+        'PT' : {
+          'buckets' : ['bigRedButton', 'mediumSizeButton', 'smallButton']
+        }
+      }
+    }
+  }
+```
+
+  The ancestor genes (a previous Muton output) could be passed to Muton and the predecessor will inherit the ancestor bucket. However, if the ancestor gene contains a bucket that is not defined in the predecessor instructions, then a bucket mutation will occur and a random bucket from the instructions will be picked up.
+  
+```javascript
+  var ancestorGenes = {
+      'toggles' : {
+          'superCoolFeature.bigRedButton' : true
+      },
+      'buckets' : ['superCoolFeature.bigRedButton']
+  };
+```
+
 ## Build
   
   grunt clean && grunt
@@ -201,9 +291,13 @@ Add unit tests for any new or changed functionality. Lint and test your code.
 
 ## Release History
 
-  * 0.0.1 - Initial release
-  * 0.0.2 - Fixing bucket choice bug
-  * 0.1.0 - Adding support for regex and numeric matchers
+  * 0.0.1
+    - Initial release
+  * 0.0.2
+    - Fixing bucket choice bug
+  * 0.1.0
+    - Adding support for regex and numeric matchers
+    - Adding support for gene inheritance
 
 [npm-url]: https://npmjs.org/package/muton
 [npm-image]: https://badge.fury.io/js/muton.svg

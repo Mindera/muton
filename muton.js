@@ -11321,9 +11321,12 @@ mutators_bucket = function (require) {
   function isBucketGene(gene) {
     return !_.isEmpty(gene) && gene.type === 'bucket';
   }
+  function containsGene(featureProperties, gene) {
+    return _.includes(featureProperties.buckets, gene.toggle);
+  }
   return {
     mutate: function (featureProperties, gene) {
-      if (isBucketGene(gene)) {
+      if (isBucketGene(gene) && containsGene(featureProperties, gene)) {
         return gene.toggle;
       } else {
         return pickOneElement(featureProperties.buckets);
@@ -11348,16 +11351,38 @@ if (true) {
 }
 mutators_throttle = function (require) {
   var _ = lodash;
-  function getPercentageDecimal(percentage) {
+  function getPercentageDecimal(throttle) {
+    var percentage = extractPercentage(throttle);
     var value = percentage.substr(0, percentage.length - 2);
     return value / 10;
+  }
+  function extractPercentage(throttle) {
+    var percentage;
+    if (isThrottleNode(throttle)) {
+      percentage = throttle['value'];
+    } else {
+      percentage = throttle;
+    }
+    return percentage;
+  }
+  function isThrottleValid(throttle) {
+    return isThrottleNode(throttle) || isPercentage(throttle);
+  }
+  function isThrottleNode(throttle) {
+    return _.isPlainObject(throttle) && _.isString(throttle['value']) && isPercentage(throttle['value']);
+  }
+  function isPercentage(value) {
+    return !_.isUndefined(value) && _.isString(value) && value.match(/[0-100]%/);
   }
   function isThrottleGene(gene) {
     return !_.isEmpty(gene) && gene.type === 'throttle';
   }
+  function shouldMutate(throttle) {
+    return !_.isUndefined(throttle['mutate']) && throttle['mutate'] === 'force';
+  }
   return {
     mutate: function (throttle, gene) {
-      if (isThrottleGene(gene)) {
+      if (!shouldMutate(throttle) && isThrottleGene(gene)) {
         return gene.toggle;
       } else {
         var percentage = getPercentageDecimal(throttle);
@@ -11365,10 +11390,7 @@ mutators_throttle = function (require) {
       }
     },
     isThrottleValid: function (throttle) {
-      return !_.isUndefined(throttle) && this.isPercentage(throttle);
-    },
-    isPercentage: function (value) {
-      return value.match(/[0-100]%/);
+      return isThrottleValid(throttle);
     }
   };
 }({});
@@ -11380,25 +11402,46 @@ if (true) {
 mutators_gene_pairing = function (require) {
   var _ = lodash;
   function containTogglesPair(genes, featureName) {
-    return _.has(genes.toggles, featureName);
+    return hasPartialName(_.keys(genes.toggles), featureName);
   }
   function containBucketsPair(genes, featureName) {
-    return _.contains(genes.buckets, featureName);
+    return hasPartialName(genes.buckets, featureName);
   }
   function containThrottlesPair(genes, featureName) {
-    return _.contains(genes.throttles, featureName);
+    return hasPartialName(genes.throttles, featureName);
+  }
+  function hasPartialName(featureNames, partialName) {
+    return findWithPartialName(featureNames, partialName).length > 0;
+  }
+  function findWithPartialName(featureNames, partialName) {
+    return _.filter(featureNames, function (featureName) {
+      return featureName.indexOf(partialName) === 0;
+    });
+  }
+  function getMatchingBucket(genes, featureName) {
+    var matchedFeatures = findWithPartialName(genes.buckets, featureName);
+    var matched = _.find(matchedFeatures, function (matchedBucket) {
+      return genes.toggles[matchedBucket];
+    });
+    return _.isString(matched) ? getBucketNameFromFeatureName(matched) : '';
+  }
+  function getBucketNameFromFeatureName(featureName) {
+    var dotIndex = featureName.indexOf('.');
+    return dotIndex >= 0 ? featureName.substring(dotIndex + 1) : '';
   }
   return {
     pairGene: function (genes, featureName) {
       var gene = {};
       if (containTogglesPair(genes, featureName)) {
         var type = 'toggle';
+        var name = genes.toggles[featureName];
         if (containBucketsPair(genes, featureName)) {
           type = 'bucket';
+          name = getMatchingBucket(genes, featureName);
         } else if (containThrottlesPair(genes, featureName)) {
           type = 'throttle';
         }
-        gene['toggle'] = genes.toggles[featureName];
+        gene['toggle'] = name;
         gene['type'] = type;
       }
       return gene;
@@ -11499,6 +11542,7 @@ enzymes_polymerase = function (require) {
      * @param featureName The feature name being processed
      * @param primerInstructions The primer instructions to process
      * @returns A resolved feature toggle, which may mutate to a bucket feature toggle
+     * @param ancestorGenes An object containing 'genes' to inherit, this only applies to throttles and buckets
      */
     assembleFeatures: function (featureName, primerInstructions, ancestorGenes) {
       var features = [];
@@ -11577,32 +11621,35 @@ enzymes_polymerase = function (require) {
     }
     var muton = {
       /**
-       * Given a list of user properties and feature instructions, it returns a collections of features toggles.
+       * Given a list of user properties and feature instructions, it returns a collection of features toggles.
        *
-       * @deprecated use getMutations instead
+       * @deprecated use getMutations or inheritMutations instead
        *
-       * @param userProperties A collection of user properties
+       * @param userProperties (optional) A collection of user properties
        * @param featureInstructions A collection of feature instructions which can be organized as a hierarchy of properties.
-       * @returns An collection of feature toggles that are toggled on or off
+       * @returns An collection of feature toggles
        */
       getFeatureMutations: function (userProperties, featureInstructions) {
         return this.getMutations(userProperties, featureInstructions).toggles;
       },
       /**
+       * Given a list of user properties and feature instructions, it returns a collection of features toggles.
        *
-       * @param userProperties
-       * @param featureInstructions
-       * @returns {*}
+       * @param userProperties (optional) A collection of user properties
+       * @param featureInstructions A collection of feature instructions which can be organized as a hierarchy of properties.
+       * @returns {{toggles: {}, buckets: Array, throttles: Array}} An collection of feature toggles
        */
       getMutations: function (userProperties, featureInstructions) {
         return this.inheritMutations(userProperties, featureInstructions, {});
       },
       /**
+       * Given a list of user properties and feature instructions, it returns a collection of features toggles. If specified,
+       * it can inherit ancestor genes for buckets and throttle mutations
        *
-       * @param userProperties
-       * @param featureInstructions
-       * @param ancestorGenes
-       * @returns {{toggles: {}, buckets: Array, throttles: Array}}
+       * @param userProperties (optional) A collection of user properties
+       * @param featureInstructions A collection of feature instructions which can be organized as a hierarchy of properties.
+       * @param ancestorGenes (optional) The ancestor genes, which is the output of previous mutations from Muton
+       * @returns {{toggles: {}, buckets: Array, throttles: Array}} An collection of feature toggles
        */
       inheritMutations: function (userProperties, featureInstructions, ancestorGenes) {
         var features = {

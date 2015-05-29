@@ -67,7 +67,7 @@ define(function (require) {
          * @param featureName The feature name being processed
          * @param primerInstructions The primer instructions to process
          * @returns A resolved feature toggle, which may mutate to a bucket feature toggle
-         * @param ancestorGenes
+         * @param ancestorGenes An object containing 'genes' to inherit, this only applies to throttles and buckets
          */
         assembleFeatures: function(featureName, primerInstructions, ancestorGenes) {
             var features = [];
