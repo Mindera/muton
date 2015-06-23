@@ -8,7 +8,7 @@
  * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <https://lodash.com/license>
  */
-var lodash, reactions_chemicaljs, enzymes_helicase, reactions_matchers_regex, reactions_matchers_numeric_quantifier, reactions_match_readingjs, enzymes_primase, mutators_bucket, mutators_throttle, reactions_proof_reading, enzymes_polymerase, muton;
+var lodash, reactions_chemicaljs, enzymes_helicase, reactions_matchers_regex, reactions_matchers_numeric_quantifier, reactions_match_readingjs, enzymes_primase, mutators_bucket, mutators_throttle, mutators_gene_pairing, reactions_proof_reading, enzymes_polymerase, muton;
 (function () {
   /** Used as a safe reference for `undefined` in pre-ES5 environments. */
   var undefined;
@@ -11318,9 +11318,19 @@ mutators_bucket = function (require) {
     var index = Math.floor(Math.random() * array.length);
     return array[index];
   }
+  function isBucketGene(gene) {
+    return !_.isEmpty(gene) && gene.type === 'bucket';
+  }
+  function containsGene(featureProperties, gene) {
+    return _.includes(featureProperties.buckets, gene.toggle);
+  }
   return {
-    mutate: function (featureProperties) {
-      return pickOneElement(featureProperties.buckets);
+    mutate: function (featureProperties, gene) {
+      if (isBucketGene(gene) && containsGene(featureProperties, gene)) {
+        return gene.toggle;
+      } else {
+        return pickOneElement(featureProperties.buckets);
+      }
     },
     containsMultivariant: function (featureProperties) {
       return this.isBucketListValid(featureProperties.buckets);
@@ -11341,20 +11351,100 @@ if (true) {
 }
 mutators_throttle = function (require) {
   var _ = lodash;
-  function getPercentageDecimal(percentage) {
+  function getPercentageDecimal(throttle) {
+    var percentage = extractPercentage(throttle);
     var value = percentage.substr(0, percentage.length - 2);
     return value / 10;
   }
+  function extractPercentage(throttle) {
+    var percentage;
+    if (isThrottleNode(throttle)) {
+      percentage = throttle['value'];
+    } else {
+      percentage = throttle;
+    }
+    return percentage;
+  }
+  function isThrottleValid(throttle) {
+    return isThrottleNode(throttle) || isPercentage(throttle);
+  }
+  function isThrottleNode(throttle) {
+    return _.isPlainObject(throttle) && _.isString(throttle['value']) && isPercentage(throttle['value']);
+  }
+  function isPercentage(value) {
+    return !_.isUndefined(value) && _.isString(value) && value.match(/[0-100]%/);
+  }
+  function isThrottleGene(gene) {
+    return !_.isEmpty(gene) && gene.type === 'throttle';
+  }
+  function shouldMutate(throttle) {
+    return !_.isUndefined(throttle['mutate']) && throttle['mutate'] === 'force';
+  }
   return {
-    mutate: function (throttle) {
-      var percentage = getPercentageDecimal(throttle);
-      return Math.random() < percentage;
+    mutate: function (throttle, gene) {
+      if (!shouldMutate(throttle) && isThrottleGene(gene)) {
+        return gene.toggle;
+      } else {
+        var percentage = getPercentageDecimal(throttle);
+        return Math.random() < percentage;
+      }
     },
     isThrottleValid: function (throttle) {
-      return !_.isUndefined(throttle) && this.isPercentage(throttle);
-    },
-    isPercentage: function (value) {
-      return value.match(/[0-100]%/);
+      return isThrottleValid(throttle);
+    }
+  };
+}({});
+'use strict';
+if (true) {
+  /*jshint -W003*/
+  var define = amdefine(module);
+}
+mutators_gene_pairing = function (require) {
+  var _ = lodash;
+  function containTogglesPair(genes, featureName) {
+    return hasPartialName(_.keys(genes.toggles), featureName);
+  }
+  function containBucketsPair(genes, featureName) {
+    return hasPartialName(genes.buckets, featureName);
+  }
+  function containThrottlesPair(genes, featureName) {
+    return hasPartialName(genes.throttles, featureName);
+  }
+  function hasPartialName(featureNames, partialName) {
+    return findWithPartialName(featureNames, partialName).length > 0;
+  }
+  function findWithPartialName(featureNames, partialName) {
+    return _.filter(featureNames, function (featureName) {
+      return featureName.indexOf(partialName) === 0;
+    });
+  }
+  function getMatchingBucket(genes, featureName) {
+    var matchedFeatures = findWithPartialName(genes.buckets, featureName);
+    var matched = _.find(matchedFeatures, function (matchedBucket) {
+      return genes.toggles[matchedBucket];
+    });
+    return _.isString(matched) ? getBucketNameFromFeatureName(matched) : '';
+  }
+  function getBucketNameFromFeatureName(featureName) {
+    var dotIndex = featureName.indexOf('.');
+    return dotIndex >= 0 ? featureName.substring(dotIndex + 1) : '';
+  }
+  return {
+    pairGene: function (genes, featureName) {
+      var gene = {};
+      if (containTogglesPair(genes, featureName)) {
+        var type = 'toggle';
+        var name = genes.toggles[featureName];
+        if (containBucketsPair(genes, featureName)) {
+          type = 'bucket';
+          name = getMatchingBucket(genes, featureName);
+        } else if (containThrottlesPair(genes, featureName)) {
+          type = 'throttle';
+        }
+        gene['toggle'] = name;
+        gene['type'] = type;
+      }
+      return gene;
     }
   };
 }({});
@@ -11410,29 +11500,39 @@ if (true) {
   var define = amdefine(module);
 }
 enzymes_polymerase = function (require) {
+  var _ = lodash;
   var bucketMutator = mutators_bucket;
   var throttleMutator = mutators_throttle;
+  var genePairing = mutators_gene_pairing;
   var proofReader = reactions_proof_reading;
   function addToFeatures(features, featureName, toggle) {
-    features[featureName] = toggle;
+    return features.push(_.merge({ name: featureName }, toggle));
   }
-  function processFeatureInstructions(featureProperties) {
-    var toggle = false;
+  function processFeatureInstructions(featureProperties, gene) {
+    var toggle = {
+      type: 'toggle',
+      toggle: false
+    };
     if (featureProperties.toggle !== false) {
       if (throttleMutator.isThrottleValid(featureProperties.throttle)) {
-        toggle = throttleMutator.mutate(featureProperties.throttle);
+        toggle.toggle = throttleMutator.mutate(featureProperties.throttle, gene);
+        toggle.type = 'throttle';
       } else if (featureProperties.toggle === true) {
-        toggle = true;
+        toggle.toggle = true;
       }
     }
     return toggle;
   }
   function containsBuckets(toggle, featureInstructions) {
-    return toggle && bucketMutator.containsMultivariant(featureInstructions);
+    return toggle.toggle && bucketMutator.containsMultivariant(featureInstructions);
   }
-  function addBucketToFeatures(features, featureName, featureInstructions, toggle) {
-    var bucketName = bucketMutator.mutate(featureInstructions);
-    addToFeatures(features, featureName + '.' + bucketName, toggle);
+  function addBucketToFeatures(features, featureName, featureInstructions, toggle, gene) {
+    var bucketName = bucketMutator.mutate(featureInstructions, gene);
+    var bucketToggle = {
+      toggle: toggle.toggle,
+      type: 'bucket'
+    };
+    addToFeatures(features, featureName + '.' + bucketName, bucketToggle);
   }
   return {
     /**
@@ -11442,17 +11542,23 @@ enzymes_polymerase = function (require) {
      * @param featureName The feature name being processed
      * @param primerInstructions The primer instructions to process
      * @returns A resolved feature toggle, which may mutate to a bucket feature toggle
+     * @param ancestorGenes An object containing 'genes' to inherit, this only applies to throttles and buckets
      */
-    assembleFeatures: function (featureName, primerInstructions) {
-      var features = {};
+    assembleFeatures: function (featureName, primerInstructions, ancestorGenes) {
+      var features = [];
       if (proofReader.areInstructionsValid(primerInstructions)) {
-        var toggle = processFeatureInstructions(primerInstructions);
+        // Get the ancestor gene based on name to be able to copy it to the descendant
+        var gene = genePairing.pairGene(ancestorGenes, featureName);
+        var toggle = processFeatureInstructions(primerInstructions, gene);
         addToFeatures(features, featureName, toggle);
         if (containsBuckets(toggle, primerInstructions)) {
-          addBucketToFeatures(features, featureName, primerInstructions, toggle);
+          addBucketToFeatures(features, featureName, primerInstructions, toggle, gene);
         }
       } else {
-        addToFeatures(features, featureName, false);
+        addToFeatures(features, featureName, {
+          toggle: false,
+          type: 'toggle'
+        });
       }
       return features;
     }
@@ -11479,7 +11585,7 @@ enzymes_polymerase = function (require) {
  *
  *  That's it.
  *
- *  If you want to get a little deeper, please have a look at:
+ * If you want to get a little deeper, please have a look at:
  * http://www.nature.com/scitable/topicpage/cells-can-replicate-their-dna-precisely-6524830
  */
 (function () {
@@ -11494,16 +11600,63 @@ enzymes_polymerase = function (require) {
     var primase = enzymes_primase;
     var polymerase = enzymes_polymerase;
     var proofReading = reactions_proof_reading;
+    function joinToggles(features, resolvedFeatures) {
+      features.toggles = _.reduce(resolvedFeatures, function (result, elem) {
+        result[elem.name] = elem.toggle;
+        return result;
+      }, features.toggles);
+    }
+    function joinThrottles(features, resolvedFeatures) {
+      var buckets = _.chain(resolvedFeatures).filter({ type: 'bucket' }).pluck('name').value();
+      features.buckets = features.buckets.concat(buckets);
+    }
+    function joinBuckets(features, resolvedFeatures) {
+      var throttles = _.chain(resolvedFeatures).filter({ type: 'throttle' }).pluck('name').value();
+      features.throttles = features.throttles.concat(throttles);
+    }
+    function joinMutations(features, resolvedFeatures) {
+      joinToggles(features, resolvedFeatures);
+      joinThrottles(features, resolvedFeatures);
+      joinBuckets(features, resolvedFeatures);
+    }
     var muton = {
       /**
-       * Given a list of user properties and feature instructions, it returns a collections of features toggles.
+       * Given a list of user properties and feature instructions, it returns a collection of features toggles.
        *
-       * @param userProperties A collection of user properties
+       * @deprecated use getMutations or inheritMutations instead
+       *
+       * @param userProperties (optional) A collection of user properties
        * @param featureInstructions A collection of feature instructions which can be organized as a hierarchy of properties.
-       * @returns An collection of feature toggles that are toggled on or off
+       * @returns An collection of feature toggles
        */
       getFeatureMutations: function (userProperties, featureInstructions) {
-        var features = {};
+        return this.getMutations(userProperties, featureInstructions).toggles;
+      },
+      /**
+       * Given a list of user properties and feature instructions, it returns a collection of features toggles.
+       *
+       * @param userProperties (optional) A collection of user properties
+       * @param featureInstructions A collection of feature instructions which can be organized as a hierarchy of properties.
+       * @returns {{toggles: {}, buckets: Array, throttles: Array}} An collection of feature toggles
+       */
+      getMutations: function (userProperties, featureInstructions) {
+        return this.inheritMutations(userProperties, featureInstructions, {});
+      },
+      /**
+       * Given a list of user properties and feature instructions, it returns a collection of features toggles. If specified,
+       * it can inherit ancestor genes for buckets and throttle mutations
+       *
+       * @param userProperties (optional) A collection of user properties
+       * @param featureInstructions A collection of feature instructions which can be organized as a hierarchy of properties.
+       * @param ancestorGenes (optional) The ancestor genes, which is the output of previous mutations from Muton
+       * @returns {{toggles: {}, buckets: Array, throttles: Array}} An collection of feature toggles
+       */
+      inheritMutations: function (userProperties, featureInstructions, ancestorGenes) {
+        var features = {
+          toggles: {},
+          buckets: [],
+          throttles: []
+        };
         proofReading.checkFeatureInstructions(featureInstructions);
         _.forEach(featureInstructions, function (feature, featureName) {
           // Helicase will break the user properties and features apart into two different chains
@@ -11511,8 +11664,9 @@ enzymes_polymerase = function (require) {
           // Read the chains and return a primer object that will contain a set of instructions
           var primer = primase.preparePrimer(userProperties, feature, propertyChains, true);
           // Pick the primer, proof-read the instructions and then assemble the collection of feature toggles
-          var resolvedFeatures = polymerase.assembleFeatures(featureName, primer);
-          _.merge(features, resolvedFeatures);
+          var resolvedFeatures = polymerase.assembleFeatures(featureName, primer, ancestorGenes);
+          // Join all the mutations
+          joinMutations(features, resolvedFeatures);
         });
         return features;
       }

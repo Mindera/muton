@@ -22,9 +22,21 @@ define(function (require) {
         return array[index];
     }
 
+    function isBucketGene(gene) {
+        return !_.isEmpty(gene) && gene.type === 'bucket';
+    }
+
+    function containsGene(featureProperties, gene) {
+        return _.includes(featureProperties.buckets, gene.toggle);
+    }
+
     return {
-        mutate: function(featureProperties) {
-            return pickOneElement(featureProperties.buckets);
+        mutate: function(featureProperties, gene) {
+            if (isBucketGene(gene) && containsGene(featureProperties, gene)) {
+                return gene.toggle;
+            } else {
+                return pickOneElement(featureProperties.buckets);
+            }
         },
 
         containsMultivariant: function(featureProperties) {
