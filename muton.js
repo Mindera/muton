@@ -11477,7 +11477,7 @@ reactions_proof_reading = function (require) {
       return _.isUndefined(buckets) || bucketMutator.isBucketListValid(buckets);
     },
     checkFeatureInstructions: function (featureInstructions) {
-      var valid = _.isUndefined(featureInstructions) || _.isNull(featureInstructions) || _.isPlainObject(featureInstructions);
+      var valid = _.isUndefined(featureInstructions) || _.isNull(featureInstructions) || !_.isArray(featureInstructions) && _.isObject(featureInstructions);
       if (!valid) {
         throw new Error('Invalid feature instructions!');
       }
