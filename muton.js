@@ -588,9 +588,10 @@ enzymes_polymerase = function (require) {
       // Export to NodeJS
       exports = muton;
     } else {
-      // Export to AMD
+      // Export to Global
       this.muton = muton;
     }
+    return muton;
   }({});
 }.call(this));
 }());
