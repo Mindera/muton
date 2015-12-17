@@ -1,6 +1,6 @@
 {
   "name": "muton",
-  "version": "0.0.3",
+  "version": "0.2.0",
   "description": "A feature toggling/throttling and multivariate testing tool",
   "main": "src/muton.js",
   "repository": {
