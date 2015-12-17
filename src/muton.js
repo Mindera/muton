@@ -137,8 +137,10 @@
             // Export to NodeJS
             module.exports = muton;
         } else {
-            // Export to AMD
+            // Export to Global
             this.muton = muton;
         }
+
+        return muton;
     });
 }).call(this);
