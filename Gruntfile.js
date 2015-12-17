@@ -88,6 +88,7 @@ module.exports = function(grunt) {
                         regexMatcher: 'reactions/matchers/regex',
                         numericMatcher: 'reactions/matchers/numeric-quantifier'
                     },
+                    exclude: ['lodash'],
                     name: 'muton',
                     out: 'muton-amd.min.js',
                     onModuleBundleComplete: function (data) {
