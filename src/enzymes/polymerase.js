@@ -10,14 +10,15 @@
  * In the process, even if the instructions are considered valid, random mutations occur. Those are caused by the
  * Bucket and Throttle mutators. That's your application trying to evolve.
  */
-var _ = require('lodash');
+var merge = require('lodash/object/merge');
+
 var bucketMutator = require('../mutators/bucket');
 var throttleMutator = require('../mutators/throttle');
 var genePairing = require('../mutators/gene-pairing');
 var proofReader = require('../reactions/proof-reading');
 
 function addToFeatures(features, featureName, toggle) {
-    return features.push(_.merge({ name: featureName }, toggle));
+    return features.push(merge({ name: featureName }, toggle));
 }
 
 function processFeatureInstructions(featureProperties, gene) {

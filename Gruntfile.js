@@ -63,7 +63,6 @@ module.exports = function(grunt) {
                 output: {
                     library: 'muton',
                 },
-                externals: ['lodash']
             },
             umd: {
                 output: {
@@ -79,7 +78,7 @@ module.exports = function(grunt) {
                 plugins: [
                     new webpack.optimize.DedupePlugin(),
                     new webpack.optimize.UglifyJsPlugin({
-                      mangle: false,
+                      mangle: true,
                       compress: {
                           sequences: true,
                           properties: true,
@@ -110,7 +109,7 @@ module.exports = function(grunt) {
                 plugins: [
                     new webpack.optimize.DedupePlugin(),
                     new webpack.optimize.UglifyJsPlugin({
-                      mangle: false,
+                      mangle: true,
                       compress: {
                           sequences: true,
                           properties: true,

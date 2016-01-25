@@ -4,10 +4,12 @@
  * The Bucket mutator manipulates the features by introducing small random mutations by picking a random
  * bucket from the list, allowing multivariance testing.
  */
-var _ = require('lodash');
+var isArray = require('lodash/lang/isArray');
+var isEmpty = require('lodash/lang/isEmpty');
+var includes = require('lodash/collection/includes');
 
 function pickOneElement(array) {
-    if (!_.isArray(array)) {
+    if (!isArray(array)) {
         throw 'Not an array!';
     }
 
@@ -16,11 +18,11 @@ function pickOneElement(array) {
 }
 
 function isBucketGene(gene) {
-    return !_.isEmpty(gene) && gene.type === 'bucket';
+    return !isEmpty(gene) && gene.type === 'bucket';
 }
 
 function containsGene(featureProperties, gene) {
-    return _.includes(featureProperties.buckets, gene.toggle);
+    return includes(featureProperties.buckets, gene.toggle);
 }
 
 module.exports = {
@@ -37,6 +39,6 @@ module.exports = {
     },
 
     isBucketListValid: function(bucketList) {
-        return _.isArray(bucketList) && bucketList.length >= 0;
+        return isArray(bucketList) && bucketList.length >= 0;
     }
 };

@@ -3,14 +3,13 @@
 /**
  * This module contains multiple chemical reactions for use freely.
  */
-
-var _ = require('lodash');
+var keys = require('lodash/object/keys');
 
 module.exports = {
     separateProperties: function (userProperties, feature) {
         return {
-            userPropertyNames: _.keys(userProperties),
-            featurePropertyNames: _.keys(feature)
+            userPropertyNames: keys(userProperties),
+            featurePropertyNames: keys(feature)
         };
     }
 };

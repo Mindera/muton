@@ -4,15 +4,17 @@
  * The Throttle mutator manipulates the features by introducing small random mutations by randomly activate
  * or deactivate feture toggles.
  */
-
-var _ = require('lodash');
+var isUndefined = require('lodash/lang/isUndefined');
+var isString = require('lodash/lang/isString');
+var isPlainObject = require('lodash/lang/isPlainObject');
+var isEmpty = require('lodash/lang/isEmpty');
 
 function isPercentage(value) {
-    return !_.isUndefined(value) && _.isString(value) && value.match(/[0-100]%/);
+    return !isUndefined(value) && isString(value) && value.match(/[0-100]%/);
 }
 
 function isThrottleNode(throttle) {
-    return _.isPlainObject(throttle) && _.isString(throttle['value']) && isPercentage(throttle['value']);
+    return isPlainObject(throttle) && isString(throttle['value']) && isPercentage(throttle['value']);
 }
 
 function extractPercentage(throttle) {
@@ -36,11 +38,11 @@ function isThrottleValid(throttle) {
 }
 
 function isThrottleGene(gene) {
-    return !_.isEmpty(gene) && gene.type === 'throttle';
+    return !isEmpty(gene) && gene.type === 'throttle';
 }
 
 function shouldMutate(throttle) {
-    return !_.isUndefined(throttle['mutate']) && throttle['mutate'] === 'force';
+    return !isUndefined(throttle['mutate']) && throttle['mutate'] === 'force';
 }
 
 module.exports = {

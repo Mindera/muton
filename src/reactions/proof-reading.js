@@ -3,33 +3,39 @@
 /**
  * This module checks for errors and proof-reads the molecules.
  */
-var _ = require('lodash');
+var get = require('lodash/object/get');
+var isUndefined = require('lodash/lang/isUndefined');
+var isBoolean = require('lodash/lang/isBoolean');
+var isNull = require('lodash/lang/isNull');
+var isArray = require('lodash/lang/isArray');
+var isObject = require('lodash/lang/isObject');
+
 var bucketMutator = require('../mutators/bucket');
 var throttleMutator = require('../mutators/throttle');
 
 module.exports = {
     areInstructionsValid: function (featureInstructions) {
-        var toggle = _.get(featureInstructions, 'toggle');
-        var throttle = _.get(featureInstructions, 'throttle');
-        var buckets = _.get(featureInstructions, 'buckets');
+        var toggle = get(featureInstructions, 'toggle');
+        var throttle = get(featureInstructions, 'throttle');
+        var buckets = get(featureInstructions, 'buckets');
 
         return this.isToggleValid(toggle) && this.isThrottleValid(throttle) && this.areBucketsValid(buckets);
     },
 
     isToggleValid: function (toggle) {
-        return _.isUndefined(toggle) || _.isBoolean(toggle);
+        return isUndefined(toggle) || isBoolean(toggle);
     },
 
     isThrottleValid: function(throttle) {
-        return _.isUndefined(throttle) || throttleMutator.isThrottleValid(throttle);
+        return isUndefined(throttle) || throttleMutator.isThrottleValid(throttle);
     },
 
     areBucketsValid: function(buckets) {
-        return _.isUndefined(buckets) || bucketMutator.isBucketListValid(buckets);
+        return isUndefined(buckets) || bucketMutator.isBucketListValid(buckets);
     },
 
     checkFeatureInstructions: function (featureInstructions) {
-        var valid = _.isUndefined(featureInstructions) || _.isNull(featureInstructions) || !_.isArray(featureInstructions) && _.isObject(featureInstructions);
+        var valid = isUndefined(featureInstructions) || isNull(featureInstructions) || !isArray(featureInstructions) && isObject(featureInstructions);
 
         if (!valid) {
             throw new Error('Invalid feature instructions!');

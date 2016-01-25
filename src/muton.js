@@ -23,33 +23,35 @@
  * http://www.nature.com/scitable/topicpage/cells-can-replicate-their-dna-precisely-6524830
  */
 
-var _ = require('lodash');
+var reduce = require('lodash/collection/reduce');
+var filter = require('lodash/collection/filter');
+var pluck = require('lodash/collection/pluck');
+var forEach = require('lodash/collection/forEach');
+
 var helicase = require('./enzymes/helicase');
 var primase = require('./enzymes/primase');
 var polymerase = require('./enzymes/polymerase');
 var proofReading = require('./reactions/proof-reading');
 
 function joinToggles(features, resolvedFeatures) {
-    features.toggles = _.reduce(resolvedFeatures, function (result, elem) {
+    features.toggles = reduce(resolvedFeatures, function (result, elem) {
         result[elem.name] = elem.toggle;
         return result;
     }, features.toggles);
 }
 
 function joinThrottles(features, resolvedFeatures) {
-    var buckets = _.chain(resolvedFeatures)
-        .filter({type : 'bucket'})
-        .pluck('name')
-        .value();
-    features.buckets = features.buckets.concat(buckets);
+    var buckets = filter(resolvedFeatures, {type : 'bucket'});
+    var names = pluck('name', buckets);
+
+    features.buckets = features.buckets.concat(names);
 }
 
 function joinBuckets(features, resolvedFeatures) {
-    var throttles = _.chain(resolvedFeatures)
-        .filter({type : 'throttle'})
-        .pluck('name')
-        .value();
-    features.throttles = features.throttles.concat(throttles);
+    var throttles = filter(resolvedFeatures, {type : 'throttle'});
+    var names = pluck('name', throttles);
+
+    features.throttles = features.throttles.concat(names);
 }
 
 function joinMutations(features, resolvedFeatures) {
@@ -102,7 +104,7 @@ var muton = {
 
         proofReading.checkFeatureInstructions(featureInstructions);
 
-        _.forEach(featureInstructions, function (feature, featureName) {
+        forEach(featureInstructions, function (feature, featureName) {
             // Helicase will break the user properties and features apart into two different chains
             var propertyChains = helicase.breakProperties(userProperties, feature);
 

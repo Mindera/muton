@@ -5,30 +5,36 @@
  * This module takes the user properties and feature properties strands, analyses it and returns a primer object
  * containing instructions regarding the features to activate or deactivate.
  */
-var _ = require('lodash');
+var get = require('lodash/object/get');
+var pick = require('lodash/object/pick');
+var merge = require('lodash/object/merge');
+var has = require('lodash/object/has');
+var isUndefined = require('lodash/lang/isUndefined');
+var contains = require('lodash/collection/contains');
+
 var chemicalReactions = require('../reactions/chemical.js');
 var matchReading = require('../reactions/match-reading.js');
 
 function getFeatureProperties(feature) {
-    return _.pick(feature, ['toggle', 'throttle', 'buckets']);
+    return pick(feature, ['toggle', 'throttle', 'buckets']);
 }
 
 function mergeProperties(primer, feature) {
     var properties = getFeatureProperties(feature);
-    _.merge(primer, properties);
+    merge(primer, properties);
 }
 
 function isFeatureDisabled(primer, root) {
-    var toggle = _.get(primer, 'toggle');
+    var toggle = get(primer, 'toggle');
     return root && toggle === false;
 }
 
 function containsFeatureProperties(obj) {
-    return _.has(obj, 'toggle') || _.has(obj, 'throttle') || _.has(obj, 'buckets');
+    return has(obj, 'toggle') || has(obj, 'throttle') || has(obj, 'buckets');
 }
 
 function pickMatchedProperties(childProperties, parentProperties) {
-    return !_.isUndefined(childProperties) ? childProperties : parentProperties;
+    return !isUndefined(childProperties) ? childProperties : parentProperties;
 }
 
 function getPropertiesNode(userProperties, featurePropertyName, feature) {
@@ -42,7 +48,7 @@ function getPropertiesNode(userProperties, featurePropertyName, feature) {
 }
 
 function bindPrimer(primerInstructions, childPrimer) {
-    _.merge(primerInstructions, childPrimer);
+    merge(primerInstructions, childPrimer);
 }
 
 module.exports = {
@@ -70,7 +76,7 @@ module.exports = {
 
         if (!isFeatureDisabled(primerInstructions, root)) {
             featurePropertyNames.forEach(function (featurePropertyName) {
-                if (_.contains(userPropertyNames, featurePropertyName)) {
+                if (contains(userPropertyNames, featurePropertyName)) {
                     var propertiesNode = getPropertiesNode(userProperties, featurePropertyName, feature);
                     // Process the child node
                     var childStrands = chemicalReactions.separateProperties(userProperties, propertiesNode);

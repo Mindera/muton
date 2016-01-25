@@ -1,9 +1,12 @@
 'use strict';
 
-var _ = require('lodash');
+var filter = require('lodash/collection/filter');
+var find = require('lodash/collection/find');
+var keys = require('lodash/object/keys');
+var isString = require('lodash/lang/isString');
 
 function findWithPartialName(featureNames, partialName) {
-    return _.filter(featureNames, function (featureName) {
+    return filter(featureNames, function (featureName) {
         return featureName.indexOf(partialName) === 0;
     });
 }
@@ -13,7 +16,7 @@ function hasPartialName(featureNames, partialName) {
 }
 
 function containTogglesPair(genes, featureName) {
-    return hasPartialName(_.keys(genes.toggles), featureName);
+    return hasPartialName(keys(genes.toggles), featureName);
 }
 
 function containBucketsPair(genes, featureName) {
@@ -31,10 +34,10 @@ function getBucketNameFromFeatureName(featureName) {
 
 function getMatchingBucket(genes, featureName) {
     var matchedFeatures = findWithPartialName(genes.buckets, featureName);
-    var matched = _.find(matchedFeatures, function (matchedBucket) {
+    var matched = find(matchedFeatures, function (matchedBucket) {
             return genes.toggles[matchedBucket];
         });
-    return _.isString(matched) ? getBucketNameFromFeatureName(matched) : '';
+    return isString(matched) ? getBucketNameFromFeatureName(matched) : '';
 }
 
 module.exports = {
