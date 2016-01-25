@@ -40,12 +40,15 @@
     "grunt-mocha-cov": "^0.3.0",
     "grunt-mocha-istanbul": "^2.4.0",
     "grunt-requirejs": "^0.4.2",
+    "grunt-webpack": "^1.0.11",
     "istanbul": "^0.3.13",
     "jshint-stylish": "^1.0.1",
     "load-grunt-tasks": "^3.1.0",
     "mocha": "^2.1.0",
     "sinon": "^1.14.1",
-    "time-grunt": "^1.1.0"
+    "time-grunt": "^1.1.0",
+    "webpack": "^1.12.12",
+    "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
     "amdefine": "^0.1.0",

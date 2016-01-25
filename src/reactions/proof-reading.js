@@ -3,44 +3,36 @@
 /**
  * This module checks for errors and proof-reads the molecules.
  */
-if (typeof define !== 'function') {
-    /*jshint -W003*/
-    var define = require('amdefine')(module);
-}
+var _ = require('lodash');
+var bucketMutator = require('../mutators/bucket');
+var throttleMutator = require('../mutators/throttle');
 
-define(function (require) {
+module.exports = {
+    areInstructionsValid: function (featureInstructions) {
+        var toggle = _.get(featureInstructions, 'toggle');
+        var throttle = _.get(featureInstructions, 'throttle');
+        var buckets = _.get(featureInstructions, 'buckets');
 
-    var _ = require('lodash');
-    var bucketMutator = require('../mutators/bucket');
-    var throttleMutator = require('../mutators/throttle');
+        return this.isToggleValid(toggle) && this.isThrottleValid(throttle) && this.areBucketsValid(buckets);
+    },
 
-    return {
-        areInstructionsValid: function (featureInstructions) {
-            var toggle = _.get(featureInstructions, 'toggle');
-            var throttle = _.get(featureInstructions, 'throttle');
-            var buckets = _.get(featureInstructions, 'buckets');
+    isToggleValid: function (toggle) {
+        return _.isUndefined(toggle) || _.isBoolean(toggle);
+    },
 
-            return this.isToggleValid(toggle) && this.isThrottleValid(throttle) && this.areBucketsValid(buckets);
-        },
+    isThrottleValid: function(throttle) {
+        return _.isUndefined(throttle) || throttleMutator.isThrottleValid(throttle);
+    },
 
-        isToggleValid: function (toggle) {
-            return _.isUndefined(toggle) || _.isBoolean(toggle);
-        },
+    areBucketsValid: function(buckets) {
+        return _.isUndefined(buckets) || bucketMutator.isBucketListValid(buckets);
+    },
 
-        isThrottleValid: function(throttle) {
-            return _.isUndefined(throttle) || throttleMutator.isThrottleValid(throttle);
-        },
+    checkFeatureInstructions: function (featureInstructions) {
+        var valid = _.isUndefined(featureInstructions) || _.isNull(featureInstructions) || !_.isArray(featureInstructions) && _.isObject(featureInstructions);
 
-        areBucketsValid: function(buckets) {
-            return _.isUndefined(buckets) || bucketMutator.isBucketListValid(buckets);
-        },
-
-        checkFeatureInstructions: function (featureInstructions) {
-            var valid = _.isUndefined(featureInstructions) || _.isNull(featureInstructions) || !_.isArray(featureInstructions) && _.isObject(featureInstructions);
-
-            if (!valid) {
-                throw new Error('Invalid feature instructions!');
-            }
+        if (!valid) {
+            throw new Error('Invalid feature instructions!');
         }
-    };
-});
+    }
+};

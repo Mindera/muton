@@ -1,42 +1,34 @@
 'use strict';
 
-if (typeof define !== 'function') {
-    /*jshint -W003*/
-    var define = require('amdefine')(module);
+var numberRegex = /-?\d+(\.\d{1,2})?/;
+var operatorRegex = /[><]=?/;
+
+var numericQuantifierRegex = new RegExp(operatorRegex.source + numberRegex.source);
+var validExpressionRegex = new RegExp(numberRegex.source + operatorRegex.source + numberRegex.source);
+
+function isExpressionValid(expression) {
+    return validExpressionRegex.test(expression);
 }
 
-define(function () {
+module.exports = {
 
-    var numberRegex = /-?\d+(\.\d{1,2})?/;
-    var operatorRegex = /[><]=?/;
+    isNumber: function (value) {
+        return numberRegex.test(value);
+    },
 
-    var numericQuantifierRegex = new RegExp(operatorRegex.source + numberRegex.source);
-    var validExpressionRegex = new RegExp(numberRegex.source + operatorRegex.source + numberRegex.source);
+    isNumericQuantifier: function (value) {
+        return numericQuantifierRegex.test(value);
+    },
 
-    function isExpressionValid(expression) {
-        return validExpressionRegex.test(expression);
-    }
+    matchesPropertyValue: function(propertyValue, numericQuantifierStr) {
+        var expression = propertyValue + numericQuantifierStr;
 
-    return {
-
-        isNumber: function (value) {
-            return numberRegex.test(value);
-        },
-
-        isNumericQuantifier: function (value) {
-            return numericQuantifierRegex.test(value);
-        },
-
-        matchesPropertyValue: function(propertyValue, numericQuantifierStr) {
-            var expression = propertyValue + numericQuantifierStr;
-
-            if (!isExpressionValid(expression)) {
-                // Just to catch eventual issues with eval
-                return false;
-            }
-
-            /*jshint -W061*/
-            return eval(expression);
+        if (!isExpressionValid(expression)) {
+            // Just to catch eventual issues with eval
+            return false;
         }
-    };
-});
+
+        /*jshint -W061*/
+        return eval(expression);
+    }
+};

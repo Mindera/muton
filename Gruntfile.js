@@ -1,3 +1,5 @@
+var webpack = require('webpack');
+
 module.exports = function(grunt) {
     // Show elapsed time at the end
     require('time-grunt')(grunt);
@@ -55,64 +57,76 @@ module.exports = function(grunt) {
             }
         },
 
-        requirejs: {
-            dist: {
-                options: {
-                    optimize: 'uglify2',
-                    uglify2: {
-                        mangle: false,
-                        compress: {
-                            sequences: true,
-                            properties: true,
-                            dead_code: true,
-                            conditionals: true,
-                            booleans: true,
-                            unused: true,
-                            if_return: true,
-                            join_vars: true,
-                            drop_console: true
-                        }
-                    },
-                    baseUrl: './src',
-                    paths: {
-                        lodash: '../lib/lodash/lodash',
-                        bucket: 'mutators/bucket',
-                        throttle: 'mutators/throttle',
-                        genePairing: 'mutators/gene-pairing',
-                        helicase: 'enzymes/helicase',
-                        primase: 'enzymes/primase',
-                        polymerase: 'enzymes/polymerase',
-                        chemical: 'reactions/chemical',
-                        proofReading: 'reactions/proof-reading',
-                        matchReading: 'reactions/match-reading',
-                        regexMatcher: 'reactions/matchers/regex',
-                        numericMatcher: 'reactions/matchers/numeric-quantifier'
-                    },
-                    exclude: ['lodash'],
-                    name: 'muton',
-                    out: 'muton-amd.min.js',
-                    onModuleBundleComplete: function (data) {
-                        var fs = require('fs');
-                        var amdclean = require('amdclean');
-                        var inputFile = data.path;
-
-                        fs.writeFileSync('muton.js', amdclean.clean({
-                            'filePath': inputFile
-                        }));
-                    }
-                }
-            }
-        },
-        uglify: {
+        webpack: {
             options: {
-                mangle: false
+                entry: './src/muton.js',
+                output: {
+                    library: 'muton',
+                },
+                externals: ['lodash']
             },
-            minjs: {
-                files: {
-                    'muton.min.js': ['muton.js']
-                }
-            }
+            umd: {
+                output: {
+                    filename: 'muton.min.js',
+                    libraryTarget: 'umd',
+                },
+            },
+            'umd-min': {
+                output: {
+                    filename: 'muton.js',
+                    libraryTarget: 'umd'
+                },
+                plugins: [
+                    new webpack.optimize.DedupePlugin(),
+                    new webpack.optimize.UglifyJsPlugin({
+                      mangle: false,
+                      compress: {
+                          sequences: true,
+                          properties: true,
+                          dead_code: true,
+                          conditionals: true,
+                          booleans: true,
+                          unused: true,
+                          if_return: true,
+                          join_vars: true,
+                          drop_console: true
+                      }
+                  })
+                ]
+            },
+            // To keep compatibility with legacy
+            amd: {
+                output: {
+                    filename: 'muton-amd.min.js',
+                    libraryTarget: 'amd'
+                },
+                plugins: [],
+            },
+            'amd-min': {
+                output: {
+                    filename: 'muton-amd.min.js',
+                    libraryTarget: 'amd'
+                },
+                plugins: [
+                    new webpack.optimize.DedupePlugin(),
+                    new webpack.optimize.UglifyJsPlugin({
+                      mangle: false,
+                      compress: {
+                          sequences: true,
+                          properties: true,
+                          dead_code: true,
+                          conditionals: true,
+                          booleans: true,
+                          unused: true,
+                          if_return: true,
+                          join_vars: true,
+                          drop_console: true
+                      }
+                  })
+                ]
+            },
         },
+
         mocha_istanbul: {
             coveralls: {
                 src: ['test'],
@@ -155,7 +169,6 @@ module.exports = function(grunt) {
         'bower',
         'test',
         'coveralls',
-        'requirejs:dist',
-        'uglify'
+        'webpack:dist'
     ]);
 };
