@@ -67,13 +67,13 @@ module.exports = function(grunt) {
             },
             umd: {
                 output: {
-                    filename: 'muton.min.js',
+                    filename: 'muton.js',
                     libraryTarget: 'umd',
                 },
             },
             'umd-min': {
                 output: {
-                    filename: 'muton.js',
+                    filename: 'muton.min.js',
                     libraryTarget: 'umd'
                 },
                 plugins: [
@@ -97,7 +97,7 @@ module.exports = function(grunt) {
             // To keep compatibility with legacy
             amd: {
                 output: {
-                    filename: 'muton-amd.min.js',
+                    filename: 'muton-amd.js',
                     libraryTarget: 'amd'
                 },
                 plugins: [],
@@ -169,6 +169,6 @@ module.exports = function(grunt) {
         'bower',
         'test',
         'coveralls',
-        'webpack:dist'
+        'webpack'
     ]);
 };
