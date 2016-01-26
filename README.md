@@ -25,10 +25,6 @@ Muton
 
 ## Installation
 
-### Dependencies
-
-  muton depends on [lodash](https://https://lodash.com/). Please ensure that it's available in your enviroment.
-
 ### NPM
 
   npm install muton --save
@@ -312,6 +308,9 @@ Add unit tests for any new or changed functionality. Lint and test your code.
   * 0.2.0
     - Exclude lodash from final bundle
     - Return muton on define call to ensure that it's correctly exported
+  * 0.3.0
+    - Replace requirejs with Webpack
+    - Include used lodash functions in the final bundle, to avoid dependency conflicts between projects.
 
 [npm-url]: https://npmjs.org/package/muton
 [npm-image]: https://badge.fury.io/js/muton.svg
