@@ -1,6 +1,6 @@
 {
   "name": "muton.js",
-  "version": "0.0.3",
+  "version": "0.3.0",
   "authors": [
     "Bruno Palos <bruno.palos@mindera.com>"
   ],
@@ -29,8 +29,5 @@
     "bower_components",
     "test",
     "tests"
-  ],
-  "dependencies": {
-    "lodash": "~3.7.0"
-  }
+  ]
 }

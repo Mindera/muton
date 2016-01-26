@@ -3,21 +3,13 @@
 /**
  * This module contains multiple chemical reactions for use freely.
  */
-if (typeof define !== 'function') {
-    /*jshint -W003*/
-    var define = require('amdefine')(module);
-}
+var keys = require('lodash/object/keys');
 
-define(function (require) {
-
-    var _ = require('lodash');
-
-    return {
-        separateProperties: function (userProperties, feature) {
-            return {
-                userPropertyNames: _.keys(userProperties),
-                featurePropertyNames: _.keys(feature)
-            };
-        }
-    };
-});
+module.exports = {
+    separateProperties: function (userProperties, feature) {
+        return {
+            userPropertyNames: keys(userProperties),
+            featurePropertyNames: keys(feature)
+        };
+    }
+};
