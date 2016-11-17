@@ -3,7 +3,7 @@ Muton
 
 [![NPM version][npm-image]][npm-url] [![Build Status](https://travis-ci.org/Mindera/muton.svg?branch=master)](https://travis-ci.org/Mindera/muton)
 
-  This is the Muton project - a feature toggle tool with support for feature throttling and multivariance testing.
+  This is the Muton project - a feature toggle tool with support for feature throttling and multivariate testing.
 
   You can engineer the genes of your application by meticulously choose what are the best features and create an organic result. With artificial manipulation, or even by random mutations, you will natural select the best version of your application.
 
@@ -125,7 +125,7 @@ A valid response for a portuguese user could be:
 }
 ```
 
-#### Buckets (A/B testing, multivariant testing)
+#### Buckets (A/B testing, multivariate testing)
 
   The `bucket` instruction is perfect for A/B testing and it resources to mutations like the `throttle` instruction. This instruction can be written like the following:
 
