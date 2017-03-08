@@ -2,7 +2,7 @@
   "name": "muton",
   "version": "0.3.1",
   "description": "A feature toggling/throttling and multivariate testing tool",
-  "main": "src/muton.js",
+  "main": "./muton.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/Mindera/muton.git"
