@@ -8,7 +8,9 @@
     "url": "https://github.com/Mindera/muton.git"
   },
   "scripts": {
-    "test": "grunt test"
+    "test": "grunt test",
+    "publish-please": "publish-please",
+    "prepublish": "publish-please guard"
   },
   "keywords": [
     "Feature",
@@ -43,6 +45,7 @@
     "jshint-stylish": "^1.0.1",
     "load-grunt-tasks": "^3.1.0",
     "mocha": "^2.1.0",
+    "publish-please": "^2.2.0",
     "sinon": "^1.14.1",
     "time-grunt": "^1.1.0",
     "webpack": "^1.12.12",
