@@ -64,6 +64,12 @@ module.exports = function(grunt) {
                     library: 'muton',
                 },
             },
+            'window': {
+                output: {
+                    filename: 'muton.window.js',
+                    libraryTarget: 'window'
+                }
+            },
             umd: {
                 output: {
                     filename: 'muton.js',
