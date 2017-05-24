@@ -3,7 +3,7 @@
 /**
  * This module contains multiple chemical reactions for use freely.
  */
-var keys = require('lodash/object/keys');
+var keys = require('lodash/keys');
 
 module.exports = {
     separateProperties: function (userProperties, feature) {

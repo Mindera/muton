@@ -4,9 +4,9 @@
  * The Bucket mutator manipulates the features by introducing small random mutations by picking a random
  * bucket from the list, allowing multivariance testing.
  */
-var isArray = require('lodash/lang/isArray');
-var isEmpty = require('lodash/lang/isEmpty');
-var includes = require('lodash/collection/includes');
+var isArray = require('lodash/isArray');
+var isEmpty = require('lodash/isEmpty');
+var includes = require('lodash/includes');
 
 function pickOneElement(array) {
     if (!isArray(array)) {

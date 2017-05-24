@@ -5,12 +5,12 @@
  * This module takes the user properties and feature properties strands, analyses it and returns a primer object
  * containing instructions regarding the features to activate or deactivate.
  */
-var get = require('lodash/object/get');
-var pick = require('lodash/object/pick');
-var merge = require('lodash/object/merge');
-var has = require('lodash/object/has');
-var isUndefined = require('lodash/lang/isUndefined');
-var contains = require('lodash/collection/contains');
+var get = require('lodash/get');
+var pick = require('lodash/pick');
+var merge = require('lodash/merge');
+var has = require('lodash/has');
+var isUndefined = require('lodash/isUndefined');
+var includes = require('lodash/includes');
 
 var chemicalReactions = require('../reactions/chemical.js');
 var matchReading = require('../reactions/match-reading.js');
@@ -76,7 +76,7 @@ module.exports = {
 
         if (!isFeatureDisabled(primerInstructions, root)) {
             featurePropertyNames.forEach(function (featurePropertyName) {
-                if (contains(userPropertyNames, featurePropertyName)) {
+                if (includes(userPropertyNames, featurePropertyName)) {
                     var propertiesNode = getPropertiesNode(userProperties, featurePropertyName, feature);
                     // Process the child node
                     var childStrands = chemicalReactions.separateProperties(userProperties, propertiesNode);

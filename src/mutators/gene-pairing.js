@@ -1,9 +1,9 @@
 'use strict';
 
-var filter = require('lodash/collection/filter');
-var find = require('lodash/collection/find');
-var keys = require('lodash/object/keys');
-var isString = require('lodash/lang/isString');
+var filter = require('lodash/filter');
+var find = require('lodash/find');
+var keys = require('lodash/keys');
+var isString = require('lodash/isString');
 
 function findWithPartialName(featureNames, partialName) {
     return filter(featureNames, function (featureName) {

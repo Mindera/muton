@@ -23,10 +23,10 @@
  * http://www.nature.com/scitable/topicpage/cells-can-replicate-their-dna-precisely-6524830
  */
 
-var reduce = require('lodash/collection/reduce');
-var filter = require('lodash/collection/filter');
-var pluck = require('lodash/collection/pluck');
-var forEach = require('lodash/collection/forEach');
+var reduce = require('lodash/reduce');
+var filter = require('lodash/filter');
+var map = require('lodash/map');
+var forEach = require('lodash/forEach');
 
 var helicase = require('./enzymes/helicase');
 var primase = require('./enzymes/primase');
@@ -42,14 +42,14 @@ function joinToggles(features, resolvedFeatures) {
 
 function joinThrottles(features, resolvedFeatures) {
     var buckets = filter(resolvedFeatures, {type : 'bucket'});
-    var names = pluck('name', buckets);
+    var names = map(buckets, 'name');
 
     features.buckets = features.buckets.concat(names);
 }
 
 function joinBuckets(features, resolvedFeatures) {
     var throttles = filter(resolvedFeatures, {type : 'throttle'});
-    var names = pluck('name', throttles);
+    var names = map(throttles, 'name');
 
     features.throttles = features.throttles.concat(names);
 }

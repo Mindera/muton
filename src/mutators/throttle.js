@@ -4,10 +4,10 @@
  * The Throttle mutator manipulates the features by introducing small random mutations by randomly activate
  * or deactivate feture toggles.
  */
-var isUndefined = require('lodash/lang/isUndefined');
-var isString = require('lodash/lang/isString');
-var isPlainObject = require('lodash/lang/isPlainObject');
-var isEmpty = require('lodash/lang/isEmpty');
+var isUndefined = require('lodash/isUndefined');
+var isString = require('lodash/isString');
+var isPlainObject = require('lodash/isPlainObject');
+var isEmpty = require('lodash/isEmpty');
 
 function isPercentage(value) {
     return !isUndefined(value) && isString(value) && value.match(/[0-100]%/);

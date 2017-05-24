@@ -3,12 +3,12 @@
 /**
  * This module checks for errors and proof-reads the molecules.
  */
-var get = require('lodash/object/get');
-var isUndefined = require('lodash/lang/isUndefined');
-var isBoolean = require('lodash/lang/isBoolean');
-var isNull = require('lodash/lang/isNull');
-var isArray = require('lodash/lang/isArray');
-var isObject = require('lodash/lang/isObject');
+var get = require('lodash/get');
+var isUndefined = require('lodash/isUndefined');
+var isBoolean = require('lodash/isBoolean');
+var isNull = require('lodash/isNull');
+var isArray = require('lodash/isArray');
+var isObject = require('lodash/isObject');
 
 var bucketMutator = require('../mutators/bucket');
 var throttleMutator = require('../mutators/throttle');

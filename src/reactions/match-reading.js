@@ -4,7 +4,7 @@
  * This module match-reads feature properties against user properties.
  */
 
-var findLast = require('lodash/collection/findLast');
+var findLast = require('lodash/findLast');
 var regexMatcher = require('./matchers/regex');
 var numericMatcher = require('./matchers/numeric-quantifier');
 

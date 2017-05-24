@@ -10,7 +10,7 @@
  * In the process, even if the instructions are considered valid, random mutations occur. Those are caused by the
  * Bucket and Throttle mutators. That's your application trying to evolve.
  */
-var merge = require('lodash/object/merge');
+var merge = require('lodash/merge');
 
 var bucketMutator = require('../mutators/bucket');
 var throttleMutator = require('../mutators/throttle');
