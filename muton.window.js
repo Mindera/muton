@@ -6915,7 +6915,7 @@ window["muton"] =
 	function getPercentageDecimal(throttle) {
 	    var percentage = extractPercentage(throttle);
 	    var value = percentage.substr(0, percentage.length - 1);
-	    return value / 10;
+	    return value / 100;
 	}
 
 	function isThrottleValid(throttle) {
