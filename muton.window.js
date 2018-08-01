@@ -43,7 +43,7 @@ window["muton"] =
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	/**
 	 * This is the Muton.js project - a feature toggle tool with support for feature throttling and Multivariance testing.
@@ -77,8 +77,8 @@ window["muton"] =
 
 	var helicase = __webpack_require__(131);
 	var primase = __webpack_require__(133);
-	var polymerase = __webpack_require__(192);
-	var proofReading = __webpack_require__(199);
+	var polymerase = __webpack_require__(193);
+	var proofReading = __webpack_require__(200);
 
 	function joinToggles(features, resolvedFeatures) {
 	    features.toggles = reduce(resolvedFeatures, function (result, elem) {
@@ -172,9 +172,9 @@ window["muton"] =
 	module.exports = muton;
 
 
-/***/ },
+/***/ }),
 /* 1 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var arrayReduce = __webpack_require__(2),
 	    baseEach = __webpack_require__(3),
@@ -229,9 +229,9 @@ window["muton"] =
 	module.exports = reduce;
 
 
-/***/ },
+/***/ }),
 /* 2 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/**
 	 * A specialized version of `_.reduce` for arrays without support for
@@ -261,9 +261,9 @@ window["muton"] =
 	module.exports = arrayReduce;
 
 
-/***/ },
+/***/ }),
 /* 3 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var baseForOwn = __webpack_require__(4),
 	    createBaseEach = __webpack_require__(36);
@@ -281,9 +281,9 @@ window["muton"] =
 	module.exports = baseEach;
 
 
-/***/ },
+/***/ }),
 /* 4 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var baseFor = __webpack_require__(5),
 	    keys = __webpack_require__(7);
@@ -303,9 +303,9 @@ window["muton"] =
 	module.exports = baseForOwn;
 
 
-/***/ },
+/***/ }),
 /* 5 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var createBaseFor = __webpack_require__(6);
 
@@ -325,9 +325,9 @@ window["muton"] =
 	module.exports = baseFor;
 
 
-/***/ },
+/***/ }),
 /* 6 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/**
 	 * Creates a base function for methods like `_.forIn` and `_.forOwn`.
@@ -356,9 +356,9 @@ window["muton"] =
 	module.exports = createBaseFor;
 
 
-/***/ },
+/***/ }),
 /* 7 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var arrayLikeKeys = __webpack_require__(8),
 	    baseKeys = __webpack_require__(29),
@@ -399,9 +399,9 @@ window["muton"] =
 	module.exports = keys;
 
 
-/***/ },
+/***/ }),
 /* 8 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var baseTimes = __webpack_require__(9),
 	    isArguments = __webpack_require__(10),
@@ -454,9 +454,9 @@ window["muton"] =
 	module.exports = arrayLikeKeys;
 
 
-/***/ },
+/***/ }),
 /* 9 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/**
 	 * The base implementation of `_.times` without support for iteratee shorthands
@@ -480,9 +480,9 @@ window["muton"] =
 	module.exports = baseTimes;
 
 
-/***/ },
+/***/ }),
 /* 10 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var baseIsArguments = __webpack_require__(11),
 	    isObjectLike = __webpack_require__(18);
@@ -522,9 +522,9 @@ window["muton"] =
 	module.exports = isArguments;
 
 
-/***/ },
+/***/ }),
 /* 11 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var baseGetTag = __webpack_require__(12),
 	    isObjectLike = __webpack_require__(18);
@@ -546,9 +546,9 @@ window["muton"] =
 	module.exports = baseIsArguments;
 
 
-/***/ },
+/***/ }),
 /* 12 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var Symbol = __webpack_require__(13),
 	    getRawTag = __webpack_require__(16),
@@ -580,9 +580,9 @@ window["muton"] =
 	module.exports = baseGetTag;
 
 
-/***/ },
+/***/ }),
 /* 13 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var root = __webpack_require__(14);
 
@@ -592,9 +592,9 @@ window["muton"] =
 	module.exports = Symbol;
 
 
-/***/ },
+/***/ }),
 /* 14 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var freeGlobal = __webpack_require__(15);
 
@@ -607,9 +607,9 @@ window["muton"] =
 	module.exports = root;
 
 
-/***/ },
+/***/ }),
 /* 15 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/** Detect free variable `global` from Node.js. */
 	var freeGlobal = typeof global == 'object' && global && global.Object === Object && global;
@@ -618,9 +618,9 @@ window["muton"] =
 
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
-/***/ },
+/***/ }),
 /* 16 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var Symbol = __webpack_require__(13);
 
@@ -670,9 +670,9 @@ window["muton"] =
 	module.exports = getRawTag;
 
 
-/***/ },
+/***/ }),
 /* 17 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -698,9 +698,9 @@ window["muton"] =
 	module.exports = objectToString;
 
 
-/***/ },
+/***/ }),
 /* 18 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/**
 	 * Checks if `value` is object-like. A value is object-like if it's not `null`
@@ -733,9 +733,9 @@ window["muton"] =
 	module.exports = isObjectLike;
 
 
-/***/ },
+/***/ }),
 /* 19 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/**
 	 * Checks if `value` is classified as an `Array` object.
@@ -765,9 +765,9 @@ window["muton"] =
 	module.exports = isArray;
 
 
-/***/ },
+/***/ }),
 /* 20 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {var root = __webpack_require__(14),
 	    stubFalse = __webpack_require__(22);
@@ -810,9 +810,9 @@ window["muton"] =
 
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(21)(module)))
 
-/***/ },
+/***/ }),
 /* 21 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	module.exports = function(module) {
 		if(!module.webpackPolyfill) {
@@ -826,9 +826,9 @@ window["muton"] =
 	}
 
 
-/***/ },
+/***/ }),
 /* 22 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/**
 	 * This method returns `false`.
@@ -850,9 +850,9 @@ window["muton"] =
 	module.exports = stubFalse;
 
 
-/***/ },
+/***/ }),
 /* 23 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/** Used as references for various `Number` constants. */
 	var MAX_SAFE_INTEGER = 9007199254740991;
@@ -869,18 +869,21 @@ window["muton"] =
 	 * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
 	 */
 	function isIndex(value, length) {
+	  var type = typeof value;
 	  length = length == null ? MAX_SAFE_INTEGER : length;
+
 	  return !!length &&
-	    (typeof value == 'number' || reIsUint.test(value)) &&
-	    (value > -1 && value % 1 == 0 && value < length);
+	    (type == 'number' ||
+	      (type != 'symbol' && reIsUint.test(value))) &&
+	        (value > -1 && value % 1 == 0 && value < length);
 	}
 
 	module.exports = isIndex;
 
 
-/***/ },
+/***/ }),
 /* 24 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var baseIsTypedArray = __webpack_require__(25),
 	    baseUnary = __webpack_require__(27),
@@ -911,9 +914,9 @@ window["muton"] =
 	module.exports = isTypedArray;
 
 
-/***/ },
+/***/ }),
 /* 25 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var baseGetTag = __webpack_require__(12),
 	    isLength = __webpack_require__(26),
@@ -977,9 +980,9 @@ window["muton"] =
 	module.exports = baseIsTypedArray;
 
 
-/***/ },
+/***/ }),
 /* 26 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/** Used as references for various `Number` constants. */
 	var MAX_SAFE_INTEGER = 9007199254740991;
@@ -1018,9 +1021,9 @@ window["muton"] =
 	module.exports = isLength;
 
 
-/***/ },
+/***/ }),
 /* 27 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/**
 	 * The base implementation of `_.unary` without support for storing metadata.
@@ -1038,9 +1041,9 @@ window["muton"] =
 	module.exports = baseUnary;
 
 
-/***/ },
+/***/ }),
 /* 28 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {var freeGlobal = __webpack_require__(15);
 
@@ -1059,6 +1062,14 @@ window["muton"] =
 	/** Used to access faster Node.js helpers. */
 	var nodeUtil = (function() {
 	  try {
+	    // Use `util.types` for Node.js 10+.
+	    var types = freeModule && freeModule.require && freeModule.require('util').types;
+
+	    if (types) {
+	      return types;
+	    }
+
+	    // Legacy `process.binding('util')` for Node.js < 10.
 	    return freeProcess && freeProcess.binding && freeProcess.binding('util');
 	  } catch (e) {}
 	}());
@@ -1067,9 +1078,9 @@ window["muton"] =
 
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(21)(module)))
 
-/***/ },
+/***/ }),
 /* 29 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var isPrototype = __webpack_require__(30),
 	    nativeKeys = __webpack_require__(31);
@@ -1103,9 +1114,9 @@ window["muton"] =
 	module.exports = baseKeys;
 
 
-/***/ },
+/***/ }),
 /* 30 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -1127,9 +1138,9 @@ window["muton"] =
 	module.exports = isPrototype;
 
 
-/***/ },
+/***/ }),
 /* 31 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var overArg = __webpack_require__(32);
 
@@ -1139,9 +1150,9 @@ window["muton"] =
 	module.exports = nativeKeys;
 
 
-/***/ },
+/***/ }),
 /* 32 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/**
 	 * Creates a unary function that invokes `func` with its argument transformed.
@@ -1160,9 +1171,9 @@ window["muton"] =
 	module.exports = overArg;
 
 
-/***/ },
+/***/ }),
 /* 33 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var isFunction = __webpack_require__(34),
 	    isLength = __webpack_require__(26);
@@ -1199,9 +1210,9 @@ window["muton"] =
 	module.exports = isArrayLike;
 
 
-/***/ },
+/***/ }),
 /* 34 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var baseGetTag = __webpack_require__(12),
 	    isObject = __webpack_require__(35);
@@ -1242,9 +1253,9 @@ window["muton"] =
 	module.exports = isFunction;
 
 
-/***/ },
+/***/ }),
 /* 35 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/**
 	 * Checks if `value` is the
@@ -1279,9 +1290,9 @@ window["muton"] =
 	module.exports = isObject;
 
 
-/***/ },
+/***/ }),
 /* 36 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var isArrayLike = __webpack_require__(33);
 
@@ -1317,9 +1328,9 @@ window["muton"] =
 	module.exports = createBaseEach;
 
 
-/***/ },
+/***/ }),
 /* 37 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var baseMatches = __webpack_require__(38),
 	    baseMatchesProperty = __webpack_require__(103),
@@ -1354,9 +1365,9 @@ window["muton"] =
 	module.exports = baseIteratee;
 
 
-/***/ },
+/***/ }),
 /* 38 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var baseIsMatch = __webpack_require__(39),
 	    getMatchData = __webpack_require__(100),
@@ -1382,9 +1393,9 @@ window["muton"] =
 	module.exports = baseMatches;
 
 
-/***/ },
+/***/ }),
 /* 39 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var Stack = __webpack_require__(40),
 	    baseIsEqual = __webpack_require__(76);
@@ -1450,9 +1461,9 @@ window["muton"] =
 	module.exports = baseIsMatch;
 
 
-/***/ },
+/***/ }),
 /* 40 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var ListCache = __webpack_require__(41),
 	    stackClear = __webpack_require__(49),
@@ -1483,9 +1494,9 @@ window["muton"] =
 	module.exports = Stack;
 
 
-/***/ },
+/***/ }),
 /* 41 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var listCacheClear = __webpack_require__(42),
 	    listCacheDelete = __webpack_require__(43),
@@ -1521,9 +1532,9 @@ window["muton"] =
 	module.exports = ListCache;
 
 
-/***/ },
+/***/ }),
 /* 42 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/**
 	 * Removes all key-value entries from the list cache.
@@ -1540,9 +1551,9 @@ window["muton"] =
 	module.exports = listCacheClear;
 
 
-/***/ },
+/***/ }),
 /* 43 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var assocIndexOf = __webpack_require__(44);
 
@@ -1581,9 +1592,9 @@ window["muton"] =
 	module.exports = listCacheDelete;
 
 
-/***/ },
+/***/ }),
 /* 44 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var eq = __webpack_require__(45);
 
@@ -1608,9 +1619,9 @@ window["muton"] =
 	module.exports = assocIndexOf;
 
 
-/***/ },
+/***/ }),
 /* 45 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/**
 	 * Performs a
@@ -1651,9 +1662,9 @@ window["muton"] =
 	module.exports = eq;
 
 
-/***/ },
+/***/ }),
 /* 46 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var assocIndexOf = __webpack_require__(44);
 
@@ -1676,9 +1687,9 @@ window["muton"] =
 	module.exports = listCacheGet;
 
 
-/***/ },
+/***/ }),
 /* 47 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var assocIndexOf = __webpack_require__(44);
 
@@ -1698,9 +1709,9 @@ window["muton"] =
 	module.exports = listCacheHas;
 
 
-/***/ },
+/***/ }),
 /* 48 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var assocIndexOf = __webpack_require__(44);
 
@@ -1730,9 +1741,9 @@ window["muton"] =
 	module.exports = listCacheSet;
 
 
-/***/ },
+/***/ }),
 /* 49 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var ListCache = __webpack_require__(41);
 
@@ -1751,9 +1762,9 @@ window["muton"] =
 	module.exports = stackClear;
 
 
-/***/ },
+/***/ }),
 /* 50 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/**
 	 * Removes `key` and its value from the stack.
@@ -1775,9 +1786,9 @@ window["muton"] =
 	module.exports = stackDelete;
 
 
-/***/ },
+/***/ }),
 /* 51 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/**
 	 * Gets the stack value for `key`.
@@ -1795,9 +1806,9 @@ window["muton"] =
 	module.exports = stackGet;
 
 
-/***/ },
+/***/ }),
 /* 52 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/**
 	 * Checks if a stack value for `key` exists.
@@ -1815,9 +1826,9 @@ window["muton"] =
 	module.exports = stackHas;
 
 
-/***/ },
+/***/ }),
 /* 53 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var ListCache = __webpack_require__(41),
 	    Map = __webpack_require__(54),
@@ -1855,9 +1866,9 @@ window["muton"] =
 	module.exports = stackSet;
 
 
-/***/ },
+/***/ }),
 /* 54 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var getNative = __webpack_require__(55),
 	    root = __webpack_require__(14);
@@ -1868,9 +1879,9 @@ window["muton"] =
 	module.exports = Map;
 
 
-/***/ },
+/***/ }),
 /* 55 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var baseIsNative = __webpack_require__(56),
 	    getValue = __webpack_require__(60);
@@ -1891,9 +1902,9 @@ window["muton"] =
 	module.exports = getNative;
 
 
-/***/ },
+/***/ }),
 /* 56 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var isFunction = __webpack_require__(34),
 	    isMasked = __webpack_require__(57),
@@ -1944,9 +1955,9 @@ window["muton"] =
 	module.exports = baseIsNative;
 
 
-/***/ },
+/***/ }),
 /* 57 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var coreJsData = __webpack_require__(58);
 
@@ -1970,9 +1981,9 @@ window["muton"] =
 	module.exports = isMasked;
 
 
-/***/ },
+/***/ }),
 /* 58 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var root = __webpack_require__(14);
 
@@ -1982,9 +1993,9 @@ window["muton"] =
 	module.exports = coreJsData;
 
 
-/***/ },
+/***/ }),
 /* 59 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/** Used for built-in method references. */
 	var funcProto = Function.prototype;
@@ -2014,9 +2025,9 @@ window["muton"] =
 	module.exports = toSource;
 
 
-/***/ },
+/***/ }),
 /* 60 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/**
 	 * Gets the value at `key` of `object`.
@@ -2033,9 +2044,9 @@ window["muton"] =
 	module.exports = getValue;
 
 
-/***/ },
+/***/ }),
 /* 61 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var mapCacheClear = __webpack_require__(62),
 	    mapCacheDelete = __webpack_require__(70),
@@ -2071,9 +2082,9 @@ window["muton"] =
 	module.exports = MapCache;
 
 
-/***/ },
+/***/ }),
 /* 62 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var Hash = __webpack_require__(63),
 	    ListCache = __webpack_require__(41),
@@ -2098,9 +2109,9 @@ window["muton"] =
 	module.exports = mapCacheClear;
 
 
-/***/ },
+/***/ }),
 /* 63 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var hashClear = __webpack_require__(64),
 	    hashDelete = __webpack_require__(66),
@@ -2136,9 +2147,9 @@ window["muton"] =
 	module.exports = Hash;
 
 
-/***/ },
+/***/ }),
 /* 64 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var nativeCreate = __webpack_require__(65);
 
@@ -2157,9 +2168,9 @@ window["muton"] =
 	module.exports = hashClear;
 
 
-/***/ },
+/***/ }),
 /* 65 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var getNative = __webpack_require__(55);
 
@@ -2169,9 +2180,9 @@ window["muton"] =
 	module.exports = nativeCreate;
 
 
-/***/ },
+/***/ }),
 /* 66 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/**
 	 * Removes `key` and its value from the hash.
@@ -2192,9 +2203,9 @@ window["muton"] =
 	module.exports = hashDelete;
 
 
-/***/ },
+/***/ }),
 /* 67 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var nativeCreate = __webpack_require__(65);
 
@@ -2228,9 +2239,9 @@ window["muton"] =
 	module.exports = hashGet;
 
 
-/***/ },
+/***/ }),
 /* 68 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var nativeCreate = __webpack_require__(65);
 
@@ -2257,9 +2268,9 @@ window["muton"] =
 	module.exports = hashHas;
 
 
-/***/ },
+/***/ }),
 /* 69 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var nativeCreate = __webpack_require__(65);
 
@@ -2286,9 +2297,9 @@ window["muton"] =
 	module.exports = hashSet;
 
 
-/***/ },
+/***/ }),
 /* 70 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var getMapData = __webpack_require__(71);
 
@@ -2310,9 +2321,9 @@ window["muton"] =
 	module.exports = mapCacheDelete;
 
 
-/***/ },
+/***/ }),
 /* 71 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var isKeyable = __webpack_require__(72);
 
@@ -2334,9 +2345,9 @@ window["muton"] =
 	module.exports = getMapData;
 
 
-/***/ },
+/***/ }),
 /* 72 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/**
 	 * Checks if `value` is suitable for use as unique object key.
@@ -2355,9 +2366,9 @@ window["muton"] =
 	module.exports = isKeyable;
 
 
-/***/ },
+/***/ }),
 /* 73 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var getMapData = __webpack_require__(71);
 
@@ -2377,9 +2388,9 @@ window["muton"] =
 	module.exports = mapCacheGet;
 
 
-/***/ },
+/***/ }),
 /* 74 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var getMapData = __webpack_require__(71);
 
@@ -2399,9 +2410,9 @@ window["muton"] =
 	module.exports = mapCacheHas;
 
 
-/***/ },
+/***/ }),
 /* 75 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var getMapData = __webpack_require__(71);
 
@@ -2427,9 +2438,9 @@ window["muton"] =
 	module.exports = mapCacheSet;
 
 
-/***/ },
+/***/ }),
 /* 76 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var baseIsEqualDeep = __webpack_require__(77),
 	    isObjectLike = __webpack_require__(18);
@@ -2461,9 +2472,9 @@ window["muton"] =
 	module.exports = baseIsEqual;
 
 
-/***/ },
+/***/ }),
 /* 77 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var Stack = __webpack_require__(40),
 	    equalArrays = __webpack_require__(78),
@@ -2550,9 +2561,9 @@ window["muton"] =
 	module.exports = baseIsEqualDeep;
 
 
-/***/ },
+/***/ }),
 /* 78 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var SetCache = __webpack_require__(79),
 	    arraySome = __webpack_require__(82),
@@ -2639,9 +2650,9 @@ window["muton"] =
 	module.exports = equalArrays;
 
 
-/***/ },
+/***/ }),
 /* 79 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var MapCache = __webpack_require__(61),
 	    setCacheAdd = __webpack_require__(80),
@@ -2672,9 +2683,9 @@ window["muton"] =
 	module.exports = SetCache;
 
 
-/***/ },
+/***/ }),
 /* 80 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/** Used to stand-in for `undefined` hash values. */
 	var HASH_UNDEFINED = '__lodash_hash_undefined__';
@@ -2697,9 +2708,9 @@ window["muton"] =
 	module.exports = setCacheAdd;
 
 
-/***/ },
+/***/ }),
 /* 81 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/**
 	 * Checks if `value` is in the array cache.
@@ -2717,9 +2728,9 @@ window["muton"] =
 	module.exports = setCacheHas;
 
 
-/***/ },
+/***/ }),
 /* 82 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/**
 	 * A specialized version of `_.some` for arrays without support for iteratee
@@ -2746,9 +2757,9 @@ window["muton"] =
 	module.exports = arraySome;
 
 
-/***/ },
+/***/ }),
 /* 83 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/**
 	 * Checks if a `cache` value for `key` exists.
@@ -2765,9 +2776,9 @@ window["muton"] =
 	module.exports = cacheHas;
 
 
-/***/ },
+/***/ }),
 /* 84 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var Symbol = __webpack_require__(13),
 	    Uint8Array = __webpack_require__(85),
@@ -2883,9 +2894,9 @@ window["muton"] =
 	module.exports = equalByTag;
 
 
-/***/ },
+/***/ }),
 /* 85 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var root = __webpack_require__(14);
 
@@ -2895,9 +2906,9 @@ window["muton"] =
 	module.exports = Uint8Array;
 
 
-/***/ },
+/***/ }),
 /* 86 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/**
 	 * Converts `map` to its key-value pairs.
@@ -2919,9 +2930,9 @@ window["muton"] =
 	module.exports = mapToArray;
 
 
-/***/ },
+/***/ }),
 /* 87 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/**
 	 * Converts `set` to an array of its values.
@@ -2943,9 +2954,9 @@ window["muton"] =
 	module.exports = setToArray;
 
 
-/***/ },
+/***/ }),
 /* 88 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var getAllKeys = __webpack_require__(89);
 
@@ -3038,9 +3049,9 @@ window["muton"] =
 	module.exports = equalObjects;
 
 
-/***/ },
+/***/ }),
 /* 89 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var baseGetAllKeys = __webpack_require__(90),
 	    getSymbols = __webpack_require__(92),
@@ -3060,9 +3071,9 @@ window["muton"] =
 	module.exports = getAllKeys;
 
 
-/***/ },
+/***/ }),
 /* 90 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var arrayPush = __webpack_require__(91),
 	    isArray = __webpack_require__(19);
@@ -3086,9 +3097,9 @@ window["muton"] =
 	module.exports = baseGetAllKeys;
 
 
-/***/ },
+/***/ }),
 /* 91 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/**
 	 * Appends the elements of `values` to `array`.
@@ -3112,9 +3123,9 @@ window["muton"] =
 	module.exports = arrayPush;
 
 
-/***/ },
+/***/ }),
 /* 92 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var arrayFilter = __webpack_require__(93),
 	    stubArray = __webpack_require__(94);
@@ -3148,9 +3159,9 @@ window["muton"] =
 	module.exports = getSymbols;
 
 
-/***/ },
+/***/ }),
 /* 93 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/**
 	 * A specialized version of `_.filter` for arrays without support for
@@ -3179,9 +3190,9 @@ window["muton"] =
 	module.exports = arrayFilter;
 
 
-/***/ },
+/***/ }),
 /* 94 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/**
 	 * This method returns a new empty array.
@@ -3208,9 +3219,9 @@ window["muton"] =
 	module.exports = stubArray;
 
 
-/***/ },
+/***/ }),
 /* 95 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var DataView = __webpack_require__(96),
 	    Map = __webpack_require__(54),
@@ -3272,9 +3283,9 @@ window["muton"] =
 	module.exports = getTag;
 
 
-/***/ },
+/***/ }),
 /* 96 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var getNative = __webpack_require__(55),
 	    root = __webpack_require__(14);
@@ -3285,9 +3296,9 @@ window["muton"] =
 	module.exports = DataView;
 
 
-/***/ },
+/***/ }),
 /* 97 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var getNative = __webpack_require__(55),
 	    root = __webpack_require__(14);
@@ -3298,9 +3309,9 @@ window["muton"] =
 	module.exports = Promise;
 
 
-/***/ },
+/***/ }),
 /* 98 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var getNative = __webpack_require__(55),
 	    root = __webpack_require__(14);
@@ -3311,9 +3322,9 @@ window["muton"] =
 	module.exports = Set;
 
 
-/***/ },
+/***/ }),
 /* 99 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var getNative = __webpack_require__(55),
 	    root = __webpack_require__(14);
@@ -3324,9 +3335,9 @@ window["muton"] =
 	module.exports = WeakMap;
 
 
-/***/ },
+/***/ }),
 /* 100 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var isStrictComparable = __webpack_require__(101),
 	    keys = __webpack_require__(7);
@@ -3354,9 +3365,9 @@ window["muton"] =
 	module.exports = getMatchData;
 
 
-/***/ },
+/***/ }),
 /* 101 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var isObject = __webpack_require__(35);
 
@@ -3375,9 +3386,9 @@ window["muton"] =
 	module.exports = isStrictComparable;
 
 
-/***/ },
+/***/ }),
 /* 102 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/**
 	 * A specialized version of `matchesProperty` for source values suitable
@@ -3401,9 +3412,9 @@ window["muton"] =
 	module.exports = matchesStrictComparable;
 
 
-/***/ },
+/***/ }),
 /* 103 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var baseIsEqual = __webpack_require__(76),
 	    get = __webpack_require__(104),
@@ -3440,9 +3451,9 @@ window["muton"] =
 	module.exports = baseMatchesProperty;
 
 
-/***/ },
+/***/ }),
 /* 104 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var baseGet = __webpack_require__(105);
 
@@ -3479,9 +3490,9 @@ window["muton"] =
 	module.exports = get;
 
 
-/***/ },
+/***/ }),
 /* 105 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var castPath = __webpack_require__(106),
 	    toKey = __webpack_require__(115);
@@ -3509,9 +3520,9 @@ window["muton"] =
 	module.exports = baseGet;
 
 
-/***/ },
+/***/ }),
 /* 106 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var isArray = __webpack_require__(19),
 	    isKey = __webpack_require__(107),
@@ -3536,9 +3547,9 @@ window["muton"] =
 	module.exports = castPath;
 
 
-/***/ },
+/***/ }),
 /* 107 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var isArray = __webpack_require__(19),
 	    isSymbol = __webpack_require__(108);
@@ -3571,9 +3582,9 @@ window["muton"] =
 	module.exports = isKey;
 
 
-/***/ },
+/***/ }),
 /* 108 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var baseGetTag = __webpack_require__(12),
 	    isObjectLike = __webpack_require__(18);
@@ -3606,15 +3617,14 @@ window["muton"] =
 	module.exports = isSymbol;
 
 
-/***/ },
+/***/ }),
 /* 109 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var memoizeCapped = __webpack_require__(110);
 
 	/** Used to match property names within property paths. */
-	var reLeadingDot = /^\./,
-	    rePropName = /[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]|(?=(?:\.|\[\])(?:\.|\[\]|$))/g;
+	var rePropName = /[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]|(?=(?:\.|\[\])(?:\.|\[\]|$))/g;
 
 	/** Used to match backslashes in property paths. */
 	var reEscapeChar = /\\(\\)?/g;
@@ -3628,11 +3638,11 @@ window["muton"] =
 	 */
 	var stringToPath = memoizeCapped(function(string) {
 	  var result = [];
-	  if (reLeadingDot.test(string)) {
+	  if (string.charCodeAt(0) === 46 /* . */) {
 	    result.push('');
 	  }
-	  string.replace(rePropName, function(match, number, quote, string) {
-	    result.push(quote ? string.replace(reEscapeChar, '$1') : (number || match));
+	  string.replace(rePropName, function(match, number, quote, subString) {
+	    result.push(quote ? subString.replace(reEscapeChar, '$1') : (number || match));
 	  });
 	  return result;
 	});
@@ -3640,9 +3650,9 @@ window["muton"] =
 	module.exports = stringToPath;
 
 
-/***/ },
+/***/ }),
 /* 110 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var memoize = __webpack_require__(111);
 
@@ -3672,9 +3682,9 @@ window["muton"] =
 	module.exports = memoizeCapped;
 
 
-/***/ },
+/***/ }),
 /* 111 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var MapCache = __webpack_require__(61);
 
@@ -3751,9 +3761,9 @@ window["muton"] =
 	module.exports = memoize;
 
 
-/***/ },
+/***/ }),
 /* 112 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var baseToString = __webpack_require__(113);
 
@@ -3785,9 +3795,9 @@ window["muton"] =
 	module.exports = toString;
 
 
-/***/ },
+/***/ }),
 /* 113 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var Symbol = __webpack_require__(13),
 	    arrayMap = __webpack_require__(114),
@@ -3828,9 +3838,9 @@ window["muton"] =
 	module.exports = baseToString;
 
 
-/***/ },
+/***/ }),
 /* 114 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/**
 	 * A specialized version of `_.map` for arrays without support for iteratee
@@ -3855,9 +3865,9 @@ window["muton"] =
 	module.exports = arrayMap;
 
 
-/***/ },
+/***/ }),
 /* 115 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var isSymbol = __webpack_require__(108);
 
@@ -3882,9 +3892,9 @@ window["muton"] =
 	module.exports = toKey;
 
 
-/***/ },
+/***/ }),
 /* 116 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var baseHasIn = __webpack_require__(117),
 	    hasPath = __webpack_require__(118);
@@ -3922,9 +3932,9 @@ window["muton"] =
 	module.exports = hasIn;
 
 
-/***/ },
+/***/ }),
 /* 117 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/**
 	 * The base implementation of `_.hasIn` without support for deep paths.
@@ -3941,9 +3951,9 @@ window["muton"] =
 	module.exports = baseHasIn;
 
 
-/***/ },
+/***/ }),
 /* 118 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var castPath = __webpack_require__(106),
 	    isArguments = __webpack_require__(10),
@@ -3986,9 +3996,9 @@ window["muton"] =
 	module.exports = hasPath;
 
 
-/***/ },
+/***/ }),
 /* 119 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/**
 	 * This method returns the first argument it receives.
@@ -4013,9 +4023,9 @@ window["muton"] =
 	module.exports = identity;
 
 
-/***/ },
+/***/ }),
 /* 120 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var baseProperty = __webpack_require__(121),
 	    basePropertyDeep = __webpack_require__(122),
@@ -4051,9 +4061,9 @@ window["muton"] =
 	module.exports = property;
 
 
-/***/ },
+/***/ }),
 /* 121 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/**
 	 * The base implementation of `_.property` without support for deep paths.
@@ -4071,9 +4081,9 @@ window["muton"] =
 	module.exports = baseProperty;
 
 
-/***/ },
+/***/ }),
 /* 122 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var baseGet = __webpack_require__(105);
 
@@ -4093,9 +4103,9 @@ window["muton"] =
 	module.exports = basePropertyDeep;
 
 
-/***/ },
+/***/ }),
 /* 123 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/**
 	 * The base implementation of `_.reduce` and `_.reduceRight`, without support
@@ -4122,9 +4132,9 @@ window["muton"] =
 	module.exports = baseReduce;
 
 
-/***/ },
+/***/ }),
 /* 124 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var arrayFilter = __webpack_require__(93),
 	    baseFilter = __webpack_require__(125),
@@ -4176,9 +4186,9 @@ window["muton"] =
 	module.exports = filter;
 
 
-/***/ },
+/***/ }),
 /* 125 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var baseEach = __webpack_require__(3);
 
@@ -4203,9 +4213,9 @@ window["muton"] =
 	module.exports = baseFilter;
 
 
-/***/ },
+/***/ }),
 /* 126 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var arrayMap = __webpack_require__(114),
 	    baseIteratee = __webpack_require__(37),
@@ -4262,9 +4272,9 @@ window["muton"] =
 	module.exports = map;
 
 
-/***/ },
+/***/ }),
 /* 127 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var baseEach = __webpack_require__(3),
 	    isArrayLike = __webpack_require__(33);
@@ -4290,9 +4300,9 @@ window["muton"] =
 	module.exports = baseMap;
 
 
-/***/ },
+/***/ }),
 /* 128 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var arrayEach = __webpack_require__(129),
 	    baseEach = __webpack_require__(3),
@@ -4337,9 +4347,9 @@ window["muton"] =
 	module.exports = forEach;
 
 
-/***/ },
+/***/ }),
 /* 129 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/**
 	 * A specialized version of `_.forEach` for arrays without support for
@@ -4365,9 +4375,9 @@ window["muton"] =
 	module.exports = arrayEach;
 
 
-/***/ },
+/***/ }),
 /* 130 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var identity = __webpack_require__(119);
 
@@ -4385,9 +4395,9 @@ window["muton"] =
 	module.exports = castFunction;
 
 
-/***/ },
+/***/ }),
 /* 131 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -4414,9 +4424,9 @@ window["muton"] =
 	};
 
 
-/***/ },
+/***/ }),
 /* 132 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -4435,9 +4445,9 @@ window["muton"] =
 	};
 
 
-/***/ },
+/***/ }),
 /* 133 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -4449,12 +4459,12 @@ window["muton"] =
 	var get = __webpack_require__(104);
 	var pick = __webpack_require__(134);
 	var merge = __webpack_require__(151);
-	var has = __webpack_require__(172);
-	var isUndefined = __webpack_require__(174);
-	var includes = __webpack_require__(175);
+	var has = __webpack_require__(173);
+	var isUndefined = __webpack_require__(175);
+	var includes = __webpack_require__(176);
 
 	var chemicalReactions = __webpack_require__(132);
-	var matchReading = __webpack_require__(186);
+	var matchReading = __webpack_require__(187);
 
 	function getFeatureProperties(feature) {
 	    return pick(feature, ['toggle', 'throttle', 'buckets']);
@@ -4533,9 +4543,9 @@ window["muton"] =
 	};
 
 
-/***/ },
+/***/ }),
 /* 134 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var basePick = __webpack_require__(135),
 	    flatRest = __webpack_require__(141);
@@ -4564,9 +4574,9 @@ window["muton"] =
 	module.exports = pick;
 
 
-/***/ },
+/***/ }),
 /* 135 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var basePickBy = __webpack_require__(136),
 	    hasIn = __webpack_require__(116);
@@ -4589,9 +4599,9 @@ window["muton"] =
 	module.exports = basePick;
 
 
-/***/ },
+/***/ }),
 /* 136 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var baseGet = __webpack_require__(105),
 	    baseSet = __webpack_require__(137),
@@ -4625,9 +4635,9 @@ window["muton"] =
 	module.exports = basePickBy;
 
 
-/***/ },
+/***/ }),
 /* 137 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var assignValue = __webpack_require__(138),
 	    castPath = __webpack_require__(106),
@@ -4678,9 +4688,9 @@ window["muton"] =
 	module.exports = baseSet;
 
 
-/***/ },
+/***/ }),
 /* 138 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var baseAssignValue = __webpack_require__(139),
 	    eq = __webpack_require__(45);
@@ -4712,9 +4722,9 @@ window["muton"] =
 	module.exports = assignValue;
 
 
-/***/ },
+/***/ }),
 /* 139 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var defineProperty = __webpack_require__(140);
 
@@ -4743,9 +4753,9 @@ window["muton"] =
 	module.exports = baseAssignValue;
 
 
-/***/ },
+/***/ }),
 /* 140 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var getNative = __webpack_require__(55);
 
@@ -4760,9 +4770,9 @@ window["muton"] =
 	module.exports = defineProperty;
 
 
-/***/ },
+/***/ }),
 /* 141 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var flatten = __webpack_require__(142),
 	    overRest = __webpack_require__(145),
@@ -4782,9 +4792,9 @@ window["muton"] =
 	module.exports = flatRest;
 
 
-/***/ },
+/***/ }),
 /* 142 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var baseFlatten = __webpack_require__(143);
 
@@ -4810,9 +4820,9 @@ window["muton"] =
 	module.exports = flatten;
 
 
-/***/ },
+/***/ }),
 /* 143 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var arrayPush = __webpack_require__(91),
 	    isFlattenable = __webpack_require__(144);
@@ -4854,9 +4864,9 @@ window["muton"] =
 	module.exports = baseFlatten;
 
 
-/***/ },
+/***/ }),
 /* 144 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var Symbol = __webpack_require__(13),
 	    isArguments = __webpack_require__(10),
@@ -4880,9 +4890,9 @@ window["muton"] =
 	module.exports = isFlattenable;
 
 
-/***/ },
+/***/ }),
 /* 145 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var apply = __webpack_require__(146);
 
@@ -4922,9 +4932,9 @@ window["muton"] =
 	module.exports = overRest;
 
 
-/***/ },
+/***/ }),
 /* 146 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/**
 	 * A faster alternative to `Function#apply`, this function invokes `func`
@@ -4949,9 +4959,9 @@ window["muton"] =
 	module.exports = apply;
 
 
-/***/ },
+/***/ }),
 /* 147 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var baseSetToString = __webpack_require__(148),
 	    shortOut = __webpack_require__(150);
@@ -4969,9 +4979,9 @@ window["muton"] =
 	module.exports = setToString;
 
 
-/***/ },
+/***/ }),
 /* 148 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var constant = __webpack_require__(149),
 	    defineProperty = __webpack_require__(140),
@@ -4997,9 +5007,9 @@ window["muton"] =
 	module.exports = baseSetToString;
 
 
-/***/ },
+/***/ }),
 /* 149 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/**
 	 * Creates a function that returns `value`.
@@ -5029,9 +5039,9 @@ window["muton"] =
 	module.exports = constant;
 
 
-/***/ },
+/***/ }),
 /* 150 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/** Used to detect hot functions by number of calls within a span of milliseconds. */
 	var HOT_COUNT = 800,
@@ -5072,12 +5082,12 @@ window["muton"] =
 	module.exports = shortOut;
 
 
-/***/ },
+/***/ }),
 /* 151 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var baseMerge = __webpack_require__(152),
-	    createAssigner = __webpack_require__(169);
+	    createAssigner = __webpack_require__(170);
 
 	/**
 	 * This method is like `_.assign` except that it recursively merges own and
@@ -5117,16 +5127,17 @@ window["muton"] =
 	module.exports = merge;
 
 
-/***/ },
+/***/ }),
 /* 152 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var Stack = __webpack_require__(40),
 	    assignMergeValue = __webpack_require__(153),
 	    baseFor = __webpack_require__(5),
 	    baseMergeDeep = __webpack_require__(154),
 	    isObject = __webpack_require__(35),
-	    keysIn = __webpack_require__(166);
+	    keysIn = __webpack_require__(167),
+	    safeGet = __webpack_require__(164);
 
 	/**
 	 * The base implementation of `_.merge` without support for multiple sources.
@@ -5150,7 +5161,7 @@ window["muton"] =
 	    }
 	    else {
 	      var newValue = customizer
-	        ? customizer(object[key], srcValue, (key + ''), object, source, stack)
+	        ? customizer(safeGet(object, key), srcValue, (key + ''), object, source, stack)
 	        : undefined;
 
 	      if (newValue === undefined) {
@@ -5164,9 +5175,9 @@ window["muton"] =
 	module.exports = baseMerge;
 
 
-/***/ },
+/***/ }),
 /* 153 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var baseAssignValue = __webpack_require__(139),
 	    eq = __webpack_require__(45);
@@ -5190,9 +5201,9 @@ window["muton"] =
 	module.exports = assignMergeValue;
 
 
-/***/ },
+/***/ }),
 /* 154 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var assignMergeValue = __webpack_require__(153),
 	    cloneBuffer = __webpack_require__(155),
@@ -5207,7 +5218,8 @@ window["muton"] =
 	    isObject = __webpack_require__(35),
 	    isPlainObject = __webpack_require__(163),
 	    isTypedArray = __webpack_require__(24),
-	    toPlainObject = __webpack_require__(164);
+	    safeGet = __webpack_require__(164),
+	    toPlainObject = __webpack_require__(165);
 
 	/**
 	 * A specialized version of `baseMerge` for arrays and objects which performs
@@ -5225,8 +5237,8 @@ window["muton"] =
 	 *  counterparts.
 	 */
 	function baseMergeDeep(object, source, key, srcIndex, mergeFunc, customizer, stack) {
-	  var objValue = object[key],
-	      srcValue = source[key],
+	  var objValue = safeGet(object, key),
+	      srcValue = safeGet(source, key),
 	      stacked = stack.get(srcValue);
 
 	  if (stacked) {
@@ -5289,9 +5301,9 @@ window["muton"] =
 	module.exports = baseMergeDeep;
 
 
-/***/ },
+/***/ }),
 /* 155 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {var root = __webpack_require__(14);
 
@@ -5331,9 +5343,9 @@ window["muton"] =
 
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(21)(module)))
 
-/***/ },
+/***/ }),
 /* 156 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var cloneArrayBuffer = __webpack_require__(157);
 
@@ -5353,9 +5365,9 @@ window["muton"] =
 	module.exports = cloneTypedArray;
 
 
-/***/ },
+/***/ }),
 /* 157 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var Uint8Array = __webpack_require__(85);
 
@@ -5375,9 +5387,9 @@ window["muton"] =
 	module.exports = cloneArrayBuffer;
 
 
-/***/ },
+/***/ }),
 /* 158 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/**
 	 * Copies the values of `source` to `array`.
@@ -5401,9 +5413,9 @@ window["muton"] =
 	module.exports = copyArray;
 
 
-/***/ },
+/***/ }),
 /* 159 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var baseCreate = __webpack_require__(160),
 	    getPrototype = __webpack_require__(161),
@@ -5425,9 +5437,9 @@ window["muton"] =
 	module.exports = initCloneObject;
 
 
-/***/ },
+/***/ }),
 /* 160 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var isObject = __webpack_require__(35);
 
@@ -5461,9 +5473,9 @@ window["muton"] =
 	module.exports = baseCreate;
 
 
-/***/ },
+/***/ }),
 /* 161 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var overArg = __webpack_require__(32);
 
@@ -5473,9 +5485,9 @@ window["muton"] =
 	module.exports = getPrototype;
 
 
-/***/ },
+/***/ }),
 /* 162 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var isArrayLike = __webpack_require__(33),
 	    isObjectLike = __webpack_require__(18);
@@ -5512,9 +5524,9 @@ window["muton"] =
 	module.exports = isArrayLikeObject;
 
 
-/***/ },
+/***/ }),
 /* 163 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var baseGetTag = __webpack_require__(12),
 	    getPrototype = __webpack_require__(161),
@@ -5580,12 +5592,33 @@ window["muton"] =
 	module.exports = isPlainObject;
 
 
-/***/ },
+/***/ }),
 /* 164 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-	var copyObject = __webpack_require__(165),
-	    keysIn = __webpack_require__(166);
+	/**
+	 * Gets the value at `key`, unless `key` is "__proto__".
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @param {string} key The key of the property to get.
+	 * @returns {*} Returns the property value.
+	 */
+	function safeGet(object, key) {
+	  return key == '__proto__'
+	    ? undefined
+	    : object[key];
+	}
+
+	module.exports = safeGet;
+
+
+/***/ }),
+/* 165 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var copyObject = __webpack_require__(166),
+	    keysIn = __webpack_require__(167);
 
 	/**
 	 * Converts `value` to a plain object flattening inherited enumerable string
@@ -5618,9 +5651,9 @@ window["muton"] =
 	module.exports = toPlainObject;
 
 
-/***/ },
-/* 165 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 166 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var assignValue = __webpack_require__(138),
 	    baseAssignValue = __webpack_require__(139);
@@ -5664,12 +5697,12 @@ window["muton"] =
 	module.exports = copyObject;
 
 
-/***/ },
-/* 166 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 167 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var arrayLikeKeys = __webpack_require__(8),
-	    baseKeysIn = __webpack_require__(167),
+	    baseKeysIn = __webpack_require__(168),
 	    isArrayLike = __webpack_require__(33);
 
 	/**
@@ -5702,13 +5735,13 @@ window["muton"] =
 	module.exports = keysIn;
 
 
-/***/ },
-/* 167 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 168 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var isObject = __webpack_require__(35),
 	    isPrototype = __webpack_require__(30),
-	    nativeKeysIn = __webpack_require__(168);
+	    nativeKeysIn = __webpack_require__(169);
 
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -5741,9 +5774,9 @@ window["muton"] =
 	module.exports = baseKeysIn;
 
 
-/***/ },
-/* 168 */
-/***/ function(module, exports) {
+/***/ }),
+/* 169 */
+/***/ (function(module, exports) {
 
 	/**
 	 * This function is like
@@ -5767,12 +5800,12 @@ window["muton"] =
 	module.exports = nativeKeysIn;
 
 
-/***/ },
-/* 169 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 170 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var baseRest = __webpack_require__(170),
-	    isIterateeCall = __webpack_require__(171);
+	var baseRest = __webpack_require__(171),
+	    isIterateeCall = __webpack_require__(172);
 
 	/**
 	 * Creates a function like `_.assign`.
@@ -5810,9 +5843,9 @@ window["muton"] =
 	module.exports = createAssigner;
 
 
-/***/ },
-/* 170 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 171 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var identity = __webpack_require__(119),
 	    overRest = __webpack_require__(145),
@@ -5833,9 +5866,9 @@ window["muton"] =
 	module.exports = baseRest;
 
 
-/***/ },
-/* 171 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 172 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var eq = __webpack_require__(45),
 	    isArrayLike = __webpack_require__(33),
@@ -5869,11 +5902,11 @@ window["muton"] =
 	module.exports = isIterateeCall;
 
 
-/***/ },
-/* 172 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 173 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var baseHas = __webpack_require__(173),
+	var baseHas = __webpack_require__(174),
 	    hasPath = __webpack_require__(118);
 
 	/**
@@ -5910,9 +5943,9 @@ window["muton"] =
 	module.exports = has;
 
 
-/***/ },
-/* 173 */
-/***/ function(module, exports) {
+/***/ }),
+/* 174 */
+/***/ (function(module, exports) {
 
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -5935,9 +5968,9 @@ window["muton"] =
 	module.exports = baseHas;
 
 
-/***/ },
-/* 174 */
-/***/ function(module, exports) {
+/***/ }),
+/* 175 */
+/***/ (function(module, exports) {
 
 	/**
 	 * Checks if `value` is `undefined`.
@@ -5963,15 +5996,15 @@ window["muton"] =
 	module.exports = isUndefined;
 
 
-/***/ },
-/* 175 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 176 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var baseIndexOf = __webpack_require__(176),
+	var baseIndexOf = __webpack_require__(177),
 	    isArrayLike = __webpack_require__(33),
-	    isString = __webpack_require__(180),
-	    toInteger = __webpack_require__(181),
-	    values = __webpack_require__(184);
+	    isString = __webpack_require__(181),
+	    toInteger = __webpack_require__(182),
+	    values = __webpack_require__(185);
 
 	/* Built-in method references for those with the same name as other `lodash` methods. */
 	var nativeMax = Math.max;
@@ -6022,13 +6055,13 @@ window["muton"] =
 	module.exports = includes;
 
 
-/***/ },
-/* 176 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 177 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var baseFindIndex = __webpack_require__(177),
-	    baseIsNaN = __webpack_require__(178),
-	    strictIndexOf = __webpack_require__(179);
+	var baseFindIndex = __webpack_require__(178),
+	    baseIsNaN = __webpack_require__(179),
+	    strictIndexOf = __webpack_require__(180);
 
 	/**
 	 * The base implementation of `_.indexOf` without `fromIndex` bounds checks.
@@ -6048,9 +6081,9 @@ window["muton"] =
 	module.exports = baseIndexOf;
 
 
-/***/ },
-/* 177 */
-/***/ function(module, exports) {
+/***/ }),
+/* 178 */
+/***/ (function(module, exports) {
 
 	/**
 	 * The base implementation of `_.findIndex` and `_.findLastIndex` without
@@ -6078,9 +6111,9 @@ window["muton"] =
 	module.exports = baseFindIndex;
 
 
-/***/ },
-/* 178 */
-/***/ function(module, exports) {
+/***/ }),
+/* 179 */
+/***/ (function(module, exports) {
 
 	/**
 	 * The base implementation of `_.isNaN` without support for number objects.
@@ -6096,9 +6129,9 @@ window["muton"] =
 	module.exports = baseIsNaN;
 
 
-/***/ },
-/* 179 */
-/***/ function(module, exports) {
+/***/ }),
+/* 180 */
+/***/ (function(module, exports) {
 
 	/**
 	 * A specialized version of `_.indexOf` which performs strict equality
@@ -6125,9 +6158,9 @@ window["muton"] =
 	module.exports = strictIndexOf;
 
 
-/***/ },
-/* 180 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 181 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var baseGetTag = __webpack_require__(12),
 	    isArray = __webpack_require__(19),
@@ -6161,11 +6194,11 @@ window["muton"] =
 	module.exports = isString;
 
 
-/***/ },
-/* 181 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 182 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var toFinite = __webpack_require__(182);
+	var toFinite = __webpack_require__(183);
 
 	/**
 	 * Converts `value` to an integer.
@@ -6203,11 +6236,11 @@ window["muton"] =
 	module.exports = toInteger;
 
 
-/***/ },
-/* 182 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 183 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var toNumber = __webpack_require__(183);
+	var toNumber = __webpack_require__(184);
 
 	/** Used as references for various `Number` constants. */
 	var INFINITY = 1 / 0,
@@ -6251,9 +6284,9 @@ window["muton"] =
 	module.exports = toFinite;
 
 
-/***/ },
-/* 183 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 184 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var isObject = __webpack_require__(35),
 	    isSymbol = __webpack_require__(108);
@@ -6323,11 +6356,11 @@ window["muton"] =
 	module.exports = toNumber;
 
 
-/***/ },
-/* 184 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 185 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var baseValues = __webpack_require__(185),
+	var baseValues = __webpack_require__(186),
 	    keys = __webpack_require__(7);
 
 	/**
@@ -6363,9 +6396,9 @@ window["muton"] =
 	module.exports = values;
 
 
-/***/ },
-/* 185 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 186 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var arrayMap = __webpack_require__(114);
 
@@ -6388,9 +6421,9 @@ window["muton"] =
 	module.exports = baseValues;
 
 
-/***/ },
-/* 186 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 187 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -6398,9 +6431,9 @@ window["muton"] =
 	 * This module match-reads feature properties against user properties.
 	 */
 
-	var findLast = __webpack_require__(187);
-	var regexMatcher = __webpack_require__(190);
-	var numericMatcher = __webpack_require__(191);
+	var findLast = __webpack_require__(188);
+	var regexMatcher = __webpack_require__(191);
+	var numericMatcher = __webpack_require__(192);
 
 	var defaultMatcher = {
 	    matchesPropertyValue: function(userPropertyValue, propertyKey) {
@@ -6429,12 +6462,12 @@ window["muton"] =
 	};
 
 
-/***/ },
-/* 187 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 188 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var createFind = __webpack_require__(188),
-	    findLastIndex = __webpack_require__(189);
+	var createFind = __webpack_require__(189),
+	    findLastIndex = __webpack_require__(190);
 
 	/**
 	 * This method is like `_.find` except that it iterates over elements of
@@ -6460,9 +6493,9 @@ window["muton"] =
 	module.exports = findLast;
 
 
-/***/ },
-/* 188 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 189 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var baseIteratee = __webpack_require__(37),
 	    isArrayLike = __webpack_require__(33),
@@ -6491,13 +6524,13 @@ window["muton"] =
 	module.exports = createFind;
 
 
-/***/ },
-/* 189 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 190 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var baseFindIndex = __webpack_require__(177),
+	var baseFindIndex = __webpack_require__(178),
 	    baseIteratee = __webpack_require__(37),
-	    toInteger = __webpack_require__(181);
+	    toInteger = __webpack_require__(182);
 
 	/* Built-in method references for those with the same name as other `lodash` methods. */
 	var nativeMax = Math.max,
@@ -6556,9 +6589,9 @@ window["muton"] =
 	module.exports = findLastIndex;
 
 
-/***/ },
-/* 190 */
-/***/ function(module, exports) {
+/***/ }),
+/* 191 */
+/***/ (function(module, exports) {
 
 	'use strict';
 
@@ -6581,9 +6614,9 @@ window["muton"] =
 	};
 
 
-/***/ },
-/* 191 */
-/***/ function(module, exports) {
+/***/ }),
+/* 192 */
+/***/ (function(module, exports) {
 
 	'use strict';
 
@@ -6621,9 +6654,9 @@ window["muton"] =
 	};
 
 
-/***/ },
-/* 192 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 193 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -6639,10 +6672,10 @@ window["muton"] =
 	 */
 	var merge = __webpack_require__(151);
 
-	var bucketMutator = __webpack_require__(193);
-	var throttleMutator = __webpack_require__(195);
-	var genePairing = __webpack_require__(196);
-	var proofReader = __webpack_require__(199);
+	var bucketMutator = __webpack_require__(194);
+	var throttleMutator = __webpack_require__(196);
+	var genePairing = __webpack_require__(197);
+	var proofReader = __webpack_require__(200);
 
 	function addToFeatures(features, featureName, toggle) {
 	    return features.push(merge({ name: featureName }, toggle));
@@ -6713,9 +6746,9 @@ window["muton"] =
 	};
 
 
-/***/ },
-/* 193 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 194 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -6724,8 +6757,8 @@ window["muton"] =
 	 * bucket from the list, allowing multivariance testing.
 	 */
 	var isArray = __webpack_require__(19);
-	var isEmpty = __webpack_require__(194);
-	var includes = __webpack_require__(175);
+	var isEmpty = __webpack_require__(195);
+	var includes = __webpack_require__(176);
 
 	function pickOneElement(array) {
 	    if (!isArray(array)) {
@@ -6763,9 +6796,9 @@ window["muton"] =
 	};
 
 
-/***/ },
-/* 194 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 195 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var baseKeys = __webpack_require__(29),
 	    getTag = __webpack_require__(95),
@@ -6846,9 +6879,9 @@ window["muton"] =
 	module.exports = isEmpty;
 
 
-/***/ },
-/* 195 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 196 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -6856,13 +6889,13 @@ window["muton"] =
 	 * The Throttle mutator manipulates the features by introducing small random mutations by randomly activate
 	 * or deactivate feture toggles.
 	 */
-	var isUndefined = __webpack_require__(174);
-	var isString = __webpack_require__(180);
+	var isUndefined = __webpack_require__(175);
+	var isString = __webpack_require__(181);
 	var isPlainObject = __webpack_require__(163);
-	var isEmpty = __webpack_require__(194);
+	var isEmpty = __webpack_require__(195);
 
 	function isPercentage(value) {
-	    return !isUndefined(value) && isString(value) && value.match(/[0-100]%/);
+	    return !isUndefined(value) && isString(value) && value.match(/^(100|\d{1,2})\%/);
 	}
 
 	function isThrottleNode(throttle) {
@@ -6881,7 +6914,7 @@ window["muton"] =
 
 	function getPercentageDecimal(throttle) {
 	    var percentage = extractPercentage(throttle);
-	    var value = percentage.substr(0, percentage.length - 2);
+	    var value = percentage.substr(0, percentage.length - 1);
 	    return value / 10;
 	}
 
@@ -6913,16 +6946,16 @@ window["muton"] =
 	};
 
 
-/***/ },
-/* 196 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 197 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var filter = __webpack_require__(124);
-	var find = __webpack_require__(197);
+	var find = __webpack_require__(198);
 	var keys = __webpack_require__(7);
-	var isString = __webpack_require__(180);
+	var isString = __webpack_require__(181);
 
 	function findWithPartialName(featureNames, partialName) {
 	    return filter(featureNames, function (featureName) {
@@ -6980,12 +7013,12 @@ window["muton"] =
 	};
 
 
-/***/ },
-/* 197 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 198 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var createFind = __webpack_require__(188),
-	    findIndex = __webpack_require__(198);
+	var createFind = __webpack_require__(189),
+	    findIndex = __webpack_require__(199);
 
 	/**
 	 * Iterates over elements of `collection`, returning the first element
@@ -7028,13 +7061,13 @@ window["muton"] =
 	module.exports = find;
 
 
-/***/ },
-/* 198 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 199 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var baseFindIndex = __webpack_require__(177),
+	var baseFindIndex = __webpack_require__(178),
 	    baseIteratee = __webpack_require__(37),
-	    toInteger = __webpack_require__(181);
+	    toInteger = __webpack_require__(182);
 
 	/* Built-in method references for those with the same name as other `lodash` methods. */
 	var nativeMax = Math.max;
@@ -7089,9 +7122,9 @@ window["muton"] =
 	module.exports = findIndex;
 
 
-/***/ },
-/* 199 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 200 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -7099,14 +7132,14 @@ window["muton"] =
 	 * This module checks for errors and proof-reads the molecules.
 	 */
 	var get = __webpack_require__(104);
-	var isUndefined = __webpack_require__(174);
-	var isBoolean = __webpack_require__(200);
-	var isNull = __webpack_require__(201);
+	var isUndefined = __webpack_require__(175);
+	var isBoolean = __webpack_require__(201);
+	var isNull = __webpack_require__(202);
 	var isArray = __webpack_require__(19);
 	var isObject = __webpack_require__(35);
 
-	var bucketMutator = __webpack_require__(193);
-	var throttleMutator = __webpack_require__(195);
+	var bucketMutator = __webpack_require__(194);
+	var throttleMutator = __webpack_require__(196);
 
 	module.exports = {
 	    areInstructionsValid: function (featureInstructions) {
@@ -7139,9 +7172,9 @@ window["muton"] =
 	};
 
 
-/***/ },
-/* 200 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 201 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var baseGetTag = __webpack_require__(12),
 	    isObjectLike = __webpack_require__(18);
@@ -7174,9 +7207,9 @@ window["muton"] =
 	module.exports = isBoolean;
 
 
-/***/ },
-/* 201 */
-/***/ function(module, exports) {
+/***/ }),
+/* 202 */
+/***/ (function(module, exports) {
 
 	/**
 	 * Checks if `value` is `null`.
@@ -7202,5 +7235,5 @@ window["muton"] =
 	module.exports = isNull;
 
 
-/***/ }
+/***/ })
 /******/ ]);
