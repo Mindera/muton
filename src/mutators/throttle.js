@@ -10,7 +10,7 @@ var isPlainObject = require('lodash/isPlainObject');
 var isEmpty = require('lodash/isEmpty');
 
 function isPercentage(value) {
-    return !isUndefined(value) && isString(value) && value.match(/[0-100]%/);
+    return !isUndefined(value) && isString(value) && value.match(/^(100|\d{1,2})\%/);
 }
 
 function isThrottleNode(throttle) {
@@ -29,8 +29,8 @@ function extractPercentage(throttle) {
 
 function getPercentageDecimal(throttle) {
     var percentage = extractPercentage(throttle);
-    var value = percentage.substr(0, percentage.length - 2);
-    return value / 10;
+    var value = percentage.substr(0, percentage.length - 1);
+    return value / 100;
 }
 
 function isThrottleValid(throttle) {
